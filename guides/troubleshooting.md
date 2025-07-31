@@ -2,13 +2,15 @@
 icon: wrench
 ---
 
-# 故障排除
+# Troubleshooting
 
-{% hint style="info" %}
-本指南帮助你解决使用 OneKey SDK 时可能遇到的常见问题。如果这里没有找到解决方案，请联系我们的技术支持。
-{% endhint %}
+Common issues and solutions when working with OneKey SDK.
 
-## 🔍 常见问题分类
+## Error Handling Flow
+
+![Error Handling](../assets/diagrams/error-handling.png)
+
+## Common Issues
 
 ### 📦 安装问题
 

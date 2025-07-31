@@ -2,30 +2,170 @@
 icon: rocket
 ---
 
-# 5分钟快速集成
+# Quick Start
 
-{% hint style="success" %}
-这个快速指南将帮助你在 5 分钟内完成 OneKey SDK 的基础集成，获取你的第一个硬件钱包地址！
-{% endhint %}
+Get up and running with OneKey SDK in minutes. This guide will walk you through your first integration.
 
-## 🎯 目标
+## Prerequisites
 
-在这个快速指南中，你将学会：
-- ✅ 安装和初始化 OneKey SDK
-- ✅ 连接 OneKey 硬件设备
-- ✅ 获取比特币地址
-- ✅ 处理基本错误
+- OneKey hardware device
+- Node.js 16+ or modern browser
+- Basic JavaScript knowledge
 
-## 🚀 开始之前
+## Choose Your Platform
 
-确保你已经：
-- 📱 拥有一台 OneKey 硬件设备
-- 💻 选择了合适的开发环境
-- 📦 完成了 SDK 安装
+Select your development environment to get started:
 
-{% hint style="info" %}
-还没有选择环境？查看 [环境选择指南](environment-selection.md)
-{% endhint %}
+![Quick Start Flow](../assets/diagrams/quick-start-flow.png)
+
+## Integration Steps
+
+![Integration Steps](../assets/diagrams/integration-steps.png)
+
+{% tabs %}
+{% tab title="🌐 Web Browser" %}
+### 1. Install Package
+
+```bash
+npm install @onekey/hardware-web-sdk
+```
+
+### 2. Initialize SDK
+
+```javascript
+import OneKeySDK from '@onekey/hardware-web-sdk';
+
+const sdk = new OneKeySDK({
+  manifest: {
+    email: 'developer@yourapp.com',
+    appName: 'Your Web App',
+    appUrl: 'https://yourapp.com'
+  }
+});
+```
+
+### 3. Get Address
+
+```javascript
+const result = await sdk.btcGetAddress({
+  path: "m/44'/0'/0'/0/0",
+  showOnDevice: true,
+  coin: 'btc'
+});
+
+if (result.success) {
+  console.log('Bitcoin address:', result.payload.address);
+}
+```
+
+### 4. Try It Live
+
+🚀 **[Test in Playground](https://hardware-example.onekeytest.com/expo-playground/)**
+
+[Complete Web Guide →](../platforms/web.md)
+{% endtab %}
+
+{% tab title="💻 Node.js" %}
+### 1. Install Package
+
+```bash
+npm install @onekey/hardware-js-sdk
+```
+
+### 2. Initialize SDK
+
+```javascript
+const OneKeySDK = require('@onekey/hardware-js-sdk');
+
+const sdk = new OneKeySDK({
+  manifest: {
+    email: 'developer@yourapp.com',
+    appName: 'Your Node App',
+    appUrl: 'https://yourapp.com'
+  }
+});
+```
+
+### 3. Connect Device
+
+```javascript
+// Search for devices
+const devices = await sdk.searchDevices();
+await sdk.connectDevice(devices[0].path);
+```
+
+### 4. Get Address
+
+```javascript
+const result = await sdk.btcGetAddress({
+  path: "m/44'/0'/0'/0/0",
+  showOnDevice: true,
+  coin: 'btc'
+});
+
+if (result.success) {
+  console.log('Bitcoin address:', result.payload.address);
+}
+```
+
+[Complete Node.js Guide →](../platforms/nodejs.md)
+{% endtab %}
+
+{% tab title="📱 React Native" %}
+### 1. Install Package
+
+```bash
+npm install @onekey/hardware-react-native-sdk
+```
+
+### 2. Configure Permissions
+
+**iOS** (`ios/YourApp/Info.plist`):
+```xml
+<key>NSBluetoothAlwaysUsageDescription</key>
+<string>Connect to OneKey devices</string>
+```
+
+**Android** (`android/app/src/main/AndroidManifest.xml`):
+```xml
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+```
+
+### 3. Initialize SDK
+
+```javascript
+import OneKeySDK from '@onekey/hardware-react-native-sdk';
+import { Linking } from 'react-native';
+
+const sdk = new OneKeySDK({
+  manifest: {
+    email: 'developer@yourapp.com',
+    appName: 'Your Mobile App',
+    appUrl: 'https://yourapp.com'
+  },
+  deeplinkOpen: (url) => Linking.openURL(url),
+  deeplinkCallbackUrl: 'yourapp://onekey-callback'
+});
+```
+
+### 4. Get Address
+
+```javascript
+const result = await sdk.btcGetAddress({
+  path: "m/44'/0'/0'/0/0",
+  showOnDevice: true,
+  coin: 'btc'
+});
+
+if (result.success) {
+  console.log('Bitcoin address:', result.payload.address);
+}
+```
+
+[Complete React Native Guide →](../platforms/react-native.md)
+{% endtab %}
+{% endtabs %}
 
 ## 📝 Step 1: 创建项目
 

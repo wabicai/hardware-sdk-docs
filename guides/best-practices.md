@@ -2,13 +2,11 @@
 icon: star
 ---
 
-# 最佳实践
+# Best Practices
 
-{% hint style="info" %}
-本指南汇总了使用 OneKey SDK 的最佳实践，帮助你构建安全、稳定、用户友好的硬件钱包集成。
-{% endhint %}
+Guidelines for building secure, performant, and user-friendly applications with OneKey SDK.
 
-## 🔒 安全最佳实践
+## Security Best Practices
 
 ### 1. Manifest 信息安全
 

@@ -2,53 +2,53 @@
 
 * [OneKey Hardware SDK](README.md)
 
-## 🚀 快速开始
+## 🚀 Getting Started
 
-* [环境选择指南](getting-started/environment-selection.md)
-* [安装指南](getting-started/installation.md)
-* [5分钟快速集成](getting-started/quick-start.md)
+* [Quick Start](getting-started/quick-start.md)
+* [Installation](getting-started/installation.md)
+* [Your First Integration](getting-started/first-integration.md)
 
-## 📱 按环境分类
+## 📚 Core Concepts
 
-* [Node.js/Electron Main](environments/nodejs.md)
-* [Web Browser](environments/web-browser.md)
-* [React Native](environments/react-native.md)
-* [Browser Extension](environments/browser-extension.md)
+* [What is OneKey SDK](concepts/overview.md)
+* [Transport Layer](concepts/transport.md)
+* [Derivation Paths](concepts/paths.md)
+* [Events System](concepts/events.md)
+* [Error Handling](concepts/errors.md)
 
-## 🔧 API 参考
+## 🔧 API Reference
 
-* [基础 API](api-reference/README.md)
-  * [初始化 SDK](api-reference/basic/init.md)
-  * [搜索设备](api-reference/basic/search-devices.md)
-  * [连接设备](api-reference/basic/connect-device.md)
-  * [获取设备信息](api-reference/basic/get-features.md)
-* [设备管理](api-reference/device-management/README.md)
-  * [设备设置](api-reference/device-management/device-settings.md)
-  * [固件更新](api-reference/device-management/firmware-update.md)
-  * [设备验证](api-reference/device-management/device-verification.md)
-* [区块链方法](api-reference/blockchain/README.md)
-  * [Bitcoin & Forks](api-reference/blockchain/bitcoin.md)
-  * [Ethereum & EVM](api-reference/blockchain/ethereum.md)
-  * [Solana](api-reference/blockchain/solana.md)
-  * [Cardano](api-reference/blockchain/cardano.md)
-  * [其他链](api-reference/blockchain/other-chains.md)
+* [Initialization](api/init.md)
+* [Device Management](api/device.md)
+* [Bitcoin Methods](api/bitcoin.md)
+* [Ethereum Methods](api/ethereum.md)
+* [Other Blockchains](api/other-chains.md)
+* [Utility Methods](api/utils.md)
 
-## 🏗️ 高级主题
+## 🌍 Platform Integration
 
-* [Transport 层详解](advanced/transport-layer.md)
-* [Transport 插件开发](advanced/transport-plugins.md)
-* [错误处理](advanced/error-handling.md)
-* [安全考虑](advanced/security.md)
-* [性能优化](advanced/performance.md)
+* [Web Browser](platforms/web.md)
+* [Node.js](platforms/nodejs.md)
+* [React Native](platforms/react-native.md)
+* [Electron](platforms/electron.md)
 
-## 📖 指南和教程
+## 📖 Guides
 
-* [最佳实践](guides/best-practices.md)
-* [集成示例](examples/README.md)
-  * [Node.js 示例](examples/nodejs.md)
-  * [Web 应用示例](examples/web-app.md)
-  * [React Native 示例](examples/react-native.md)
-  * [Electron 示例](examples/electron.md)
-* [故障排除](guides/troubleshooting.md)
-* [常见问题](guides/faq.md)
-* [迁移指南](guides/migration.md)
+* [Best Practices](guides/best-practices.md)
+* [Security Guidelines](guides/security.md)
+* [Performance Tips](guides/performance.md)
+* [Troubleshooting](guides/troubleshooting.md)
+* [Migration Guide](guides/migration.md)
+
+## 📋 Examples
+
+* [Basic Examples](examples/basic.md)
+* [Advanced Examples](examples/advanced.md)
+* [Integration Examples](examples/integrations.md)
+
+## 🔗 Resources
+
+* [Supported Coins](resources/supported-coins.md)
+* [Device Models](resources/device-models.md)
+* [Changelog](resources/changelog.md)
+* [FAQ](resources/faq.md)
