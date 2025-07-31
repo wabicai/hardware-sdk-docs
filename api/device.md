@@ -445,7 +445,10 @@ process.on('exit', () => {
 
 ## Next Steps
 
-- [Bitcoin Methods](bitcoin.md) - Bitcoin-specific operations
-- [Ethereum Methods](ethereum.md) - Ethereum-specific operations
-- [Transport Layer](../concepts/transport.md) - Understanding transport options
-- [Error Handling](../concepts/errors.md) - Comprehensive error management
+- [Bitcoin & Bitcoin Forks](bitcoin.md) - Bitcoin-specific operations
+- [Ethereum & EVM Chains](ethereum.md) - Ethereum-specific operations
+- [Solana](solana.md) - Solana blockchain operations
+- [Cardano](cardano.md) - Cardano blockchain operations
+- [Polkadot](polkadot.md) - Polkadot and Substrate chains
+- [Cosmos](cosmos.md) - Cosmos ecosystem chains
+- [Utility Methods](utils.md) - Utility and helper methods

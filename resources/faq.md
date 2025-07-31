@@ -1,341 +1,357 @@
 ---
-icon: question
+icon: question-circle
 ---
 
 # Frequently Asked Questions
 
-Common questions and answers about OneKey SDK.
+Common questions and answers about OneKey Hardware SDK.
 
 ## General Questions
 
-### What is OneKey SDK?
+### What is OneKey Hardware SDK?
 
-OneKey SDK is a JavaScript library that allows developers to integrate OneKey hardware wallets into their applications. It provides a unified interface for interacting with OneKey devices across different platforms (Web, Node.js, React Native).
+OneKey Hardware SDK is a JavaScript library that enables developers to integrate OneKey hardware wallets into their applications. It provides secure communication with OneKey devices for cryptocurrency operations like address generation, transaction signing, and message signing.
 
-### Which OneKey devices are supported?
+### Which platforms are supported?
 
-OneKey SDK supports all OneKey hardware wallet models:
-- **OneKey Classic** - Basic model with OLED screen
-- **OneKey Touch** - Touch-enabled model with color display
-- **OneKey Pro** - Advanced model with NFC and enhanced features
+OneKey SDK supports:
+- **Web browsers** (Chrome, Edge, Opera with WebUSB)
+- **Node.js** applications (desktop and server)
+- **Electron** desktop applications
+- **React Native** mobile applications
 
-### What blockchains are supported?
+### What cryptocurrencies are supported?
 
-OneKey SDK supports 50+ blockchains including:
-- **Bitcoin** and forks (BCH, LTC, DOGE, etc.)
-- **Ethereum** and EVM chains (BSC, Polygon, Avalanche, etc.)
-- **Solana** and SPL tokens
-- **Cardano**, **Polkadot**, **Cosmos**, and many more
+OneKey SDK supports 50+ cryptocurrencies including:
+- Bitcoin and Bitcoin forks (BTC, LTC, BCH, DOGE, etc.)
+- Ethereum and EVM chains (ETH, MATIC, BNB, AVAX, etc.)
+- Solana (SOL) and SPL tokens
+- Cardano (ADA) and native tokens
+- Polkadot (DOT) and Kusama (KSM)
+- Cosmos ecosystem (ATOM, OSMO, JUNO, etc.)
 
-See [Supported Cryptocurrencies](supported-coins.md) for the complete list.
+See [Supported Coins](supported-coins.md) for the complete list.
 
-## Installation & Setup
+## Installation and Setup
 
-### Which package should I install?
+### How do I install OneKey SDK?
 
-Choose based on your platform:
-- **Web apps**: `@onekey/hardware-web-sdk`
-- **Node.js apps**: `@onekey/hardware-js-sdk`
-- **React Native apps**: `@onekey/hardware-react-native-sdk`
+Choose the appropriate package for your platform:
 
-### Do I need to install OneKey Bridge?
+```bash
+# Web applications
+npm install @onekeyfe/hd-web-sdk
 
-OneKey Bridge is required for:
-- **Firefox and Safari** browsers (no WebUSB support)
-- **HTTP websites** (WebUSB requires HTTPS)
-- **Older browsers** without WebUSB support
+# Node.js/Electron applications
+npm install @onekeyfe/hd-common-connect-sdk
 
-Chrome and Edge with HTTPS can use WebUSB directly without Bridge.
-
-### How do I configure permissions for React Native?
-
-**iOS** - Add to `Info.plist`:
-```xml
-<key>NSBluetoothAlwaysUsageDescription</key>
-<string>Connect to OneKey devices via Bluetooth</string>
+# React Native applications
+npm install @onekeyfe/hd-ble-sdk
 ```
 
-**Android** - Add to `AndroidManifest.xml`:
-```xml
-<uses-permission android:name="android.permission.BLUETOOTH" />
-<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+### Do I need to install drivers?
+
+No drivers are required. OneKey SDK uses:
+- **WebUSB** for web browsers
+- **Native USB/HID** for Node.js/Electron
+- **Bluetooth** for React Native
+
+### How do I initialize the SDK?
+
+```javascript
+import { HardwareSDK } from '@onekeyfe/hd-web-sdk';
+
+await HardwareSDK.init({
+  debug: false,
+  connectSrc: 'https://jssdk.onekey.so/',
+  manifest: {
+    email: 'developer@yourapp.com',
+    appName: 'Your App Name',
+    appUrl: 'https://yourapp.com'
+  }
+});
 ```
 
-## Development Questions
+## Device Connection
 
-### How do I handle errors properly?
+### How do I connect to a OneKey device?
 
-Always check the `success` field and handle common error codes:
+```javascript
+// Search for devices
+const devices = await HardwareSDK.searchDevices();
+
+// Connect to the first device
+if (devices.length > 0) {
+  await HardwareSDK.connectDevice(devices[0].path);
+}
+```
+
+### Why can't I find my device?
+
+Common reasons:
+1. **Device not connected** - Ensure USB cable is properly connected
+2. **Device locked** - Unlock your OneKey device with PIN
+3. **Browser permissions** - Allow USB access when prompted
+4. **Outdated firmware** - Update your device firmware
+5. **Another app using device** - Close other wallet applications
+
+### How do I handle device disconnection?
+
+```javascript
+// Listen for disconnect events
+HardwareSDK.on('device-disconnect', (device) => {
+  console.log('Device disconnected:', device.path);
+  // Handle gracefully - show reconnection UI
+});
+
+// Check connection status
+const isConnected = await HardwareSDK.getDeviceStatus();
+if (!isConnected.connected) {
+  // Device is not connected
+}
+```
+
+## Development
+
+### How do I handle errors?
 
 ```javascript
 try {
-  const result = await sdk.btcGetAddress({
+  const result = await HardwareSDK.btcGetAddress({
     path: "m/44'/0'/0'/0/0",
-    showOnDevice: true
+    coin: 'btc'
   });
-  
+
   if (result.success) {
     console.log('Address:', result.payload.address);
   } else {
     console.error('Error:', result.payload.error);
   }
 } catch (error) {
-  switch (error.code) {
-    case 'User_Cancelled':
-      // User cancelled on device
-      break;
-    case 'Device_NotFound':
-      // Device not connected
-      break;
-    default:
-      console.error('Unexpected error:', error);
+  console.error('SDK Error:', error.message);
+}
+```
+
+### What are the common error codes?
+
+| Error Code | Description | Solution |
+|------------|-------------|----------|
+| `Device_NotFound` | Device not connected | Connect device and try again |
+| `User_Cancelled` | User cancelled on device | User needs to confirm on device |
+| `Invalid_Path` | Invalid derivation path | Check BIP-44 path format |
+| `Firmware_NotCompatible` | Outdated firmware | Update device firmware |
+| `Permission_Denied` | Browser permission denied | Allow USB access |
+
+### How do I test my integration?
+
+1. **Use testnet networks** for testing
+2. **Start with small amounts** on mainnet
+3. **Test device disconnection scenarios**
+4. **Verify addresses on device screen**
+5. **Test with different device models**
+
+```javascript
+// Example testnet configuration
+const testnetConfig = {
+  bitcoin: {
+    network: 'testnet',
+    path: "m/44'/1'/0'/0/0"
+  },
+  ethereum: {
+    chainId: 5, // Goerli testnet
+    rpcUrl: 'https://goerli.infura.io/v3/YOUR_KEY'
   }
-}
+};
 ```
 
-### Should I show addresses on the device?
+## Security
 
-**Yes, for security**. Always use `showOnDevice: true` for:
-- First-time address generation
-- Address verification
-- Important transactions
-
-Only use `showOnDevice: false` for:
-- Batch address generation
-- Background operations
-- Cached address retrieval
-
-### How do I optimize performance?
-
-1. **Cache addresses** to avoid repeated device calls
-2. **Batch operations** when possible
-3. **Reuse SDK instances** instead of creating new ones
-4. **Handle connection state** properly
-
-```javascript
-// Good: Batch address generation
-const result = await sdk.btcGetAddress({
-  bundle: [
-    { path: "m/44'/0'/0'/0/0", showOnDevice: false },
-    { path: "m/44'/0'/0'/0/1", showOnDevice: false },
-    { path: "m/44'/0'/0'/0/2", showOnDevice: false }
-  ]
-});
-
-// Avoid: Multiple individual calls
-for (let i = 0; i < 3; i++) {
-  await sdk.btcGetAddress({ path: `m/44'/0'/0'/0/${i}` });
-}
-```
-
-## Platform-Specific Questions
-
-### Why doesn't WebUSB work in my browser?
-
-WebUSB requires:
-- **HTTPS** (except localhost)
-- **Supported browser** (Chrome 61+, Edge 79+)
-- **User gesture** (must be called from click handler)
-- **Device permissions** granted by user
-
-If WebUSB doesn't work, install OneKey Bridge as fallback.
-
-### How do I use OneKey SDK in Electron?
-
-Use the Node.js SDK in the main process and communicate with renderer via IPC:
-
-```javascript
-// Main process
-const OneKeySDK = require('@onekey/hardware-js-sdk');
-const { ipcMain } = require('electron');
-
-const sdk = new OneKeySDK({...});
-
-ipcMain.handle('onekey:getAddress', async (event, params) => {
-  return await sdk.btcGetAddress(params);
-});
-
-// Renderer process
-const result = await ipcRenderer.invoke('onekey:getAddress', {
-  path: "m/44'/0'/0'/0/0"
-});
-```
-
-### Can I use OneKey SDK in a browser extension?
-
-Yes! Use the Web SDK with proper manifest permissions:
-
-**Manifest V3**:
-```json
-{
-  "permissions": ["storage"],
-  "host_permissions": ["https://connect.onekey.so/*"]
-}
-```
-
-### How do I handle deep links in React Native?
-
-Configure deep link handling for OneKey App communication:
-
-```javascript
-import { Linking } from 'react-native';
-
-const sdk = new OneKeySDK({
-  deeplinkOpen: (url) => Linking.openURL(url),
-  deeplinkCallbackUrl: 'yourapp://onekey-callback'
-});
-
-// Handle incoming deep links
-Linking.addEventListener('url', handleDeepLink);
-```
-
-## Security Questions
-
-### Is it safe to use OneKey SDK?
+### Is OneKey SDK secure?
 
 Yes, OneKey SDK is designed with security in mind:
-- **No private keys** are exposed to your application
-- **All signing** happens on the device
-- **User confirmation** required for sensitive operations
-- **Open source** and audited code
+- **Private keys never leave the device**
+- **All transactions require device confirmation**
+- **Open source and auditable**
+- **Uses secure communication protocols**
 
-### What information does my app receive?
+### How do I verify addresses?
 
-Your app only receives:
-- **Public keys** and **addresses**
-- **Signed transactions** (not private keys)
-- **Device information** (model, firmware version)
-- **User confirmations** (approved/cancelled)
-
-Private keys never leave the OneKey device.
-
-### How do I verify transaction details?
-
-Always display transaction details to users before signing:
+Always show addresses on the device screen for verification:
 
 ```javascript
-function showTransactionDetails(tx) {
-  return {
-    to: tx.to,
-    amount: formatAmount(tx.value),
-    fee: calculateFee(tx),
-    total: calculateTotal(tx)
-  };
-}
+// GOOD: Show address on device
+const result = await HardwareSDK.btcGetAddress({
+  path: "m/44'/0'/0'/0/0",
+  showOnDevice: true, // User can verify on device
+  coin: 'btc'
+});
 
-// Show confirmation dialog
-const details = showTransactionDetails(transaction);
-const confirmed = await showConfirmDialog(details);
-
-if (confirmed) {
-  const result = await sdk.ethereumSignTransaction({
-    path: "m/44'/60'/0'/0/0",
-    transaction
-  });
-}
+// AVOID: Don't show for receiving addresses
+const result = await HardwareSDK.btcGetAddress({
+  path: "m/44'/0'/0'/0/0",
+  showOnDevice: false, // User cannot verify
+  coin: 'btc'
+});
 ```
+
+### What about man-in-the-middle attacks?
+
+OneKey devices protect against MITM attacks by:
+- **Displaying transaction details on device screen**
+- **Requiring physical confirmation**
+- **Using secure communication protocols**
+- **Verifying firmware signatures**
 
 ## Troubleshooting
 
-### Device not found or connection issues?
+### My transaction is not being signed
 
-1. **Check device connection** - USB cable, device unlocked
-2. **Install drivers** - OneKey Bridge for compatibility
-3. **Check permissions** - Browser permissions, udev rules (Linux)
-4. **Try different browser** - Chrome/Edge recommended
-5. **Restart device** - Disconnect and reconnect
+Check these common issues:
+1. **Device is locked** - Unlock with PIN
+2. **User cancelled** - Confirm on device
+3. **Invalid transaction data** - Verify transaction format
+4. **Insufficient funds** - Check account balance
+5. **Network issues** - Check internet connection
 
-### "User cancelled" errors?
+### WebUSB is not working
 
-This is normal when users:
-- Press cancel on the device
-- Don't respond within timeout
-- Reject the operation
+WebUSB requirements:
+- **HTTPS required** (except localhost)
+- **Supported browsers**: Chrome, Edge, Opera
+- **User gesture required** - Must be triggered by user action
+- **Permissions granted** - Allow USB access when prompted
 
-Don't show error messages for user cancellations.
+```javascript
+// Check WebUSB support
+if (!navigator.usb) {
+  console.error('WebUSB not supported in this browser');
+}
 
-### Slow performance?
-
-1. **Update firmware** to latest version
-2. **Use batch operations** for multiple addresses
-3. **Cache results** to avoid repeated calls
-4. **Check device model** - newer models are faster
-
-### TypeScript errors?
-
-Install type definitions:
-```bash
-npm install --save-dev @types/node
+// Request permissions
+try {
+  await navigator.usb.requestDevice({
+    filters: [{ vendorId: 0x1209 }] // OneKey vendor ID
+  });
+} catch (error) {
+  console.error('USB permission denied');
+}
 ```
 
-Or add type declarations:
-```typescript
-declare module '@onekey/hardware-web-sdk';
+### React Native Bluetooth issues
+
+Common Bluetooth issues:
+1. **Permissions not granted** - Request Bluetooth permissions
+2. **Bluetooth disabled** - Enable Bluetooth on device
+3. **Pairing required** - Pair OneKey device first
+4. **Range issues** - Keep devices close together
+
+```javascript
+// Check Bluetooth permissions (React Native)
+import { PermissionsAndroid } from 'react-native';
+
+const requestBluetoothPermission = async () => {
+  const granted = await PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+  );
+  return granted === PermissionsAndroid.RESULTS.GRANTED;
+};
 ```
 
-## Integration Questions
+## Performance
 
-### Can I integrate with existing wallets?
+### How can I optimize performance?
 
-Yes! OneKey SDK can be integrated with:
-- **MetaMask-compatible** applications
-- **WalletConnect** protocols
-- **Custom wallet** implementations
-- **DeFi protocols** and **dApps**
+1. **Cache device features**
+2. **Batch operations when possible**
+3. **Use appropriate timeouts**
+4. **Handle errors gracefully**
+5. **Minimize device interactions**
 
-### How do I migrate from other hardware wallets?
+```javascript
+// Cache device features
+let deviceFeatures = null;
 
-OneKey uses standard derivation paths compatible with:
-- **Ledger** wallets
-- **Trezor** wallets
-- **Other BIP44** compatible wallets
+const getFeatures = async () => {
+  if (!deviceFeatures) {
+    deviceFeatures = await HardwareSDK.getFeatures();
+  }
+  return deviceFeatures;
+};
 
-Users can import existing seeds into OneKey devices.
+// Batch address generation
+const generateMultipleAddresses = async (paths) => {
+  const addresses = [];
 
-### Can I build a mobile wallet?
+  for (const path of paths) {
+    const result = await HardwareSDK.btcGetAddress({
+      path,
+      coin: 'btc',
+      showOnDevice: false // Don't show each address
+    });
 
-Yes! Use the React Native SDK to build:
-- **iOS and Android** wallet apps
-- **Cross-platform** solutions
-- **Bluetooth connectivity** for wireless use
-- **Deep link integration** with OneKey App
+    if (result.success) {
+      addresses.push(result.payload.address);
+    }
+  }
 
-## Support & Resources
+  return addresses;
+};
+```
+
+### What are the rate limits?
+
+OneKey devices have built-in rate limiting:
+- **Address generation**: ~10 per second
+- **Transaction signing**: ~1 per second
+- **Device queries**: ~20 per second
+
+Respect these limits to avoid timeouts.
+
+## Migration
+
+### How do I migrate from older versions?
+
+See our [Migration Guide](migration.md) for detailed instructions.
+
+Key changes in recent versions:
+- **Method names**: `ethereumGetAddress` → `evmGetAddress`
+- **Package names**: Updated to `@onekeyfe/hd-*-sdk`
+- **Error handling**: Errors now in `result.payload.error`
+- **Initialization**: New `connectSrc` URL
+
+### Are there breaking changes?
+
+Yes, major version updates may include breaking changes. Always:
+1. **Read the changelog** before upgrading
+2. **Test in development** environment first
+3. **Update method names** as needed
+4. **Check error handling** patterns
+
+## Support
 
 ### Where can I get help?
 
-- 📖 **Documentation**: This guide and API reference
-- 🚀 **Playground**: [Interactive examples](https://hardware-example.onekeytest.com/expo-playground/)
-- 💬 **GitHub Issues**: [Report bugs and ask questions](https://github.com/OneKeyHQ/hardware-js-sdk/issues)
-- 🔧 **Troubleshooting**: [Common issues and solutions](../guides/troubleshooting.md)
-- 📧 **Email Support**: [support@onekey.so](mailto:support@onekey.so)
-
-### How do I report bugs?
-
-1. **Search existing issues** on GitHub
-2. **Provide reproduction steps** and error logs
-3. **Include environment details** (browser, OS, device model)
-4. **Share minimal code example** that reproduces the issue
-
-### How do I request new features?
-
-1. **Check roadmap** for planned features
-2. **Create feature request** on GitHub with use case
-3. **Join community discussions** on Discord
-4. **Contribute code** via pull requests
-
-### Is there a community?
-
-Yes! Join our community:
+- **Documentation**: [OneKey SDK Docs](../README.md)
+- **GitHub Issues**: [Report bugs](https://github.com/OneKeyHQ/hardware-js-sdk/issues)
 - **Discord**: [OneKey Community](https://discord.gg/onekey)
-- **GitHub**: [OneKey Organization](https://github.com/OneKeyHQ)
-- **Twitter**: [@OneKeyHQ](https://twitter.com/OneKeyHQ)
-- **Telegram**: [OneKey Official](https://t.me/OneKeyHQ)
+- **Email**: developer@onekey.so
+
+### How do I report a bug?
+
+When reporting bugs, include:
+1. **SDK version** and platform
+2. **Device model** and firmware version
+3. **Steps to reproduce** the issue
+4. **Error messages** and logs
+5. **Expected vs actual** behavior
+
+### Can I contribute to the SDK?
+
+Yes! OneKey SDK is open source. See our [Contributing Guide](https://github.com/OneKeyHQ/hardware-js-sdk/blob/main/CONTRIBUTING.md) for details.
 
 ## Next Steps
 
-- 🚀 **Try the Playground**: [Interactive Examples](https://hardware-example.onekeytest.com/expo-playground/)
-- 📖 **Read the Guides**: [Best Practices](../guides/best-practices.md)
-- 🔧 **Check Troubleshooting**: [Common Issues](../guides/troubleshooting.md)
-- 💻 **View Examples**: [Integration Examples](../examples/integrations.md)
+- [Installation Guide](../quick-start/installation.md) - Get started with OneKey SDK
+- [API Reference](../api/device.md) - Complete API documentation
+- [Troubleshooting](troubleshooting.md) - Detailed troubleshooting guide
+- [Migration Guide](migration.md) - Upgrade from older versions

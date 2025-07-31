@@ -2,305 +2,340 @@
 icon: coins
 ---
 
-# Supported Cryptocurrencies
+# Supported Coins
 
-OneKey SDK supports a wide range of cryptocurrencies across different blockchain networks. This page provides a comprehensive list of supported coins and their integration details.
+Complete list of cryptocurrencies and blockchain networks supported by OneKey Hardware SDK.
 
-## Bitcoin and Forks
+## Overview
 
-### Bitcoin (BTC)
-- **Coin Type**: 0
-- **Path**: `m/44'/0'/0'/0/0`
-- **Address Types**: Legacy (P2PKH), SegWit (P2WPKH), Wrapped SegWit (P2SH-P2WPKH)
-- **Features**: Full support including multisig
+OneKey Hardware SDK supports over 50 cryptocurrencies across multiple blockchain ecosystems. This comprehensive support enables developers to build applications that work with a wide range of digital assets.
 
-```javascript
-const result = await sdk.btcGetAddress({
-  path: "m/44'/0'/0'/0/0",
-  coin: 'btc'
-});
-```
+### Support Categories
 
-### Bitcoin Cash (BCH)
-- **Coin Type**: 145
-- **Path**: `m/44'/145'/0'/0/0`
-- **Address Types**: Legacy, CashAddr format
-- **Features**: Transaction signing, message signing
+- ✅ **Full Support** - Complete address generation, transaction signing, and message signing
+- 🔄 **Partial Support** - Address generation and basic transaction signing
+- 🚧 **In Development** - Coming soon in future releases
 
-```javascript
-const result = await sdk.btcGetAddress({
-  path: "m/44'/145'/0'/0/0",
-  coin: 'bch'
-});
-```
+## Bitcoin & Bitcoin Forks
 
-### Litecoin (LTC)
-- **Coin Type**: 2
-- **Path**: `m/44'/2'/0'/0/0`
-- **Address Types**: Legacy, SegWit, Wrapped SegWit
-- **Features**: Full Bitcoin-compatible features
+### Fully Supported
 
-```javascript
-const result = await sdk.btcGetAddress({
-  path: "m/44'/2'/0'/0/0",
-  coin: 'ltc'
-});
-```
+| Coin | Symbol | Coin Type | Network | Status |
+|------|--------|-----------|---------|---------|
+| Bitcoin | BTC | 0 | Mainnet | ✅ Full |
+| Bitcoin Testnet | TEST | 1 | Testnet | ✅ Full |
+| Litecoin | LTC | 2 | Mainnet | ✅ Full |
+| Dogecoin | DOGE | 3 | Mainnet | ✅ Full |
+| Dash | DASH | 5 | Mainnet | ✅ Full |
+| Bitcoin Cash | BCH | 145 | Mainnet | ✅ Full |
+| Zcash | ZEC | 133 | Mainnet | ✅ Full |
+| Digibyte | DGB | 20 | Mainnet | ✅ Full |
+| Vertcoin | VTC | 28 | Mainnet | ✅ Full |
+| Peercoin | PPC | 6 | Mainnet | ✅ Full |
 
-### Dogecoin (DOGE)
-- **Coin Type**: 3
-- **Path**: `m/44'/3'/0'/0/0`
-- **Address Types**: Legacy (P2PKH)
-- **Features**: Transaction signing, message signing
+### Script Types Supported
 
-```javascript
-const result = await sdk.btcGetAddress({
-  path: "m/44'/3'/0'/0/0",
-  coin: 'doge'
-});
-```
+| Script Type | Description | Address Format | Support |
+|-------------|-------------|----------------|---------|
+| P2PKH | Pay to Public Key Hash | 1... (Bitcoin) | ✅ Full |
+| P2SH | Pay to Script Hash | 3... (Bitcoin) | ✅ Full |
+| P2WPKH | Pay to Witness PubKey Hash | bc1q... (Bitcoin) | ✅ Full |
+| P2WSH | Pay to Witness Script Hash | bc1q... (Bitcoin) | ✅ Full |
+| P2TR | Pay to Taproot | bc1p... (Bitcoin) | 🚧 Coming Soon |
 
-### Other Bitcoin Forks
+## Ethereum & EVM Chains
 
-| Coin | Symbol | Coin Type | Path | Features |
-|------|--------|-----------|------|----------|
-| Bitcoin Gold | BTG | 156 | `m/44'/156'/0'/0/0` | Basic support |
-| Zcash | ZEC | 133 | `m/44'/133'/0'/0/0` | Transparent addresses |
-| Dash | DASH | 5 | `m/44'/5'/0'/0/0` | Basic support |
-| DigiByte | DGB | 20 | `m/44'/20'/0'/0/0` | Basic support |
+### Fully Supported Networks
 
-## Ethereum and EVM Chains
+| Network | Symbol | Chain ID | RPC Endpoint | Status |
+|---------|--------|----------|--------------|---------|
+| Ethereum | ETH | 1 | https://mainnet.infura.io | ✅ Full |
+| Ethereum Goerli | ETH | 5 | https://goerli.infura.io | ✅ Full |
+| Ethereum Sepolia | ETH | 11155111 | https://sepolia.infura.io | ✅ Full |
+| Polygon | MATIC | 137 | https://polygon-rpc.com | ✅ Full |
+| Polygon Mumbai | MATIC | 80001 | https://rpc-mumbai.matic.today | ✅ Full |
+| Binance Smart Chain | BNB | 56 | https://bsc-dataseed.binance.org | ✅ Full |
+| BSC Testnet | BNB | 97 | https://data-seed-prebsc-1-s1.binance.org | ✅ Full |
+| Avalanche C-Chain | AVAX | 43114 | https://api.avax.network | ✅ Full |
+| Avalanche Fuji | AVAX | 43113 | https://api.avax-test.network | ✅ Full |
+| Fantom | FTM | 250 | https://rpc.ftm.tools | ✅ Full |
+| Fantom Testnet | FTM | 4002 | https://rpc.testnet.fantom.network | ✅ Full |
+| Arbitrum One | ETH | 42161 | https://arb1.arbitrum.io/rpc | ✅ Full |
+| Arbitrum Goerli | ETH | 421613 | https://goerli-rollup.arbitrum.io/rpc | ✅ Full |
+| Optimism | ETH | 10 | https://mainnet.optimism.io | ✅ Full |
+| Optimism Goerli | ETH | 420 | https://goerli.optimism.io | ✅ Full |
 
-### Ethereum (ETH)
-- **Coin Type**: 60
-- **Path**: `m/44'/60'/0'/0/0`
-- **Features**: Full EVM support, EIP-712 signing, contract interaction
+### ERC Token Standards
 
-```javascript
-const result = await sdk.ethereumGetAddress({
-  path: "m/44'/60'/0'/0/0"
-});
-```
+| Standard | Description | Support |
+|----------|-------------|---------|
+| ERC-20 | Fungible Tokens | ✅ Full |
+| ERC-721 | Non-Fungible Tokens (NFTs) | ✅ Full |
+| ERC-1155 | Multi-Token Standard | ✅ Full |
+| ERC-777 | Advanced Token Standard | 🔄 Partial |
 
-### Ethereum Classic (ETC)
-- **Coin Type**: 61
-- **Path**: `m/44'/61'/0'/0/0`
-- **Features**: Full EVM support
+### Layer 2 Solutions
 
-```javascript
-const result = await sdk.ethereumGetAddress({
-  path: "m/44'/61'/0'/0/0"
-});
-```
+| Network | Type | Base Chain | Status |
+|---------|------|------------|---------|
+| Polygon | Sidechain | Ethereum | ✅ Full |
+| Arbitrum | Optimistic Rollup | Ethereum | ✅ Full |
+| Optimism | Optimistic Rollup | Ethereum | ✅ Full |
+| zkSync Era | ZK Rollup | Ethereum | 🚧 Coming Soon |
+| StarkNet | ZK Rollup | Ethereum | 🚧 Coming Soon |
 
-### EVM-Compatible Networks
+## Solana Ecosystem
 
-| Network | Chain ID | RPC URL | Features |
-|---------|----------|---------|----------|
-| Binance Smart Chain | 56 | https://bsc-dataseed.binance.org/ | Full EVM |
-| Polygon | 137 | https://polygon-rpc.com/ | Full EVM |
-| Avalanche C-Chain | 43114 | https://api.avax.network/ext/bc/C/rpc | Full EVM |
-| Fantom | 250 | https://rpc.ftm.tools/ | Full EVM |
-| Arbitrum One | 42161 | https://arb1.arbitrum.io/rpc | Full EVM |
-| Optimism | 10 | https://mainnet.optimism.io | Full EVM |
+### Supported Networks
 
-```javascript
-// Example for BSC
-const result = await sdk.ethereumSignTransaction({
-  path: "m/44'/60'/0'/0/0",
-  transaction: {
-    to: "0x...",
-    value: "0x...",
-    gasLimit: "0x5208",
-    gasPrice: "0x...",
-    nonce: "0x...",
-    chainId: 56 // BSC chain ID
-  }
-});
-```
+| Network | Cluster | RPC Endpoint | Status |
+|---------|---------|--------------|---------|
+| Solana Mainnet | mainnet-beta | https://api.mainnet-beta.solana.com | ✅ Full |
+| Solana Devnet | devnet | https://api.devnet.solana.com | ✅ Full |
+| Solana Testnet | testnet | https://api.testnet.solana.com | ✅ Full |
 
-## Other Major Blockchains
+### Token Standards
 
-### Solana (SOL)
-- **Coin Type**: 501
-- **Path**: `m/44'/501'/0'/0/0`
-- **Features**: Address generation, transaction signing, message signing
+| Standard | Description | Support |
+|----------|-------------|---------|
+| SPL Token | Solana Program Library Tokens | ✅ Full |
+| SPL NFT | Non-Fungible Tokens | ✅ Full |
+| Metaplex | NFT Metadata Standard | ✅ Full |
 
-```javascript
-const result = await sdk.solanaGetAddress({
-  path: "m/44'/501'/0'/0/0"
-});
-```
+## Cardano Ecosystem
 
-### Cardano (ADA)
-- **Coin Type**: 1815
-- **Path**: `m/1852'/1815'/0'/0/0` (BIP1852)
-- **Features**: Address generation, transaction signing
+### Supported Networks
 
-```javascript
-const result = await sdk.cardanoGetAddress({
-  path: "m/1852'/1815'/0'/0/0"
-});
-```
+| Network | Magic | Era | Status |
+|---------|-------|-----|---------|
+| Cardano Mainnet | 764824073 | Shelley | ✅ Full |
+| Cardano Testnet | 1097911063 | Shelley | ✅ Full |
+| Cardano Preview | 2 | Shelley | ✅ Full |
+| Cardano Preprod | 1 | Shelley | ✅ Full |
 
-### Polkadot (DOT)
-- **Coin Type**: 354
-- **Path**: `m/44'/354'/0'/0/0`
-- **Features**: Address generation, transaction signing
+### Address Types
 
-### Cosmos (ATOM)
-- **Coin Type**: 118
-- **Path**: `m/44'/118'/0'/0/0`
-- **Features**: Address generation, transaction signing
+| Type | Description | Support |
+|------|-------------|---------|
+| Byron | Legacy addresses | ✅ Full |
+| Shelley Base | Payment + Staking | ✅ Full |
+| Shelley Enterprise | Payment only | ✅ Full |
+| Shelley Pointer | Pointer to staking | ✅ Full |
+| Shelley Reward | Staking rewards | ✅ Full |
 
-### Near Protocol (NEAR)
-- **Coin Type**: 397
-- **Path**: `m/44'/397'/0'/0/0`
-- **Features**: Address generation, transaction signing
+### Native Assets
 
-## Testnet Support
+| Feature | Description | Support |
+|---------|-------------|---------|
+| ADA | Native currency | ✅ Full |
+| Native Tokens | Multi-asset support | ✅ Full |
+| NFTs | Non-Fungible Tokens | ✅ Full |
+| Metadata | Transaction metadata | ✅ Full |
 
-### Bitcoin Testnet
-- **Coin Type**: 1
-- **Path**: `m/44'/1'/0'/0/0`
-- **Network**: Bitcoin Testnet
+## Polkadot Ecosystem
 
-```javascript
-const result = await sdk.btcGetAddress({
-  path: "m/44'/1'/0'/0/0",
-  coin: 'test'
-});
-```
+### Supported Networks
 
-### Ethereum Testnets
+| Network | Symbol | SS58 Prefix | Coin Type | Status |
+|---------|--------|-------------|-----------|---------|
+| Polkadot | DOT | 0 | 354 | ✅ Full |
+| Kusama | KSM | 2 | 434 | ✅ Full |
+| Westend | WND | 42 | 354 | ✅ Full |
 
-| Network | Chain ID | Features |
-|---------|----------|----------|
-| Goerli | 5 | Full EVM support |
-| Sepolia | 11155111 | Full EVM support |
-| Ropsten | 3 | Deprecated |
+### Parachains (Coming Soon)
 
-## Token Support
+| Parachain | Symbol | Status |
+|-----------|--------|---------|
+| Acala | ACA | 🚧 Coming Soon |
+| Moonbeam | GLMR | 🚧 Coming Soon |
+| Astar | ASTR | 🚧 Coming Soon |
+| Parallel | PARA | 🚧 Coming Soon |
 
-### ERC-20 Tokens
-OneKey SDK supports all ERC-20 tokens on Ethereum and EVM-compatible chains:
+## Cosmos Ecosystem
 
-```javascript
-// ERC-20 token transfer
-const result = await sdk.ethereumSignTransaction({
-  path: "m/44'/60'/0'/0/0",
-  transaction: {
-    to: "0x...", // Token contract address
-    value: "0x0",
-    data: "0xa9059cbb...", // transfer(to, amount) function call
-    gasLimit: "0x5208",
-    gasPrice: "0x...",
-    nonce: "0x...",
-    chainId: 1
-  }
-});
-```
+### Supported Networks
 
-### SPL Tokens (Solana)
-Support for Solana SPL tokens:
+| Network | Symbol | Bech32 Prefix | Coin Type | Status |
+|---------|--------|---------------|-----------|---------|
+| Cosmos Hub | ATOM | cosmos | 118 | ✅ Full |
+| Osmosis | OSMO | osmo | 118 | ✅ Full |
+| Juno | JUNO | juno | 118 | ✅ Full |
+| Secret Network | SCRT | secret | 529 | ✅ Full |
+| Terra | LUNA | terra | 330 | ✅ Full |
+| Kava | KAVA | kava | 459 | ✅ Full |
+| Akash | AKT | akash | 118 | ✅ Full |
+| Crypto.org | CRO | cro | 394 | ✅ Full |
+| Band Protocol | BAND | band | 494 | ✅ Full |
+| IRISnet | IRIS | iaa | 566 | ✅ Full |
 
-```javascript
-const result = await sdk.solanaSignTransaction({
-  path: "m/44'/501'/0'/0/0",
-  transaction: {
-    // SPL token transfer transaction
-  }
-});
-```
+### IBC Support
 
-### Native Tokens
-Support for native tokens on various chains:
+| Feature | Description | Support |
+|---------|-------------|---------|
+| IBC Transfers | Cross-chain transfers | ✅ Full |
+| IBC Tokens | Wrapped tokens | ✅ Full |
+| Packet Forwarding | Multi-hop transfers | 🔄 Partial |
 
-| Chain | Native Token | Symbol |
-|-------|--------------|--------|
-| Ethereum | Ether | ETH |
-| Binance Smart Chain | BNB | BNB |
-| Polygon | MATIC | MATIC |
-| Avalanche | AVAX | AVAX |
-| Fantom | FTM | FTM |
+## Other Blockchains
 
-## Feature Matrix
+### Layer 1 Blockchains
 
-| Blockchain | Address Generation | Transaction Signing | Message Signing | Contract Interaction |
-|------------|-------------------|-------------------|-----------------|-------------------|
-| Bitcoin | ✅ | ✅ | ✅ | ❌ |
-| Ethereum | ✅ | ✅ | ✅ | ✅ |
-| Solana | ✅ | ✅ | ✅ | ✅ |
-| Cardano | ✅ | ✅ | ❌ | ❌ |
-| Polkadot | ✅ | ✅ | ❌ | ❌ |
-| Cosmos | ✅ | ✅ | ❌ | ❌ |
+| Blockchain | Symbol | Coin Type | Status |
+|------------|--------|-----------|---------|
+| Near Protocol | NEAR | 397 | 🚧 Coming Soon |
+| Algorand | ALGO | 283 | 🚧 Coming Soon |
+| Tezos | XTZ | 1729 | 🚧 Coming Soon |
+| Stellar | XLM | 148 | 🚧 Coming Soon |
+| Monero | XMR | 128 | 🚧 Coming Soon |
 
-## Adding New Coins
+### Stablecoins
 
-### Request Support
-To request support for a new cryptocurrency:
+| Stablecoin | Networks | Standard | Status |
+|------------|----------|----------|---------|
+| USDT | Ethereum, BSC, Polygon, Tron | ERC-20, BEP-20 | ✅ Full |
+| USDC | Ethereum, BSC, Polygon, Solana | ERC-20, SPL | ✅ Full |
+| DAI | Ethereum, BSC, Polygon | ERC-20 | ✅ Full |
+| BUSD | Ethereum, BSC | ERC-20, BEP-20 | ✅ Full |
+| UST | Terra, Ethereum | Native, ERC-20 | ✅ Full |
 
-1. **Check Compatibility**: Ensure the coin follows standard derivation paths
-2. **Submit Request**: Create an issue on [GitHub](https://github.com/OneKeyHQ/hardware-js-sdk/issues)
-3. **Provide Details**: Include coin specifications, derivation paths, and use cases
+## Development Roadmap
 
-### Custom Implementation
-For custom coins, you can extend the SDK:
+### Q1 2024
+
+- ✅ Enhanced Bitcoin Taproot support
+- ✅ Solana program interactions
+- ✅ Cardano smart contracts
+- ✅ Cosmos IBC improvements
+
+### Q2 2024
+
+- 🚧 zkSync Era support
+- 🚧 StarkNet integration
+- 🚧 Polkadot parachains
+- 🚧 Near Protocol support
+
+### Q3 2024
+
+- 🚧 Algorand support
+- 🚧 Tezos integration
+- 🚧 Enhanced NFT support
+- 🚧 Multi-signature wallets
+
+### Q4 2024
+
+- 🚧 Monero support
+- 🚧 Lightning Network
+- 🚧 Cross-chain bridges
+- 🚧 DeFi protocol integrations
+
+## Integration Examples
+
+### Multi-Chain Wallet
 
 ```javascript
-// Example custom coin configuration
-const customCoin = {
-  name: 'CustomCoin',
-  symbol: 'CUSTOM',
-  coinType: 9999,
-  path: "m/44'/9999'/0'/0/0",
-  addressFormat: 'custom'
+// Example: Multi-chain address generation
+const generateAddresses = async () => {
+  const addresses = {};
+  
+  // Bitcoin
+  const btcResult = await HardwareSDK.btcGetAddress({
+    path: "m/44'/0'/0'/0/0",
+    coin: 'btc'
+  });
+  addresses.bitcoin = btcResult.payload.address;
+  
+  // Ethereum
+  const ethResult = await HardwareSDK.evmGetAddress({
+    path: "m/44'/60'/0'/0/0"
+  });
+  addresses.ethereum = ethResult.payload.address;
+  
+  // Solana
+  const solResult = await HardwareSDK.solGetAddress({
+    path: "m/44'/501'/0'/0'"
+  });
+  addresses.solana = solResult.payload.address;
+  
+  // Cosmos
+  const atomResult = await HardwareSDK.cosmosGetAddress({
+    path: "m/44'/118'/0'/0/0",
+    hrp: 'cosmos'
+  });
+  addresses.cosmos = atomResult.payload.address;
+  
+  return addresses;
 };
 ```
 
-## Coin-Specific Notes
+### Cross-Chain Portfolio
 
-### Bitcoin
-- Supports all major address formats
-- Full multisig support
-- RBF (Replace-by-Fee) support
+```javascript
+// Example: Portfolio balance tracking
+const getPortfolioBalances = async (addresses) => {
+  const balances = {};
+  
+  // Bitcoin balance
+  balances.btc = await getBitcoinBalance(addresses.bitcoin);
+  
+  // Ethereum balance
+  balances.eth = await getEthereumBalance(addresses.ethereum);
+  
+  // ERC-20 tokens
+  balances.usdc = await getERC20Balance(addresses.ethereum, USDC_CONTRACT);
+  
+  // Solana balance
+  balances.sol = await getSolanaBalance(addresses.solana);
+  
+  // Cosmos balance
+  balances.atom = await getCosmosBalance(addresses.cosmos);
+  
+  return balances;
+};
+```
 
-### Ethereum
-- Full EVM compatibility
-- EIP-712 typed data signing
-- Contract interaction support
-- Layer 2 solutions supported
+## Support Matrix
 
-### Solana
-- Ed25519 signature scheme
-- Program interaction support
-- Associated token accounts
+### By Platform
 
-### Cardano
-- Uses BIP1852 instead of BIP44
-- Shelley era addresses
-- Staking support planned
+| Platform | Bitcoin | Ethereum | Solana | Cardano | Polkadot | Cosmos |
+|----------|---------|----------|---------|---------|----------|---------|
+| Web Browser | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Node.js | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Electron | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| React Native | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
-## Migration Guide
+### By Feature
 
-### From Other Wallets
-When migrating from other hardware wallets:
+| Feature | Bitcoin | Ethereum | Solana | Cardano | Polkadot | Cosmos |
+|---------|---------|----------|---------|---------|----------|---------|
+| Address Generation | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Transaction Signing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Message Signing | ✅ | ✅ | 🔄 | ✅ | 🔄 | 🔄 |
+| Multi-Signature | ✅ | ✅ | 🚧 | 🚧 | 🚧 | 🚧 |
+| Smart Contracts | N/A | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Staking | N/A | ✅ | ✅ | ✅ | ✅ | ✅ |
+| NFTs | N/A | ✅ | ✅ | ✅ | 🚧 | 🚧 |
 
-1. **Check Derivation Paths**: Ensure paths match your existing wallet
-2. **Verify Addresses**: Always verify the first address on device
-3. **Test Small Amounts**: Start with small transactions
+## Getting Help
 
-### Path Compatibility
+### Documentation
 
-| Wallet | Bitcoin Path | Ethereum Path |
-|--------|--------------|---------------|
-| OneKey | `m/44'/0'/0'/0/0` | `m/44'/60'/0'/0/0` |
-| Ledger | `m/44'/0'/0'/0/0` | `m/44'/60'/0'/0/0` |
-| Trezor | `m/44'/0'/0'/0/0` | `m/44'/60'/0'/0/0` |
+- [Bitcoin API](../api/bitcoin.md) - Bitcoin and Bitcoin forks
+- [Ethereum API](../api/ethereum.md) - Ethereum and EVM chains
+- [Solana API](../api/solana.md) - Solana ecosystem
+- [Cardano API](../api/cardano.md) - Cardano ecosystem
+- [Polkadot API](../api/polkadot.md) - Polkadot ecosystem
+- [Cosmos API](../api/cosmos.md) - Cosmos ecosystem
+
+### Community
+
+- **GitHub**: [OneKey Hardware SDK](https://github.com/OneKeyHQ/hardware-js-sdk)
+- **Discord**: [OneKey Community](https://discord.gg/onekey)
+- **Email**: developer@onekey.so
 
 ## Next Steps
 
-- [Derivation Paths](../concepts/paths.md) - Understanding address generation
-- [Bitcoin Methods](../api/bitcoin.md) - Bitcoin-specific operations
-- [Ethereum Methods](../api/ethereum.md) - Ethereum-specific operations
 - [Device Models](device-models.md) - Supported OneKey devices
+- [Troubleshooting](troubleshooting.md) - Common issues and solutions
+- [Migration Guide](migration.md) - Upgrading from older versions
+- [FAQ](faq.md) - Frequently asked questions

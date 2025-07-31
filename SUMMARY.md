@@ -2,53 +2,47 @@
 
 * [OneKey Hardware SDK](README.md)
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-* [Quick Start](getting-started/quick-start.md)
-* [Installation](getting-started/installation.md)
-* [Your First Integration](getting-started/first-integration.md)
+* [Installation & Setup](quick-start/installation.md)
+* [First Integration](quick-start/first-integration.md)
+* [Basic Examples](quick-start/examples.md)
 
-## 📚 Core Concepts
+## 📦 SDK Packages
 
-* [What is OneKey SDK](concepts/overview.md)
-* [Transport Layer](concepts/transport.md)
-* [Derivation Paths](concepts/paths.md)
-* [Events System](concepts/events.md)
-* [Error Handling](concepts/errors.md)
+* [Core Concepts](sdk/concepts.md)
+* [Web SDK](sdk/web-sdk.md)
+* [Node.js SDK](sdk/nodejs-sdk.md)
+* [React Native SDK](sdk/react-native-sdk.md)
+* [Transport Layer](sdk/transport.md)
+* [Events & Error Handling](sdk/events-errors.md)
 
-## 🔧 API Reference
+## 🔗 Integration Guides
 
-* [Initialization](api/init.md)
+* [Web Browser Integration](integration/web-browser.md)
+* [Electron Desktop Integration](integration/electron.md)
+* [Node.js & Electron Integration](integration/nodejs-electron.md)
+* [React Native Integration](integration/react-native.md)
+* [Native Mobile Integration](integration/native-mobile.md)
+* [Air Gap Integration](integration/air-gap.md)
+* [Best Practices](integration/best-practices.md)
+
+## 📚 API Reference
+
+* [TypeScript Types](api/types.md)
 * [Device Management](api/device.md)
-* [Bitcoin Methods](api/bitcoin.md)
-* [Ethereum Methods](api/ethereum.md)
-* [Other Blockchains](api/other-chains.md)
+* [Bitcoin & Bitcoin Forks](api/bitcoin.md)
+* [Ethereum & EVM Chains](api/ethereum.md)
+* [Solana](api/solana.md)
+* [Cardano](api/cardano.md)
+* [Polkadot](api/polkadot.md)
+* [Cosmos](api/cosmos.md)
 * [Utility Methods](api/utils.md)
 
-## 🌍 Platform Integration
-
-* [Web Browser](platforms/web.md)
-* [Node.js](platforms/nodejs.md)
-* [React Native](platforms/react-native.md)
-* [Electron](platforms/electron.md)
-
-## 📖 Guides
-
-* [Best Practices](guides/best-practices.md)
-* [Security Guidelines](guides/security.md)
-* [Performance Tips](guides/performance.md)
-* [Troubleshooting](guides/troubleshooting.md)
-* [Migration Guide](guides/migration.md)
-
-## 📋 Examples
-
-* [Basic Examples](examples/basic.md)
-* [Advanced Examples](examples/advanced.md)
-* [Integration Examples](examples/integrations.md)
-
-## 🔗 Resources
+## 🛠️ Resources
 
 * [Supported Coins](resources/supported-coins.md)
 * [Device Models](resources/device-models.md)
-* [Changelog](resources/changelog.md)
+* [Troubleshooting](resources/troubleshooting.md)
+* [Migration Guide](resources/migration.md)
 * [FAQ](resources/faq.md)

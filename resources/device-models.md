@@ -1,430 +1,374 @@
 ---
-icon: devices
+icon: microchip
 ---
 
-# OneKey Device Models
+# Device Models
 
-OneKey SDK supports multiple hardware wallet models, each with different capabilities and features. This guide helps you understand device compatibility and optimize your integration.
+Information about supported OneKey hardware wallet models and their capabilities.
 
-## Supported Devices
+## Overview
 
-### OneKey Classic
-- **Model ID**: `1`
-- **Product Name**: OneKey Classic
-- **Release Year**: 2021
-- **Screen**: 128x64 OLED
+OneKey produces several hardware wallet models, each designed for different user needs and security requirements. This page provides detailed information about each model and their compatibility with the OneKey SDK.
+
+## Supported Models
+
+### OneKey Classic 1S
+
+**The flagship hardware wallet with premium security features**
+
+#### Specifications
+- **Display**: 1.54" color IPS screen (240×240)
 - **Connectivity**: USB-C
-- **Secure Element**: Yes
+- **Security**: Secure Element (CC EAL6+)
+- **Processor**: ARM Cortex-M4
+- **Storage**: 512KB Flash
+- **Dimensions**: 64×39×9.6mm
+- **Weight**: 30g
 
-**Features**:
-- ✅ All cryptocurrency support
-- ✅ PIN protection
-- ✅ Passphrase support
-- ✅ Recovery seed backup
-- ✅ Firmware updates
+#### Features
+- ✅ Hardware-based random number generation
+- ✅ PIN protection with anti-tampering
+- ✅ Recovery seed backup (12/18/24 words)
+- ✅ Passphrase support (BIP39)
+- ✅ Multi-signature support
+- ✅ U2F/FIDO2 authentication
+- ✅ Open source firmware
 
-**SDK Compatibility**:
-- ✅ Node.js SDK (USB)
-- ✅ Web SDK (WebUSB/Bridge)
-- ❌ React Native SDK (No Bluetooth)
+#### SDK Compatibility
+```javascript
+// Detect OneKey Classic 1S
+const devices = await HardwareSDK.searchDevices();
+const classic = devices.find(d => d.features.model === 'T');
+
+if (classic) {
+  console.log('OneKey Classic 1S detected');
+  console.log('Firmware:', classic.features.major_version + '.' + classic.features.minor_version);
+}
+```
+
+### OneKey Mini
+
+**Ultra-portable hardware wallet for mobile users**
+
+#### Specifications
+- **Display**: None (uses companion app)
+- **Connectivity**: USB-C, Bluetooth 5.0
+- **Security**: Secure Element (CC EAL5+)
+- **Processor**: ARM Cortex-M0+
+- **Battery**: 200mAh rechargeable
+- **Dimensions**: 85×54×2.4mm (credit card size)
+- **Weight**: 12g
+
+#### Features
+- ✅ Bluetooth Low Energy connectivity
+- ✅ NFC support (planned)
+- ✅ Companion mobile app
+- ✅ Ultra-portable design
+- ✅ Touch-sensitive buttons
+- ✅ Wireless charging (planned)
+- ✅ IP54 water resistance
+
+#### SDK Compatibility
+```javascript
+// Detect OneKey Mini
+const devices = await HardwareSDK.searchDevices();
+const mini = devices.find(d => d.features.model === 'mini');
+
+if (mini) {
+  console.log('OneKey Mini detected');
+
+  // Check battery status
+  const battery = await HardwareSDK.getBatteryStatus();
+  console.log('Battery level:', battery.percentage + '%');
+}
+```
 
 ### OneKey Touch
-- **Model ID**: `2`
-- **Product Name**: OneKey Touch
-- **Release Year**: 2022
-- **Screen**: 240x240 Color LCD
-- **Connectivity**: USB-C, Bluetooth
-- **Secure Element**: Yes
 
-**Features**:
-- ✅ All cryptocurrency support
-- ✅ Touch interface
-- ✅ PIN protection
-- ✅ Passphrase support
-- ✅ Recovery seed backup
-- ✅ Firmware updates
-- ✅ Bluetooth connectivity
+**Next-generation hardware wallet with full Android OS**
 
-**SDK Compatibility**:
-- ✅ Node.js SDK (USB/Bluetooth)
-- ✅ Web SDK (WebUSB/Bridge)
-- ✅ React Native SDK (Bluetooth)
+#### Specifications
+- **Display**: 4" color touchscreen (480×800)
+- **Connectivity**: USB-C, Bluetooth 5.0, WiFi 6
+- **Security**: Secure Element + TEE
+- **Processor**: ARM Cortex-A55 Quad-core
+- **Storage**: 64GB internal + microSD
+- **RAM**: 4GB
+- **Battery**: 3000mAh
+- **OS**: OneKey OS (Android-based)
 
-### OneKey Pro
-- **Model ID**: `3`
-- **Product Name**: OneKey Pro
-- **Release Year**: 2023
-- **Screen**: 320x240 Color LCD
-- **Connectivity**: USB-C, Bluetooth, NFC
-- **Secure Element**: Yes
+#### Features
+- ✅ Full-featured crypto wallet
+- ✅ DApp browser with Web3 support
+- ✅ NFT gallery and marketplace
+- ✅ Multi-account management
+- ✅ Air-gapped transactions
+- ✅ Camera for QR codes
+- ✅ Fingerprint authentication
+- ✅ App ecosystem
 
-**Features**:
-- ✅ All cryptocurrency support
-- ✅ Advanced touch interface
-- ✅ PIN protection
-- ✅ Passphrase support
-- ✅ Recovery seed backup
-- ✅ Firmware updates
-- ✅ Bluetooth connectivity
-- ✅ NFC support
-- ✅ Advanced security features
-
-**SDK Compatibility**:
-- ✅ Node.js SDK (USB/Bluetooth)
-- ✅ Web SDK (WebUSB/Bridge)
-- ✅ React Native SDK (Bluetooth/NFC)
-
-## Device Detection
-
-### Get Device Model
-
+#### SDK Compatibility
 ```javascript
-const features = await sdk.getFeatures();
-console.log('Device model:', features.model);
-console.log('Model ID:', features.model_id);
-console.log('Firmware version:', `${features.major_version}.${features.minor_version}.${features.patch_version}`);
-```
+// Detect OneKey Touch
+const devices = await HardwareSDK.searchDevices();
+const touch = devices.find(d => d.features.model === 'touch');
 
-### Model-Specific Logic
+if (touch) {
+  console.log('OneKey Touch detected');
 
-```javascript
-function getDeviceCapabilities(features) {
-  switch (features.model) {
-    case 'OneKey Classic':
-      return {
-        bluetooth: false,
-        nfc: false,
-        touchScreen: false,
-        colorDisplay: false
-      };
-    case 'OneKey Touch':
-      return {
-        bluetooth: true,
-        nfc: false,
-        touchScreen: true,
-        colorDisplay: true
-      };
-    case 'OneKey Pro':
-      return {
-        bluetooth: true,
-        nfc: true,
-        touchScreen: true,
-        colorDisplay: true
-      };
-    default:
-      return {
-        bluetooth: false,
-        nfc: false,
-        touchScreen: false,
-        colorDisplay: false
-      };
-  }
-}
-
-// Usage
-const features = await sdk.getFeatures();
-const capabilities = getDeviceCapabilities(features);
-
-if (capabilities.bluetooth) {
-  console.log('Device supports Bluetooth');
+  // Check WiFi status
+  const wifi = await HardwareSDK.getWiFiStatus();
+  console.log('WiFi connected:', wifi.connected);
 }
 ```
 
-## Connectivity Matrix
+## Feature Comparison
 
-| Model | USB | WebUSB | Bluetooth | NFC | Bridge |
-|-------|-----|--------|-----------|-----|--------|
-| Classic | ✅ | ✅ | ❌ | ❌ | ✅ |
-| Touch | ✅ | ✅ | ✅ | ❌ | ✅ |
-| Pro | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Feature | Classic 1S | Mini | Touch |
+|---------|------------|------|-------|
+| **Display** | 1.54" Color IPS | None | 4" Color Touch |
+| **Connectivity** | USB-C | USB-C, BLE | USB-C, BLE, WiFi |
+| **Battery** | None | 200mAh | 3000mAh |
+| **Secure Element** | CC EAL6+ | CC EAL5+ | CC EAL5+ + TEE |
+| **Open Source** | ✅ | ✅ | ✅ |
+| **Mobile App** | Optional | Required | Built-in |
+| **DApp Browser** | ❌ | ❌ | ✅ |
+| **Camera** | ❌ | ❌ | ✅ |
+| **Fingerprint** | ❌ | ❌ | ✅ |
+| **Price Range** | $79 | $39 | $199 |
 
-## Platform Compatibility
+## SDK Support Matrix
 
-### Node.js SDK
+### Connection Methods
 
-| Model | USB/HID | Bluetooth | Bridge |
-|-------|---------|-----------|--------|
-| Classic | ✅ | ❌ | ✅ |
-| Touch | ✅ | ✅ | ✅ |
-| Pro | ✅ | ✅ | ✅ |
+| Model | USB | Bluetooth | WebUSB | HTTP Bridge | Deep Link |
+|-------|-----|-----------|--------|-------------|-----------|
+| Classic 1S | ✅ | ❌ | ✅ | ✅ | ❌ |
+| Mini | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Touch | ✅ | ✅ | ✅ | ✅ | ✅ |
 
-### Web SDK
+### Platform Support
 
-| Model | WebUSB | Bridge | Deep Link |
-|-------|--------|--------|-----------|
-| Classic | ✅ | ✅ | ✅ |
-| Touch | ✅ | ✅ | ✅ |
-| Pro | ✅ | ✅ | ✅ |
+| Model | Web Browser | Node.js | React Native | Electron |
+|-------|-------------|---------|--------------|----------|
+| Classic 1S | ✅ | ✅ | ❌ | ✅ |
+| Mini | ✅ | ✅ | ✅ | ✅ |
+| Touch | ✅ | ✅ | ✅ | ✅ |
 
-### React Native SDK
+### Blockchain Support
 
-| Model | Bluetooth | Deep Link | NFC |
-|-------|-----------|-----------|-----|
-| Classic | ❌ | ✅ | ❌ |
-| Touch | ✅ | ✅ | ❌ |
-| Pro | ✅ | ✅ | ✅ |
+| Model | Bitcoin | Ethereum | Solana | Cardano | Polkadot | Cosmos |
+|-------|---------|----------|---------|---------|----------|---------|
+| Classic 1S | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Mini | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Touch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
-## Firmware Compatibility
+## Device Detection and Management
 
-### Minimum Firmware Versions
-
-| Model | Minimum Version | Recommended Version |
-|-------|----------------|-------------------|
-| Classic | 2.0.0 | Latest |
-| Touch | 3.0.0 | Latest |
-| Pro | 4.0.0 | Latest |
-
-### Check Firmware Version
-
-```javascript
-function checkFirmwareCompatibility(features) {
-  const version = `${features.major_version}.${features.minor_version}.${features.patch_version}`;
-  
-  const minimumVersions = {
-    'OneKey Classic': '2.0.0',
-    'OneKey Touch': '3.0.0',
-    'OneKey Pro': '4.0.0'
-  };
-  
-  const required = minimumVersions[features.model];
-  if (!required) {
-    return { compatible: false, reason: 'Unknown device model' };
-  }
-  
-  if (compareVersions(version, required) < 0) {
-    return { 
-      compatible: false, 
-      reason: `Firmware ${version} is below minimum required ${required}` 
-    };
-  }
-  
-  return { compatible: true };
-}
-
-function compareVersions(a, b) {
-  const aParts = a.split('.').map(Number);
-  const bParts = b.split('.').map(Number);
-  
-  for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
-    const aPart = aParts[i] || 0;
-    const bPart = bParts[i] || 0;
-    
-    if (aPart < bPart) return -1;
-    if (aPart > bPart) return 1;
-  }
-  
-  return 0;
-}
-```
-
-## Device-Specific Features
-
-### Screen Capabilities
+### Automatic Device Detection
 
 ```javascript
-function getScreenInfo(features) {
-  switch (features.model) {
-    case 'OneKey Classic':
-      return {
-        width: 128,
-        height: 64,
-        color: false,
-        touch: false
-      };
-    case 'OneKey Touch':
-      return {
-        width: 240,
-        height: 240,
-        color: true,
-        touch: true
-      };
-    case 'OneKey Pro':
-      return {
-        width: 320,
-        height: 240,
-        color: true,
-        touch: true
-      };
-    default:
-      return null;
-  }
-}
-```
-
-### Input Methods
-
-```javascript
-function getInputMethods(features) {
-  const capabilities = getDeviceCapabilities(features);
-  
-  return {
-    physicalButtons: true, // All models have physical buttons
-    touchScreen: capabilities.touchScreen,
-    pinEntry: true, // All models support PIN entry
-    passphraseEntry: true // All models support passphrase
-  };
-}
-```
-
-## Performance Characteristics
-
-### Transaction Signing Speed
-
-| Model | Bitcoin TX | Ethereum TX | Complex TX |
-|-------|------------|-------------|------------|
-| Classic | ~3-5s | ~2-4s | ~5-10s |
-| Touch | ~2-4s | ~1-3s | ~3-8s |
-| Pro | ~1-3s | ~1-2s | ~2-6s |
-
-### Address Generation Speed
-
-| Model | Single Address | Batch (10) | Batch (100) |
-|-------|----------------|------------|-------------|
-| Classic | ~1s | ~8s | ~75s |
-| Touch | ~0.8s | ~6s | ~55s |
-| Pro | ~0.5s | ~4s | ~35s |
-
-## Best Practices
-
-### Device Detection
-```javascript
-async function initializeForDevice() {
-  const features = await sdk.getFeatures();
-  const capabilities = getDeviceCapabilities(features);
-  
-  // Adjust UI based on device capabilities
-  if (capabilities.colorDisplay) {
-    enableColorTheme();
-  }
-  
-  if (capabilities.touchScreen) {
-    enableTouchOptimizations();
-  }
-  
-  // Check firmware compatibility
-  const compatibility = checkFirmwareCompatibility(features);
-  if (!compatibility.compatible) {
-    showFirmwareUpdatePrompt(compatibility.reason);
-  }
-}
-```
-
-### Transport Selection
-```javascript
-function selectOptimalTransport(features) {
-  const capabilities = getDeviceCapabilities(features);
-  
-  // For React Native
-  if (isReactNative()) {
-    if (capabilities.bluetooth) {
-      return 'bluetooth';
-    } else {
-      return 'deeplink';
-    }
-  }
-  
-  // For Web
-  if (isBrowser()) {
-    if (supportsWebUSB()) {
-      return 'webusb';
-    } else {
-      return 'bridge';
-    }
-  }
-  
-  // For Node.js
-  if (capabilities.bluetooth && preferWireless()) {
-    return 'bluetooth';
-  } else {
-    return 'usb';
-  }
-}
-```
-
-### User Experience Optimization
-```javascript
-function optimizeForDevice(features) {
-  const screen = getScreenInfo(features);
-  const input = getInputMethods(features);
-  
-  return {
-    // Adjust confirmation timeouts based on input method
-    confirmationTimeout: input.touchScreen ? 30000 : 60000,
-    
-    // Adjust UI instructions based on screen type
-    useColorInstructions: screen.color,
-    
-    // Adjust interaction patterns
-    preferTouchInteraction: input.touchScreen,
-    
-    // Adjust batch sizes based on performance
-    maxBatchSize: features.model === 'OneKey Pro' ? 50 : 20
-  };
-}
-```
-
-## Troubleshooting
-
-### Device Not Recognized
-```javascript
-async function diagnoseDevice() {
+// Search for all connected OneKey devices
+const searchDevices = async () => {
   try {
-    const features = await sdk.getFeatures();
-    console.log('Device detected:', features.model);
-    
-    const compatibility = checkFirmwareCompatibility(features);
-    if (!compatibility.compatible) {
-      console.warn('Firmware compatibility issue:', compatibility.reason);
-    }
-    
-    return { success: true, device: features };
+    const devices = await HardwareSDK.searchDevices();
+
+    devices.forEach(device => {
+      console.log(`Found: ${getModelName(device.features.model)}`);
+      console.log(`Path: ${device.path}`);
+      console.log(`Firmware: ${device.features.major_version}.${device.features.minor_version}.${device.features.patch_version}`);
+      console.log(`Bootloader: ${device.features.bootloader_mode ? 'Yes' : 'No'}`);
+    });
+
+    return devices;
   } catch (error) {
-    console.error('Device detection failed:', error.message);
-    return { success: false, error: error.message };
+    console.error('Device search failed:', error);
+    return [];
   }
-}
+};
+
+// Helper function to get model name
+const getModelName = (model) => {
+  const modelNames = {
+    'T': 'OneKey Classic 1S',
+    'mini': 'OneKey Mini',
+    'touch': 'OneKey Touch'
+  };
+  return modelNames[model] || 'Unknown Model';
+};
 ```
 
-### Performance Issues
-1. **Slow operations**: Check firmware version and update if needed
-2. **Connection timeouts**: Verify transport compatibility
-3. **UI responsiveness**: Optimize for device screen capabilities
+### Device Connection
 
-### Compatibility Issues
-1. **Feature not available**: Check device model capabilities
-2. **Transport not working**: Verify device connectivity options
-3. **Firmware errors**: Update to latest firmware version
-
-## Migration Between Models
-
-### Seed Compatibility
-All OneKey models use the same seed format:
-- BIP39 mnemonic phrases
-- Compatible derivation paths
-- Same encryption standards
-
-### Data Migration
 ```javascript
-async function migrateToNewDevice(oldFeatures, newFeatures) {
-  console.log(`Migrating from ${oldFeatures.model} to ${newFeatures.model}`);
-  
-  // Verify seed compatibility
-  const oldSeed = await getDeviceSeed(oldFeatures);
-  const newSeed = await getDeviceSeed(newFeatures);
-  
-  if (oldSeed === newSeed) {
-    console.log('✅ Devices use the same seed');
-    return true;
-  } else {
-    console.log('❌ Different seeds detected');
-    return false;
+// Connect to a specific device
+const connectDevice = async (devicePath) => {
+  try {
+    await HardwareSDK.connectDevice(devicePath);
+
+    // Get device features
+    const features = await HardwareSDK.getFeatures();
+    console.log('Connected to:', getModelName(features.model));
+
+    return features;
+  } catch (error) {
+    console.error('Connection failed:', error);
+    throw error;
   }
-}
+};
+
+// Disconnect device
+const disconnectDevice = async () => {
+  try {
+    await HardwareSDK.disconnectDevice();
+    console.log('Device disconnected');
+  } catch (error) {
+    console.error('Disconnect failed:', error);
+  }
+};
+```
+
+### Model-Specific Handling
+
+```javascript
+// Handle different models with specific logic
+const handleDeviceByModel = async (device) => {
+  const model = device.features.model;
+
+  switch (model) {
+    case 'T': // OneKey Classic 1S
+      return await handleClassic(device);
+
+    case 'mini': // OneKey Mini
+      return await handleMini(device);
+
+    case 'touch': // OneKey Touch
+      return await handleTouch(device);
+
+    default:
+      throw new Error(`Unsupported model: ${model}`);
+  }
+};
+
+// Classic 1S specific handling
+const handleClassic = async (device) => {
+  console.log('Handling OneKey Classic 1S');
+
+  // Classic has a display, can show addresses
+  const result = await HardwareSDK.btcGetAddress({
+    path: "m/44'/0'/0'/0/0",
+    showOnDevice: true, // Show on device screen
+    coin: 'btc'
+  });
+
+  return result;
+};
+
+// Mini specific handling
+const handleMini = async (device) => {
+  console.log('Handling OneKey Mini');
+
+  // Mini has no display, use companion app
+  const result = await HardwareSDK.btcGetAddress({
+    path: "m/44'/0'/0'/0/0",
+    showOnDevice: false, // Cannot show on device
+    coin: 'btc'
+  });
+
+  // Check battery if available
+  try {
+    const battery = await HardwareSDK.getBatteryStatus();
+    console.log('Battery level:', battery.percentage + '%');
+  } catch (error) {
+    console.log('Battery status not available');
+  }
+
+  return result;
+};
+
+// Touch specific handling
+const handleTouch = async (device) => {
+  console.log('Handling OneKey Touch');
+
+  // Touch has advanced features
+  const result = await HardwareSDK.btcGetAddress({
+    path: "m/44'/0'/0'/0/0",
+    showOnDevice: true, // Show on touchscreen
+    coin: 'btc'
+  });
+
+  // Check additional Touch features
+  try {
+    const wifi = await HardwareSDK.getWiFiStatus();
+    console.log('WiFi status:', wifi.connected ? 'Connected' : 'Disconnected');
+
+    const apps = await HardwareSDK.getInstalledApps();
+    console.log('Installed apps:', apps.length);
+  } catch (error) {
+    console.log('Advanced features not available');
+  }
+
+  return result;
+};
+```
+
+## Firmware Management
+
+### Checking Firmware Version
+
+```javascript
+// Get current firmware information
+const getFirmwareInfo = async () => {
+  try {
+    const features = await HardwareSDK.getFeatures();
+
+    const firmwareInfo = {
+      model: getModelName(features.model),
+      version: `${features.major_version}.${features.minor_version}.${features.patch_version}`,
+      bootloaderMode: features.bootloader_mode,
+      firmwarePresent: features.firmware_present,
+      needsBackup: features.needs_backup,
+      unfinishedBackup: features.unfinished_backup,
+      noBackup: features.no_backup
+    };
+
+    console.log('Firmware Info:', firmwareInfo);
+    return firmwareInfo;
+  } catch (error) {
+    console.error('Failed to get firmware info:', error);
+    throw error;
+  }
+};
+```
+
+### Checking for Updates
+
+```javascript
+// Check for firmware updates
+const checkFirmwareUpdate = async () => {
+  try {
+    const updateInfo = await HardwareSDK.checkFirmwareRelease();
+
+    if (updateInfo.required) {
+      console.log('Firmware update required');
+      console.log('Current:', updateInfo.current);
+      console.log('Latest:', updateInfo.latest);
+      console.log('Download URL:', updateInfo.url);
+    } else {
+      console.log('Firmware is up to date');
+    }
+
+    return updateInfo;
+  } catch (error) {
+    console.error('Failed to check firmware update:', error);
+    throw error;
+  }
+};
 ```
 
 ## Next Steps
 
-- [Supported Cryptocurrencies](supported-coins.md) - Available blockchain support
-- [Transport Layer](../concepts/transport.md) - Connection methods
-- [Device Management](../api/device.md) - Device operations
-- [Best Practices](../guides/best-practices.md) - Optimization tips
+- [Supported Coins](supported-coins.md) - Complete list of supported cryptocurrencies
+- [Troubleshooting](troubleshooting.md) - Common issues and solutions
+- [API Reference](../api/device.md) - Device management API
+- [Integration Guides](../integration/web-browser.md) - Platform-specific guides

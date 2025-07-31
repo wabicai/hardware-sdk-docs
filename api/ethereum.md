@@ -2,18 +2,18 @@
 icon: ethereum
 ---
 
-# Ethereum Methods
+# Ethereum & EVM Chains
 
-Ethereum and EVM-compatible blockchain operations including address generation, transaction signing, message signing, and typed data signing.
+Ethereum and EVM-compatible blockchain operations including address generation, transaction signing, and message signing for Ethereum, Polygon, BSC, and other EVM chains.
 
-## ethereumGetAddress()
+## evmGetAddress()
 
-Get Ethereum address for a specific derivation path.
+Get Ethereum or EVM-compatible chain address for a specific derivation path.
 
 ### Syntax
 
 ```javascript
-await sdk.ethereumGetAddress(params)
+await HardwareSDK.evmGetAddress(params)
 ```
 
 ### Parameters
@@ -53,7 +53,7 @@ Promise<{
 
 ```javascript
 // Basic Ethereum address
-const result = await sdk.ethereumGetAddress({
+const result = await HardwareSDK.evmGetAddress({
   path: "m/44'/60'/0'/0/0",
   showOnDevice: true
 });
@@ -63,14 +63,14 @@ if (result.success) {
 }
 
 // Polygon address (same derivation, different chain)
-const polygonResult = await sdk.ethereumGetAddress({
+const polygonResult = await HardwareSDK.evmGetAddress({
   path: "m/44'/60'/0'/0/0",
   showOnDevice: true,
   chainId: 137
 });
 
 // Multiple addresses (bundle)
-const bundle = await sdk.ethereumGetAddress({
+const bundle = await HardwareSDK.evmGetAddress({
   bundle: [
     { path: "m/44'/60'/0'/0/0", showOnDevice: false },
     { path: "m/44'/60'/0'/0/1", showOnDevice: false },
@@ -79,14 +79,14 @@ const bundle = await sdk.ethereumGetAddress({
 });
 ```
 
-## ethereumGetPublicKey()
+## evmGetPublicKey()
 
 Get public key for Ethereum address derivation.
 
 ### Syntax
 
 ```javascript
-await sdk.ethereumGetPublicKey(params)
+await HardwareSDK.evmGetPublicKey(params)
 ```
 
 ### Parameters
@@ -112,7 +112,7 @@ Promise<{
 ### Example
 
 ```javascript
-const result = await sdk.ethereumGetPublicKey({
+const result = await HardwareSDK.evmGetPublicKey({
   path: "m/44'/60'/0'/0/0",
   showOnDevice: false
 });
@@ -122,14 +122,14 @@ if (result.success) {
 }
 ```
 
-## ethereumSignTransaction()
+## evmSignTransaction()
 
 Sign an Ethereum transaction.
 
 ### Syntax
 
 ```javascript
-await sdk.ethereumSignTransaction(params)
+await HardwareSDK.evmSignTransaction(params)
 ```
 
 ### Parameters
@@ -173,7 +173,7 @@ Promise<{
 
 ```javascript
 // Legacy transaction
-const legacyTx = await sdk.ethereumSignTransaction({
+const legacyTx = await HardwareSDK.evmSignTransaction({
   path: "m/44'/60'/0'/0/0",
   transaction: {
     to: "0x742d35Cc6634C0532925a3b8D400E4C3f8c8C9C8",
@@ -186,7 +186,7 @@ const legacyTx = await sdk.ethereumSignTransaction({
 });
 
 // EIP-1559 transaction
-const eip1559Tx = await sdk.ethereumSignTransaction({
+const eip1559Tx = await HardwareSDK.evmSignTransaction({
   path: "m/44'/60'/0'/0/0",
   transaction: {
     to: "0x742d35Cc6634C0532925a3b8D400E4C3f8c8C9C8",
@@ -200,7 +200,7 @@ const eip1559Tx = await sdk.ethereumSignTransaction({
 });
 
 // Contract interaction
-const contractTx = await sdk.ethereumSignTransaction({
+const contractTx = await HardwareSDK.evmSignTransaction({
   path: "m/44'/60'/0'/0/0",
   transaction: {
     to: "0xA0b86a33E6417c8f2c8B758B2d7D2E8E8E8E8E8E", // Contract address
@@ -214,14 +214,14 @@ const contractTx = await sdk.ethereumSignTransaction({
 });
 ```
 
-## ethereumSignMessage()
+## evmSignMessage()
 
 Sign an Ethereum message.
 
 ### Syntax
 
 ```javascript
-await sdk.ethereumSignMessage(params)
+await HardwareSDK.evmSignMessage(params)
 ```
 
 ### Parameters
@@ -248,13 +248,13 @@ Promise<{
 
 ```javascript
 // Sign text message
-const result = await sdk.ethereumSignMessage({
+const result = await HardwareSDK.evmSignMessage({
   path: "m/44'/60'/0'/0/0",
   message: "Hello OneKey!"
 });
 
 // Sign hex message
-const hexResult = await sdk.ethereumSignMessage({
+const hexResult = await HardwareSDK.evmSignMessage({
   path: "m/44'/60'/0'/0/0",
   message: "0x48656c6c6f204f6e654b657921", // "Hello OneKey!" in hex
   hex: true
@@ -266,14 +266,14 @@ if (result.success) {
 }
 ```
 
-## ethereumSignTypedData()
+## evmSignTypedData()
 
 Sign EIP-712 typed data.
 
 ### Syntax
 
 ```javascript
-await sdk.ethereumSignTypedData(params)
+await HardwareSDK.evmSignTypedData(params)
 ```
 
 ### Parameters
@@ -361,7 +361,7 @@ const typedData = {
   }
 };
 
-const result = await sdk.ethereumSignTypedData({
+const result = await HardwareSDK.evmSignTypedData({
   path: "m/44'/60'/0'/0/0",
   data: typedData
 });
@@ -578,7 +578,10 @@ console.log('Transaction:', txHash);
 
 ## Next Steps
 
-- [Other Blockchains](other-chains.md) - Solana, Cardano, and more
+- [Bitcoin & Bitcoin Forks](bitcoin.md) - Bitcoin-specific operations
+- [Solana](solana.md) - Solana blockchain operations
+- [Cardano](cardano.md) - Cardano blockchain operations
+- [Polkadot](polkadot.md) - Polkadot and Substrate chains
+- [Cosmos](cosmos.md) - Cosmos ecosystem chains
 - [Device Management](device.md) - Device operations
-- [Best Practices](../guides/best-practices.md) - Security and performance tips
-- [Examples](../examples/basic.md) - Complete integration examples
+- [Utility Methods](utils.md) - Helper functions and utilities

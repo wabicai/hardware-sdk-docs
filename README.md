@@ -1,162 +1,197 @@
 ---
-icon: microchip
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
-  metadata:
-    visible: true
+description: OneKey Hardware SDK Documentation
 ---
 
 # OneKey Hardware SDK
 
-{% hint style="info" %}
-**OneKey SDK** is a JavaScript library for integrating OneKey hardware wallets into web applications, desktop apps, and mobile applications. Build secure, user-friendly crypto experiences with hardware-level security.
-{% endhint %}
+Welcome to the OneKey Hardware SDK documentation. This SDK enables secure integration with OneKey hardware wallets across multiple platforms including web browsers, Node.js applications, and mobile apps.
 
-## Why OneKey SDK?
+## What is OneKey Hardware SDK?
 
-- 🔒 **Hardware Security** - Private keys never leave the device
-- 🌐 **Universal Support** - Works in browsers, Node.js, and mobile apps
-- ⚡ **Easy Integration** - Get started in minutes with simple APIs
-- 🔗 **Multi-Chain** - Support for Bitcoin, Ethereum, and 50+ blockchains
-- 📱 **Cross-Platform** - One SDK for all your development needs
+OneKey Hardware SDK is a comprehensive JavaScript library that provides secure communication with OneKey hardware wallets. It enables developers to build applications that can:
+
+- Generate cryptocurrency addresses securely
+- Sign transactions with hardware-level security
+- Support multiple blockchain networks
+- Provide seamless user experience across platforms
+
+## Key Features
+
+### 🔒 **Security First**
+- Private keys never leave the hardware device
+- All transactions require user confirmation on device
+- Secure element protection
+- Open source and auditable
+
+### 🌐 **Multi-Platform**
+- Web browsers (Chrome, Edge, Opera)
+- Desktop applications (Electron)
+- Mobile applications (React Native)
+- Server-side applications (Node.js)
+
+### ⚡ **Developer Friendly**
+- Simple and intuitive API
+- Comprehensive documentation
+- TypeScript support
+- Extensive examples
+
+### 🔗 **Multi-Chain**
+- Support for 50+ cryptocurrencies
+- Unified API across different blockchains
+- Easy integration with existing wallets
+- Regular updates for new chains
 
 ## Quick Start
 
-Get up and running with OneKey SDK in under 5 minutes:
+Get started with OneKey Hardware SDK in just a few minutes:
 
-{% tabs %}
-{% tab title="Web Browser" %}
+### Installation
+
+Choose the appropriate SDK package for your platform:
+
 ```bash
-npm install @onekey/hardware-web-sdk
+# For web applications
+npm install @onekeyfe/hd-web-sdk
+
+# For Node.js/Electron applications
+npm install @onekeyfe/hd-common-connect-sdk
+
+# For React Native mobile apps
+npm install @onekeyfe/hd-ble-sdk
 ```
 
-```javascript
-import OneKeySDK from '@onekey/hardware-web-sdk';
+### Basic Usage
 
-const sdk = new OneKeySDK({
+```javascript
+import { HardwareSDK } from '@onekeyfe/hd-web-sdk';
+
+// Initialize the SDK
+await HardwareSDK.init({
+  debug: false,
+  connectSrc: 'https://jssdk.onekey.so/',
   manifest: {
     email: 'developer@yourapp.com',
-    appName: 'Your App',
+    appName: 'Your App Name',
     appUrl: 'https://yourapp.com'
   }
 });
 
-// Get Bitcoin address
-const result = await sdk.btcGetAddress({
-  path: "m/44'/0'/0'/0/0",
-  showOnDevice: true
-});
-
-console.log('Address:', result.payload.address);
-```
-
-[Web Integration Guide →](platforms/web.md)
-{% endtab %}
-
-{% tab title="Node.js" %}
-```bash
-npm install @onekey/hardware-js-sdk
-```
-
-```javascript
-const OneKeySDK = require('@onekey/hardware-js-sdk');
-
-const sdk = new OneKeySDK({
-  manifest: {
-    email: 'developer@yourapp.com',
-    appName: 'Your App',
-    appUrl: 'https://yourapp.com'
-  }
-});
-
-// Connect device
-const devices = await sdk.searchDevices();
-await sdk.connectDevice(devices[0].path);
+// Connect to device
+const devices = await HardwareSDK.searchDevices();
+await HardwareSDK.connectDevice(devices[0].path);
 
 // Get Bitcoin address
-const result = await sdk.btcGetAddress({
+const result = await HardwareSDK.btcGetAddress({
   path: "m/44'/0'/0'/0/0",
-  showOnDevice: true
+  showOnDevice: true,
+  coin: 'btc'
 });
 
-console.log('Address:', result.payload.address);
+console.log('Bitcoin address:', result.payload.address);
 ```
 
-[Node.js Integration Guide →](platforms/nodejs.md)
-{% endtab %}
+## Platform Support
 
-{% tab title="React Native" %}
-```bash
-npm install @onekey/hardware-react-native-sdk
-```
+| Platform | Package | Transport | Status |
+|----------|---------|-----------|---------|
+| **Web Browser** | `@onekeyfe/hd-web-sdk` | WebUSB | ✅ Stable |
+| **Node.js** | `@onekeyfe/hd-common-connect-sdk` | USB/HID, HTTP Bridge | ✅ Stable |
+| **Electron** | `@onekeyfe/hd-common-connect-sdk` | USB/HID, HTTP Bridge | ✅ Stable |
+| **React Native** | `@onekeyfe/hd-ble-sdk` | Bluetooth | ✅ Stable |
 
-```javascript
-import OneKeySDK from '@onekey/hardware-react-native-sdk';
-import { Linking } from 'react-native';
+## Supported Blockchains
 
-const sdk = new OneKeySDK({
-  manifest: {
-    email: 'developer@yourapp.com',
-    appName: 'Your App',
-    appUrl: 'https://yourapp.com'
-  },
-  deeplinkOpen: (url) => Linking.openURL(url),
-  deeplinkCallbackUrl: 'yourapp://onekey-callback'
-});
+OneKey Hardware SDK supports a wide range of cryptocurrencies and blockchain networks:
 
-// Get Bitcoin address
-const result = await sdk.btcGetAddress({
-  path: "m/44'/0'/0'/0/0",
-  showOnDevice: true
-});
+### Bitcoin & Forks
+- Bitcoin (BTC)
+- Litecoin (LTC)
+- Bitcoin Cash (BCH)
+- Dogecoin (DOGE)
+- Dash (DASH)
+- Zcash (ZEC)
 
-console.log('Address:', result.payload.address);
-```
+### Ethereum & EVM Chains
+- Ethereum (ETH)
+- Polygon (MATIC)
+- Binance Smart Chain (BNB)
+- Avalanche (AVAX)
+- Fantom (FTM)
+- Arbitrum
+- Optimism
 
-[React Native Integration Guide →](platforms/react-native.md)
-{% endtab %}
-{% endtabs %}
+### Other Blockchains
+- **Solana (SOL)** - SPL tokens, staking, program interactions
+- **Cardano (ADA)** - Native tokens, staking, smart contracts
+- **Polkadot (DOT)** - Parachains, staking, governance
+- **Cosmos (ATOM)** - IBC transfers, staking, governance
+- **Kusama (KSM)** - Polkadot's canary network
+- **Terra (LUNA)** - Terra ecosystem
+- **Osmosis (OSMO)** - Cosmos DEX
+- **Juno (JUNO)** - Cosmos smart contracts
+- **Secret Network (SCRT)** - Privacy-focused blockchain
 
-## How It Works
+[View complete list of supported coins →](resources/supported-coins.md)
 
-OneKey SDK provides a unified interface to interact with OneKey hardware wallets across different platforms:
+## Documentation Structure
 
-![OneKey SDK Architecture](assets/diagrams/simple-architecture.png)
+This documentation is organized into the following sections:
 
-### Connection Methods
+### 🚀 [Quick Start](quick-start/installation.md)
+Get up and running with OneKey SDK in minutes with step-by-step installation, first integration, and basic examples.
 
-| Platform | Connection | Description |
-|----------|------------|-------------|
-| **Web Browser** | WebUSB / Bridge / Deep Link | Automatic fallback for maximum compatibility |
-| **Node.js** | USB / Bluetooth / Bridge | Direct device communication |
-| **React Native** | Bluetooth / Deep Link | Mobile-optimized connections |
-| **Electron** | USB / WebUSB | Desktop app integration |
+### 📦 [SDK Packages](sdk/concepts.md)
+Learn about the different SDK packages, core concepts, transport layers, and platform-specific implementations.
 
-### Supported Features
+### 🔗 [Integration Guides](integration/web-browser.md)
+Platform-specific integration guides for web browsers, Node.js/Electron, React Native, and best practices.
 
-- ✅ **Address Generation** - Get addresses for 50+ cryptocurrencies
-- ✅ **Transaction Signing** - Sign transactions with hardware security
-- ✅ **Message Signing** - Sign arbitrary messages and typed data
-- ✅ **Device Management** - Update firmware, change settings
-- ✅ **Multi-Account** - Support for multiple accounts and derivation paths
+### 📚 [API Reference](api/device.md)
+Complete API documentation with detailed parameters, return values, and examples for all SDK methods.
+
+### 🛠️ [Resources](resources/supported-coins.md)
+Additional resources including supported coins, device models, troubleshooting, migration guide, and FAQ.
+
+## Community & Support
+
+### Getting Help
+- 📖 **Documentation**: You're reading it!
+- 💬 **Discord**: [OneKey Community](https://discord.gg/onekey)
+- 🐛 **GitHub Issues**: [Report bugs and request features](https://github.com/OneKeyHQ/hardware-js-sdk/issues)
+- 📧 **Email**: developer@onekey.so
+
+### Contributing
+We welcome contributions from the community! Please see our [Contributing Guide](https://github.com/OneKeyHQ/hardware-js-sdk/blob/main/CONTRIBUTING.md) for details.
+
+### License
+OneKey Hardware SDK is open source software licensed under the [MIT License](https://github.com/OneKeyHQ/hardware-js-sdk/blob/main/LICENSE).
 
 ## Next Steps
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>📚 Learn Core Concepts</strong></td><td>Understand transport layers, paths, and events</td><td></td><td><a href="concepts/overview.md">overview.md</a></td></tr><tr><td><strong>🔧 API Reference</strong></td><td>Complete method documentation</td><td></td><td><a href="api/init.md">init.md</a></td></tr><tr><td><strong>📖 Integration Guides</strong></td><td>Platform-specific implementation guides</td><td></td><td><a href="platforms/web.md">web.md</a></td></tr><tr><td><strong>💡 Best Practices</strong></td><td>Security and performance recommendations</td><td></td><td><a href="guides/best-practices.md">best-practices.md</a></td></tr></tbody></table>
+Ready to start building? Here are some recommended next steps:
 
-## Support
+1. **[Installation & Setup](quick-start/installation.md)** - Get your development environment ready
+2. **[First Integration](quick-start/first-integration.md)** - Build your first OneKey integration
+3. **[Basic Examples](quick-start/examples.md)** - See common usage patterns
+4. **[Core Concepts](sdk/concepts.md)** - Understand the SDK architecture
+5. **[API Reference](api/device.md)** - Explore all available methods
 
-- 📖 [Documentation](getting-started/quick-start.md)
-- 💬 [GitHub Issues](https://github.com/OneKeyHQ/hardware-js-sdk/issues)
-- 🗨️ [Discord Community](https://discord.gg/onekey)
-- 📧 [Developer Support](mailto:developer@onekey.so)
+### By Blockchain
+- **[Bitcoin & Bitcoin Forks](api/bitcoin.md)** - BTC, LTC, BCH, DOGE, and more
+- **[Ethereum & EVM Chains](api/ethereum.md)** - ETH, MATIC, BNB, AVAX, and more
+- **[Solana](api/solana.md)** - SOL and SPL tokens
+- **[Cardano](api/cardano.md)** - ADA and native tokens
+- **[Polkadot](api/polkadot.md)** - DOT, KSM, and parachains
+- **[Cosmos](api/cosmos.md)** - ATOM, OSMO, JUNO, and IBC chains
+
+### By Platform
+- **[Web Browser](integration/web-browser.md)** - WebUSB and Bridge integration
+- **[Electron Desktop](integration/electron.md)** - Native desktop applications
+- **[Node.js & Electron](integration/nodejs-electron.md)** - Server and desktop apps
+- **[React Native](integration/react-native.md)** - Cross-platform mobile apps
+- **[Native Mobile](integration/native-mobile.md)** - iOS and Android native apps
+- **[Air Gap](integration/air-gap.md)** - QR code offline signing
+
+---
+
+*OneKey Hardware SDK - Secure, Simple, Universal*

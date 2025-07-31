@@ -2,56 +2,83 @@
 icon: bitcoin
 ---
 
-# Bitcoin Methods
+# Bitcoin & Bitcoin Forks
 
-Bitcoin and Bitcoin-fork cryptocurrency operations including address generation, transaction signing, and message signing.
+Bitcoin and Bitcoin fork operations including address generation, transaction signing, and message signing for Bitcoin, Litecoin, Bitcoin Cash, and other UTXO-based cryptocurrencies.
+
+## Overview
+
+OneKey supports a wide range of Bitcoin-based cryptocurrencies through a unified API. All Bitcoin fork operations use the same methods with different coin parameters.
+
+### Supported Coins
+
+| Coin | Code | Coin Type | Description |
+|------|------|-----------|-------------|
+| Bitcoin | `btc` | 0 | Bitcoin mainnet |
+| Bitcoin Testnet | `test` | 1 | Bitcoin testnet |
+| Litecoin | `ltc` | 2 | Litecoin |
+| Dogecoin | `doge` | 3 | Dogecoin |
+| Dash | `dash` | 5 | Dash |
+| Bitcoin Cash | `bch` | 145 | Bitcoin Cash |
+| Zcash | `zec` | 133 | Zcash |
 
 ## btcGetAddress()
 
-Get Bitcoin address for a specific derivation path.
+Get Bitcoin or Bitcoin fork address from device.
 
 ### Syntax
 
 ```javascript
-await sdk.btcGetAddress(params)
+await HardwareSDK.btcGetAddress(params)
 ```
 
 ### Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `path` | `string` | Yes | BIP32 derivation path |
-| `showOnDevice` | `boolean` | No | Show address on device (default: false) |
-| `coin` | `string` | No | Coin name (default: 'btc') |
-| `scriptType` | `string` | No | Script type: 'SPENDADDRESS', 'SPENDMULTISIG', 'SPENDWITNESS', 'SPENDP2SHWITNESS' |
+| `path` | `string \| number[]` | ✅ | BIP-44 derivation path |
+| `coin` | `string` | ✅ | Coin identifier (btc, ltc, doge, etc.) |
+| `showOnDevice` | `boolean` | ❌ | Display address on device screen (default: false) |
+| `scriptType` | `InputScriptType` | ❌ | Address script type (see below) |
+| `multisig` | `MultisigRedeemScriptType` | ❌ | Multisig configuration |
+| `chunkify` | `boolean` | ❌ | Split large requests into chunks |
 
-### Supported Coins
+#### Script Types
 
-| Coin | Name | Script Types |
-|------|------|--------------|
-| Bitcoin | `btc` | All |
-| Bitcoin Cash | `bch` | Legacy, P2SH |
-| Litecoin | `ltc` | All |
-| Dogecoin | `doge` | Legacy, P2SH |
-| Bitcoin Testnet | `test` | All |
+| Script Type | Description | Address Format | BIP |
+|-------------|-------------|----------------|-----|
+| `SPENDADDRESS` | Legacy P2PKH | 1... (Bitcoin) | BIP-44 |
+| `SPENDP2SHWITNESS` | Wrapped SegWit | 3... (Bitcoin) | BIP-49 |
+| `SPENDWITNESS` | Native SegWit | bc1q... (Bitcoin) | BIP-84 |
+| `SPENDTAPROOT` | Taproot | bc1p... (Bitcoin) | BIP-86 |
+| `SPENDMULTISIG` | Multisig | Various | BIP-45 |
 
 ### Returns
 
 ```typescript
-Promise<{
-  success: boolean;
-  payload: {
-    address: string;    // Generated address
-    path: string;       // Derivation path used
-  } | { error: string; code?: string; }
-}>
+Promise<DeviceResponse<{
+  address: string;        // Generated Bitcoin address
+  path: number[];         // Derivation path as array
+  serializedPath: string; // Derivation path as string
+  publicKey?: string;     // Public key (hex)
+  chainCode?: string;     // Chain code for HD wallets
+}>>
 ```
+
+### Rate Limiting
+
+- **Maximum requests per second**: 10
+- **Recommended batch size**: 5 addresses
+- **Timeout**: 30 seconds per request
+- **Concurrent requests**: 3 maximum
 
 ### Examples
 
+#### Basic Address Generation
+
 ```javascript
-// Basic Bitcoin address
-const result = await sdk.btcGetAddress({
+// Get Bitcoin address (Legacy P2PKH)
+const result = await HardwareSDK.btcGetAddress({
   path: "m/44'/0'/0'/0/0",
   showOnDevice: true,
   coin: 'btc'
@@ -59,41 +86,171 @@ const result = await sdk.btcGetAddress({
 
 if (result.success) {
   console.log('Bitcoin address:', result.payload.address);
+  console.log('Public key:', result.payload.publicKey);
 }
+```
 
-// SegWit address
-const segwitResult = await sdk.btcGetAddress({
-  path: "m/84'/0'/0'/0/0",
-  showOnDevice: true,
+#### All Script Types
+
+```javascript
+// Legacy P2PKH address (1...)
+const legacyAddress = await HardwareSDK.btcGetAddress({
+  path: "m/44'/0'/0'/0/0",
   coin: 'btc',
-  scriptType: 'SPENDWITNESS'
+  scriptType: 'SPENDADDRESS',
+  showOnDevice: true
 });
 
-// Litecoin address
-const ltcResult = await sdk.btcGetAddress({
-  path: "m/44'/2'/0'/0/0",
-  showOnDevice: true,
-  coin: 'ltc'
+// Wrapped SegWit P2SH-P2WPKH address (3...)
+const wrappedSegwitAddress = await HardwareSDK.btcGetAddress({
+  path: "m/49'/0'/0'/0/0",
+  coin: 'btc',
+  scriptType: 'SPENDP2SHWITNESS',
+  showOnDevice: true
 });
+
+// Native SegWit P2WPKH address (bc1q...)
+const nativeSegwitAddress = await HardwareSDK.btcGetAddress({
+  path: "m/84'/0'/0'/0/0",
+  coin: 'btc',
+  scriptType: 'SPENDWITNESS',
+  showOnDevice: true
+});
+
+// Taproot P2TR address (bc1p...)
+const taprootAddress = await HardwareSDK.btcGetAddress({
+  path: "m/86'/0'/0'/0/0",
+  coin: 'btc',
+  scriptType: 'SPENDTAPROOT',
+  showOnDevice: true
+});
+```
+
+#### Multi-Signature Addresses
+
+```javascript
+// 2-of-3 multisig address
+const multisigAddress = await HardwareSDK.btcGetAddress({
+  path: "m/45'/0'/0/0",
+  coin: 'btc',
+  scriptType: 'SPENDMULTISIG',
+  multisig: {
+    pubkeys: [
+      {
+        node: {
+          depth: 4,
+          fingerprint: 0,
+          child_num: 0,
+          chain_code: 'chain_code_1_hex',
+          public_key: 'public_key_1_hex'
+        },
+        address_n: [45 | 0x80000000, 0, 0, 0]
+      },
+      {
+        node: {
+          depth: 4,
+          fingerprint: 0,
+          child_num: 0,
+          chain_code: 'chain_code_2_hex',
+          public_key: 'public_key_2_hex'
+        },
+        address_n: [45 | 0x80000000, 0, 0, 0]
+      },
+      {
+        node: {
+          depth: 4,
+          fingerprint: 0,
+          child_num: 0,
+          chain_code: 'chain_code_3_hex',
+          public_key: 'public_key_3_hex'
+        },
+        address_n: [45 | 0x80000000, 0, 0, 0]
+      }
+    ],
+    signatures: ['', '', ''],
+    m: 2 // 2-of-3 multisig
+  },
+  showOnDevice: true
+});
+```
+
+#### Batch Address Generation
+
+```javascript
+// Generate multiple addresses efficiently
+const generateAddressBatch = async (count = 10) => {
+  const addresses = [];
+  const batchSize = 5;
+
+  for (let i = 0; i < count; i += batchSize) {
+    const batch = [];
+    const end = Math.min(i + batchSize, count);
+
+    for (let j = i; j < end; j++) {
+      batch.push(
+        HardwareSDK.btcGetAddress({
+          path: `m/44'/0'/0'/0/${j}`,
+          coin: 'btc',
+          showOnDevice: false // Don't show for batch generation
+        })
+      );
+    }
+
+    const results = await Promise.all(batch);
+    addresses.push(...results.map(r => r.payload.address));
+
+    // Small delay between batches to respect rate limits
+    if (i + batchSize < count) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+
+  return addresses;
+};
+```
+
+#### Different Cryptocurrencies
+
+```javascript
+// Bitcoin forks and altcoins
+const coins = [
+  { name: 'Bitcoin', coin: 'btc', path: "m/44'/0'/0'/0/0" },
+  { name: 'Litecoin', coin: 'ltc', path: "m/44'/2'/0'/0/0" },
+  { name: 'Dogecoin', coin: 'doge', path: "m/44'/3'/0'/0/0" },
+  { name: 'Bitcoin Cash', coin: 'bch', path: "m/44'/145'/0'/0/0" },
+  { name: 'Dash', coin: 'dash', path: "m/44'/5'/0'/0/0" }
+];
+
+for (const { name, coin, path } of coins) {
+  const result = await HardwareSDK.btcGetAddress({
+    path,
+    coin,
+    showOnDevice: false
+  });
+
+  if (result.success) {
+    console.log(`${name} address:`, result.payload.address);
+  }
+}
 ```
 
 ## btcGetPublicKey()
 
-Get public key for a specific derivation path.
+Get Bitcoin public key from device.
 
 ### Syntax
 
 ```javascript
-await sdk.btcGetPublicKey(params)
+await HardwareSDK.btcGetPublicKey(params)
 ```
 
 ### Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `path` | `string` | Yes | BIP32 derivation path |
+| `path` | `string` | Yes | BIP-44 derivation path |
+| `coin` | `string` | No | Coin type (default: 'btc') |
 | `showOnDevice` | `boolean` | No | Show on device (default: false) |
-| `coin` | `string` | No | Coin name (default: 'btc') |
 
 ### Returns
 
@@ -101,21 +258,21 @@ await sdk.btcGetPublicKey(params)
 Promise<{
   success: boolean;
   payload: {
-    publicKey: string;     // Hex-encoded public key
-    chainCode: string;     // Hex-encoded chain code
-    path: string;          // Derivation path used
-    xpub: string;          // Extended public key
-  } | { error: string; code?: string; }
+    publicKey: string;
+    path: string;
+    xpub: string;
+    chainCode: string;
+  }
 }>
 ```
 
 ### Example
 
 ```javascript
-const result = await sdk.btcGetPublicKey({
+const result = await HardwareSDK.btcGetPublicKey({
   path: "m/44'/0'/0'",
-  showOnDevice: false,
-  coin: 'btc'
+  coin: 'btc',
+  showOnDevice: false
 });
 
 if (result.success) {
@@ -124,108 +281,267 @@ if (result.success) {
 }
 ```
 
-## btcSignTransaction()
+## btcSignTransaction
 
-Sign a Bitcoin transaction.
+Sign Bitcoin transactions with comprehensive support for all script types and advanced features.
 
-### Syntax
+### Method Signature
 
-```javascript
-await sdk.btcSignTransaction(params)
+```typescript
+btcSignTransaction(params: BtcSignTransactionParams): Promise<DeviceResponse<BtcSignTransactionResponse>>
 ```
 
 ### Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `inputs` | `Array<TxInput>` | Yes | Transaction inputs |
-| `outputs` | `Array<TxOutput>` | Yes | Transaction outputs |
-| `coin` | `string` | No | Coin name (default: 'btc') |
-| `locktime` | `number` | No | Transaction locktime |
-| `version` | `number` | No | Transaction version |
+| `coin` | `string` | ✅ | Coin identifier (btc, ltc, doge, etc.) |
+| `inputs` | `TxInputType[]` | ✅ | Transaction inputs |
+| `outputs` | `TxOutputType[]` | ✅ | Transaction outputs |
+| `refTxs` | `RefTransaction[]` | ❌ | Referenced transactions (for older firmware) |
+| `account` | `AccountAddresses` | ❌ | Account addresses for validation |
+| `preauthorized` | `boolean` | ❌ | Use preauthorized signing |
+| `serialize` | `boolean` | ❌ | Return serialized transaction |
+| `chunkify` | `boolean` | ❌ | Split large requests into chunks |
 
-### TxInput Object
+### Input Object (TxInputType)
 
 ```typescript
-interface TxInput {
-  address_n: number[];           // Derivation path as array
-  prev_hash: string;             // Previous transaction hash
-  prev_index: number;            // Previous output index
-  amount: string;                // Input amount in satoshis
-  script_type?: string;          // Script type
-  sequence?: number;             // Sequence number
+interface TxInputType {
+  address_n?: number[];           // Derivation path as array
+  prev_hash: string;              // Previous transaction hash (hex)
+  prev_index: number;             // Previous output index
+  script_sig?: string;            // Script signature (hex)
+  sequence?: number;              // Sequence number (default: 0xffffffff)
+  script_type?: InputScriptType;  // Input script type
+  multisig?: MultisigRedeemScriptType; // Multisig configuration
+  amount?: string;                // Input amount in satoshis (required for SegWit)
+  witness?: string;               // Witness data (hex)
+  ownership_proof?: string;       // Ownership proof for external inputs
+  commitment_data?: string;       // Commitment data for CoinJoin
+  orig_hash?: string;             // Original transaction hash (for RBF)
+  orig_index?: number;            // Original output index (for RBF)
 }
 ```
 
-### TxOutput Object
+### Output Object (TxOutputType)
 
 ```typescript
-interface TxOutput {
-  address?: string;              // Output address
-  address_n?: number[];          // Derivation path for change
-  amount: string;                // Output amount in satoshis
-  script_type?: string;          // Script type
-  op_return_data?: string;       // OP_RETURN data
+interface TxOutputType {
+  address?: string;               // Output address
+  address_n?: number[];           // Derivation path (for change outputs)
+  amount: string;                 // Output amount in satoshis
+  script_type: OutputScriptType;  // Output script type
+  multisig?: MultisigRedeemScriptType; // Multisig configuration
+  op_return_data?: string;        // OP_RETURN data (hex)
+  orig_hash?: string;             // Original transaction hash (for RBF)
+  orig_index?: number;            // Original output index (for RBF)
+}
+### Response
+
+```typescript
+interface BtcSignTransactionResponse {
+  serializedTx: string;       // Signed transaction hex
+  signatures: string[];       // Transaction signatures
+  txid?: string;              // Transaction ID (if computed)
 }
 ```
 
-### Returns
+### Rate Limiting
 
-```typescript
-Promise<{
-  success: boolean;
-  payload: {
-    signatures: string[];         // Transaction signatures
-    serializedTx: string;         // Serialized transaction
-  } | { error: string; code?: string; }
-}>
-```
+- **Maximum requests per second**: 1
+- **Recommended timeout**: 60 seconds
+- **Concurrent requests**: 1 (sequential only)
+- **Maximum inputs**: 100 per transaction
+- **Maximum outputs**: 100 per transaction
 
-### Example
+### Examples
+
+#### Simple P2PKH Transaction
 
 ```javascript
-const result = await sdk.btcSignTransaction({
+// Simple Bitcoin transaction (Legacy)
+const result = await HardwareSDK.btcSignTransaction({
+  coin: 'btc',
   inputs: [{
     address_n: [44 | 0x80000000, 0 | 0x80000000, 0 | 0x80000000, 0, 0],
-    prev_hash: 'a1b2c3d4e5f6...',
+    prev_hash: 'abcd1234567890abcdef1234567890abcdef1234567890abcdef1234567890ab',
     prev_index: 0,
     amount: '100000', // 0.001 BTC in satoshis
     script_type: 'SPENDADDRESS'
   }],
   outputs: [{
-    address: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
-    amount: '90000', // 0.0009 BTC
+    address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
+    amount: '90000', // 0.0009 BTC (minus fee)
     script_type: 'PAYTOADDRESS'
-  }, {
-    address_n: [44 | 0x80000000, 0 | 0x80000000, 0 | 0x80000000, 1, 0],
-    amount: '9000', // Change output
-    script_type: 'PAYTOADDRESS'
-  }],
-  coin: 'btc'
+  }]
 });
 
 if (result.success) {
-  console.log('Transaction signed:', result.payload.serializedTx);
+  console.log('Signed transaction:', result.payload.serializedTx);
+  console.log('Transaction ID:', result.payload.txid);
+}
+```
+
+#### SegWit Transaction (P2WPKH)
+
+```javascript
+// Native SegWit transaction
+const segwitTx = await HardwareSDK.btcSignTransaction({
+  coin: 'btc',
+  inputs: [{
+    address_n: [84 | 0x80000000, 0 | 0x80000000, 0 | 0x80000000, 0, 0],
+    prev_hash: 'def567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12',
+    prev_index: 1,
+    amount: '200000', // 0.002 BTC
+    script_type: 'SPENDWITNESS'
+  }],
+  outputs: [
+    {
+      address: 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4',
+      amount: '150000', // 0.0015 BTC
+      script_type: 'PAYTOWITNESS'
+    },
+    {
+      // Change output
+      address_n: [84 | 0x80000000, 0 | 0x80000000, 0 | 0x80000000, 1, 0],
+      amount: '45000', // 0.00045 BTC (change)
+      script_type: 'PAYTOWITNESS'
+    }
+  ]
+});
+```
+
+#### Multi-Input Transaction
+
+```javascript
+// Transaction with multiple inputs
+const multiInputTx = await HardwareSDK.btcSignTransaction({
+  coin: 'btc',
+  inputs: [
+    {
+      address_n: [44 | 0x80000000, 0 | 0x80000000, 0 | 0x80000000, 0, 0],
+      prev_hash: 'hash1...',
+      prev_index: 0,
+      amount: '50000',
+      script_type: 'SPENDADDRESS'
+    },
+    {
+      address_n: [44 | 0x80000000, 0 | 0x80000000, 0 | 0x80000000, 0, 1],
+      prev_hash: 'hash2...',
+      prev_index: 1,
+      amount: '75000',
+      script_type: 'SPENDADDRESS'
+    }
+  ],
+  outputs: [{
+    address: '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',
+    amount: '120000', // Combined minus fee
+    script_type: 'PAYTOADDRESS'
+  }]
+});
+```
+
+#### Multisig Transaction (2-of-3)
+
+```javascript
+// 2-of-3 multisig transaction
+const multisigTx = await HardwareSDK.btcSignTransaction({
+  coin: 'btc',
+  inputs: [{
+    address_n: [45 | 0x80000000, 0, 0, 0],
+    prev_hash: 'multisig_prev_hash...',
+    prev_index: 0,
+    amount: '300000',
+    script_type: 'SPENDMULTISIG',
+    multisig: {
+      pubkeys: [
+        {
+          node: {
+            depth: 4,
+            fingerprint: 0,
+            child_num: 0,
+            chain_code: 'chain_code_1_hex',
+            public_key: 'public_key_1_hex'
+          },
+          address_n: [45 | 0x80000000, 0, 0, 0]
+        },
+        {
+          node: {
+            depth: 4,
+            fingerprint: 0,
+            child_num: 0,
+            chain_code: 'chain_code_2_hex',
+            public_key: 'public_key_2_hex'
+          },
+          address_n: [45 | 0x80000000, 0, 0, 0]
+        },
+        {
+          node: {
+            depth: 4,
+            fingerprint: 0,
+            child_num: 0,
+            chain_code: 'chain_code_3_hex',
+            public_key: 'public_key_3_hex'
+          },
+          address_n: [45 | 0x80000000, 0, 0, 0]
+        }
+      ],
+      signatures: ['', '', ''], // Will be filled by device
+      m: 2 // 2-of-3 multisig
+    }
+  }],
+  outputs: [{
+    address: '3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy',
+    amount: '290000', // Minus fee
+    script_type: 'PAYTOSCRIPTHASH'
+  }]
+});
+```
+
+#### Replace-by-Fee (RBF) Transaction
+
+```javascript
+// RBF transaction with higher fee
+const rbfTx = await HardwareSDK.btcSignTransaction({
+  coin: 'btc',
+  inputs: [{
+    address_n: [44 | 0x80000000, 0 | 0x80000000, 0 | 0x80000000, 0, 0],
+    prev_hash: 'original_tx_hash...',
+    prev_index: 0,
+    amount: '100000',
+    script_type: 'SPENDADDRESS',
+    sequence: 0xfffffffd, // Enable RBF
+    orig_hash: 'original_tx_hash_to_replace...',
+    orig_index: 0
+  }],
+  outputs: [{
+    address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
+    amount: '85000', // Lower amount due to higher fee
+    script_type: 'PAYTOADDRESS'
+  }]
+});
+```
 }
 ```
 
 ## btcSignMessage()
 
-Sign a message with Bitcoin private key.
+Sign message with Bitcoin private key.
 
 ### Syntax
 
 ```javascript
-await sdk.btcSignMessage(params)
+await HardwareSDK.btcSignMessage(params)
 ```
 
 ### Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `path` | `string` | Yes | BIP32 derivation path |
+| `path` | `string` | Yes | BIP-44 derivation path |
 | `message` | `string` | Yes | Message to sign |
-| `coin` | `string` | No | Coin name (default: 'btc') |
+| `coin` | `string` | No | Coin type (default: 'btc') |
 
 ### Returns
 
@@ -233,215 +549,115 @@ await sdk.btcSignMessage(params)
 Promise<{
   success: boolean;
   payload: {
-    signature: string;            // Base64-encoded signature
-    address: string;              // Address used for signing
-  } | { error: string; code?: string; }
+    address: string;
+    signature: string;
+  }
 }>
 ```
 
 ### Example
 
 ```javascript
-const result = await sdk.btcSignMessage({
+const result = await HardwareSDK.btcSignMessage({
   path: "m/44'/0'/0'/0/0",
   message: 'Hello OneKey!',
   coin: 'btc'
 });
 
 if (result.success) {
-  console.log('Message signature:', result.payload.signature);
-  console.log('Signing address:', result.payload.address);
+  console.log('Address:', result.payload.address);
+  console.log('Signature:', result.payload.signature);
 }
 ```
 
-## Address Types and Script Types
+## btcVerifyMessage()
 
-### Legacy Addresses (P2PKH)
+Verify message signature.
+
+### Syntax
+
 ```javascript
-const result = await sdk.btcGetAddress({
-  path: "m/44'/0'/0'/0/0",
-  scriptType: 'SPENDADDRESS',
-  coin: 'btc'
-});
-// Returns: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+await HardwareSDK.btcVerifyMessage(params)
 ```
 
-### SegWit Addresses (P2WPKH)
-```javascript
-const result = await sdk.btcGetAddress({
-  path: "m/84'/0'/0'/0/0",
-  scriptType: 'SPENDWITNESS',
-  coin: 'btc'
-});
-// Returns: bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4
-```
+### Parameters
 
-### Wrapped SegWit (P2SH-P2WPKH)
-```javascript
-const result = await sdk.btcGetAddress({
-  path: "m/49'/0'/0'/0/0",
-  scriptType: 'SPENDP2SHWITNESS',
-  coin: 'btc'
-});
-// Returns: 3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy
-```
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | `string` | Yes | Bitcoin address |
+| `message` | `string` | Yes | Original message |
+| `signature` | `string` | Yes | Message signature |
+| `coin` | `string` | No | Coin type (default: 'btc') |
 
-## Multi-Signature Support
+### Returns
 
-### Get Multisig Address
-
-```javascript
-const result = await sdk.btcGetAddress({
-  path: "m/48'/0'/0'/2'/0/0",
-  scriptType: 'SPENDMULTISIG',
-  multisig: {
-    pubkeys: [
-      { node: xpub1, address_n: [0, 0] },
-      { node: xpub2, address_n: [0, 0] },
-      { node: xpub3, address_n: [0, 0] }
-    ],
-    signatures: ['', '', ''],
-    m: 2 // 2-of-3 multisig
-  },
-  coin: 'btc'
-});
-```
-
-## Error Handling
-
-```javascript
-try {
-  const result = await sdk.btcGetAddress({
-    path: "m/44'/0'/0'/0/0",
-    showOnDevice: true,
-    coin: 'btc'
-  });
-  
-  if (result.success) {
-    console.log('Address:', result.payload.address);
-  } else {
-    console.error('API Error:', result.payload.error);
+```typescript
+Promise<{
+  success: boolean;
+  payload: {
+    message: string;
   }
-} catch (error) {
-  switch (error.code) {
-    case 'User_Cancelled':
-      console.error('User cancelled the operation');
-      break;
-    case 'Device_NotFound':
-      console.error('Device not connected');
-      break;
-    case 'Invalid_Path':
-      console.error('Invalid derivation path');
-      break;
-    case 'Coin_NotSupported':
-      console.error('Coin not supported');
-      break;
-    default:
-      console.error('Unknown error:', error.message);
-  }
+}>
+```
+
+### Example
+
+```javascript
+const result = await HardwareSDK.btcVerifyMessage({
+  address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
+  message: 'Hello OneKey!',
+  signature: 'H1234567890abcdef...',
+  coin: 'btc'
+});
+
+if (result.success) {
+  console.log('Message verification successful');
+} else {
+  console.log('Message verification failed');
 }
 ```
 
-## Best Practices
+## Derivation Paths
 
-### Address Generation
-- Always use `showOnDevice: true` for the first address to verify
-- Use appropriate script types for your use case
-- Validate derivation paths before use
-
-### Transaction Signing
-- Verify all transaction details before signing
-- Use proper fee calculation
-- Handle change outputs correctly
-- Test with small amounts first
-
-### Security
-- Never log private keys or sensitive data
-- Verify addresses on device display
-- Use hardware confirmation for all operations
-- Validate all inputs before sending to device
-
-## Complete Example
+### Standard BIP-44 Paths
 
 ```javascript
-class BitcoinWallet {
-  constructor(sdk) {
-    this.sdk = sdk;
-  }
-  
-  async getAddress(index = 0, change = 0, account = 0) {
-    const path = `m/44'/0'/${account}'/${change}/${index}`;
-    
-    const result = await this.sdk.btcGetAddress({
-      path,
-      showOnDevice: index === 0, // Show first address on device
-      coin: 'btc'
-    });
-    
-    if (result.success) {
-      return {
-        address: result.payload.address,
-        path: path
-      };
-    } else {
-      throw new Error(result.payload.error);
-    }
-  }
-  
-  async signTransaction(inputs, outputs) {
-    // Convert inputs to proper format
-    const formattedInputs = inputs.map(input => ({
-      address_n: this.pathToArray(input.path),
-      prev_hash: input.txHash,
-      prev_index: input.outputIndex,
-      amount: input.amount.toString(),
-      script_type: 'SPENDADDRESS'
-    }));
-    
-    // Convert outputs to proper format
-    const formattedOutputs = outputs.map(output => ({
-      address: output.address,
-      amount: output.amount.toString(),
-      script_type: 'PAYTOADDRESS'
-    }));
-    
-    const result = await this.sdk.btcSignTransaction({
-      inputs: formattedInputs,
-      outputs: formattedOutputs,
-      coin: 'btc'
-    });
-    
-    if (result.success) {
-      return result.payload.serializedTx;
-    } else {
-      throw new Error(result.payload.error);
-    }
-  }
-  
-  pathToArray(path) {
-    return path.split('/').slice(1).map(component => {
-      const hardened = component.endsWith("'");
-      const index = parseInt(component.replace("'", ""));
-      return hardened ? index | 0x80000000 : index;
-    });
-  }
-}
+// Bitcoin paths
+const bitcoinPaths = {
+  account0: "m/44'/0'/0'",      // Account 0
+  receive0: "m/44'/0'/0'/0/0",  // First receiving address
+  change0: "m/44'/0'/0'/1/0",   // First change address
+};
 
-// Usage
-const wallet = new BitcoinWallet(sdk);
+// Other coin paths
+const coinPaths = {
+  litecoin: "m/44'/2'/0'/0/0",
+  bitcoinCash: "m/44'/145'/0'/0/0",
+  dogecoin: "m/44'/3'/0'/0/0",
+  dash: "m/44'/5'/0'/0/0",
+  zcash: "m/44'/133'/0'/0/0"
+};
+```
 
-// Get first address
-const address = await wallet.getAddress(0);
-console.log('Bitcoin address:', address.address);
+### Legacy and SegWit Paths
 
-// Sign transaction
-const signedTx = await wallet.signTransaction(inputs, outputs);
-console.log('Signed transaction:', signedTx);
+```javascript
+// Legacy P2PKH
+const legacyPath = "m/44'/0'/0'/0/0";
+
+// SegWit P2SH-P2WPKH
+const segwitPath = "m/49'/0'/0'/0/0";
+
+// Native SegWit P2WPKH
+const nativeSegwitPath = "m/84'/0'/0'/0/0";
 ```
 
 ## Next Steps
 
-- [Ethereum Methods](ethereum.md) - Ethereum-specific operations
-- [Device Management](device.md) - Device connection and settings
-- [Derivation Paths](../concepts/paths.md) - Understanding address paths
-- [Best Practices](../guides/best-practices.md) - Security and performance tips
+- [Ethereum & EVM Chains](ethereum.md) - Ethereum-specific operations
+- [Solana](solana.md) - Solana blockchain operations
+- [Cardano](cardano.md) - Cardano blockchain operations
+- [Polkadot](polkadot.md) - Polkadot and Substrate chains
+- [Cosmos](cosmos.md) - Cosmos ecosystem chains
+- [Device Management](device.md) - Device connection and management
+- [Utility Methods](utils.md) - Helper functions and utilities
