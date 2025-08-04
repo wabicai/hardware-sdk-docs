@@ -1,48 +1,61 @@
 # Table of contents
 
-* [OneKey Hardware SDK](README.md)
+## Getting Started
+* [Introduction](README.md)
+* [Installation](installation.md)
+* [Quick Start](quick-start.md)
 
-## 🚀 Quick Start
+## API Reference
+* [Overview](api-reference/README.md)
 
-* [Installation & Setup](quick-start/installation.md)
-* [First Integration](quick-start/first-integration.md)
-* [Basic Examples](quick-start/examples.md)
+### Bitcoin
+* [btcGetAddress](api-reference/bitcoin/btcgetaddress.md)
+* [btcGetPublicKey](api-reference/bitcoin/btcgetpublickey.md)
+* [btcSignTransaction](api-reference/bitcoin/btcsigntransaction.md)
+* [btcSignMessage](api-reference/bitcoin/btcsignmessage.md)
+* [btcVerifyMessage](api-reference/bitcoin/btcverifymessage.md)
+* [btcSignPsbt](api-reference/bitcoin/btcsignpsbt.md)
 
-## 📦 SDK Packages
+### Ethereum
+* [evmGetAddress](api-reference/ethereum/evmgetaddress.md)
+* [evmGetPublicKey](api-reference/ethereum/evmgetpublickey.md)
+* [evmSignTransaction](api-reference/ethereum/evmsigntransaction.md)
+* [evmSignMessage](api-reference/ethereum/evmsignmessage.md)
+* [evmSignTypedData](api-reference/ethereum/evmsigntypeddata.md)
+* [evmVerifyMessage](api-reference/ethereum/evmverifymessage.md)
 
-* [Core Concepts](sdk/concepts.md)
-* [Web SDK](sdk/web-sdk.md)
-* [Node.js SDK](sdk/nodejs-sdk.md)
-* [React Native SDK](sdk/react-native-sdk.md)
-* [Transport Layer](sdk/transport.md)
-* [Events & Error Handling](sdk/events-errors.md)
+### Solana
+* [solGetAddress](api-reference/solana/solgetaddress.md)
+* [solSignTransaction](api-reference/solana/solsigntransaction.md)
+* [solSignMessage](api-reference/solana/solsignmessage.md)
 
-## 🔗 Integration Guides
+### Cardano
+* [cardanoGetAddress](api-reference/cardano/cardanogetaddress.md)
+* [cardanoGetPublicKey](api-reference/cardano/cardanogetpublickey.md)
+* [cardanoSignTransaction](api-reference/cardano/cardanosigntransaction.md)
 
-* [Web Browser Integration](integration/web-browser.md)
-* [Electron Desktop Integration](integration/electron.md)
-* [Node.js & Electron Integration](integration/nodejs-electron.md)
-* [React Native Integration](integration/react-native.md)
-* [Native Mobile Integration](integration/native-mobile.md)
-* [Air Gap Integration](integration/air-gap.md)
-* [Best Practices](integration/best-practices.md)
+### Polkadot
+* [polkadotGetAddress](api-reference/polkadot/polkadotgetaddress.md)
+* [polkadotSignTransaction](api-reference/polkadot/polkadotsigntransaction.md)
 
-## 📚 API Reference
+### Cosmos
+* [cosmosGetAddress](api-reference/cosmos/cosmosgetaddress.md)
+* [cosmosGetPublicKey](api-reference/cosmos/cosmosgetpublickey.md)
+* [cosmosSignTransaction](api-reference/cosmos/cosmossigntransaction.md)
 
-* [TypeScript Types](api/types.md)
-* [Device Management](api/device.md)
-* [Bitcoin & Bitcoin Forks](api/bitcoin.md)
-* [Ethereum & EVM Chains](api/ethereum.md)
-* [Solana](api/solana.md)
-* [Cardano](api/cardano.md)
-* [Polkadot](api/polkadot.md)
-* [Cosmos](api/cosmos.md)
-* [Utility Methods](api/utils.md)
+### Stellar
+* [stellarGetAddress](api-reference/stellar/stellargetaddress.md)
+* [stellarSignTransaction](api-reference/stellar/stellarsigntransaction.md)
 
-## 🛠️ Resources
+### Ripple (XRP)
+* [xrpGetAddress](api-reference/ripple/xrpgetaddress.md)
+* [xrpSignTransaction](api-reference/ripple/xrpsigntransaction.md)
 
-* [Supported Coins](resources/supported-coins.md)
-* [Device Models](resources/device-models.md)
-* [Troubleshooting](resources/troubleshooting.md)
-* [Migration Guide](resources/migration.md)
-* [FAQ](resources/faq.md)
+### Device
+* [searchDevices](api-reference/device/searchdevices.md)
+
+## Reference
+* [Common Parameters](api-reference/common-params.md)
+* [Path Format](api-reference/path.md)
+* [Error Codes](api-reference/error-code.md)
+* [TypeScript Types](api-reference/types.md)
