@@ -1,26 +1,126 @@
-# Init SDK
+# Installation & Setup
 
-## initialization
+## SDK Installation
 
-Initialize the SDK and returns the initialization result to the caller.
+Choose the appropriate package based on your development environment:
 
-```typescript
-HardwareSDK.init(params);
+### Node.js / Electron Main Process
+```bash
+npm install @onekeyfe/hd-core
+# or
+yarn add @onekeyfe/hd-core
 ```
 
-### Params
+### Web Browser / Browser Extensions
+```bash
+npm install @onekeyfe/hd-web-sdk
+# or
+yarn add @onekeyfe/hd-web-sdk
+```
 
-* `debug` — _optional_ `boolean` print debug log option
-* `fetchConfig`— _optional_ `boolean` Allows querying for updated device version information over the network, used for prompting device updates and informing which version is needed for older hardware to use new features.
-* `connectSrc` — _optional_ `string` the `url` of the `iframe` page, when using the `@onekeyfe/hd-web-sdk` package, needs to be passed in the path of the `iframe` in order to establish the connection.
-* `env` — _optional_ `'web' | 'react-native' | 'lowlevel'` the environment to use the SDK
+### React Native / Mobile Apps
+```bash
+npm install @onekeyfe/hd-ble-sdk
+# or
+yarn add @onekeyfe/hd-ble-sdk
+```
 
-### Example
+## SDK Initialization
+
+Initialize the SDK before making any method calls:
 
 ```typescript
-HardwareSDK.init({
+await HardwareSDK.init(params);
+```
+
+### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `debug` | `boolean` | No | Enable debug logging (default: `false`) |
+| `fetchConfig` | `boolean` | No | Query for device version updates over network |
+| `connectSrc` | `string` | Web only | URL of the iframe page for web SDK |
+| `transportReconnect` | `boolean` | No | Auto-reconnect transport on failure |
+| `lazyLoad` | `boolean` | No | Lazy load core components |
+| `preRelease` | `boolean` | No | Use pre-release versions |
+| `env` | `string` | No | Environment type (auto-detected) |
+
+### Environment-Specific Examples
+
+#### Node.js
+```typescript
+import HardwareSDK from '@onekeyfe/hd-core';
+
+await HardwareSDK.init({
     debug: false,
-    fetchConfig: ,
-    connectSrc: 'https://jssdk.onekey.so/0.3.34/', // if use web sdk
+    fetchConfig: true,
+    transportReconnect: true,
+    lazyLoad: false
 });
 ```
+
+#### Web
+```typescript
+import HardwareWebSDK from '@onekeyfe/hd-web-sdk';
+
+await HardwareWebSDK.init({
+    debug: false,
+    connectSrc: 'https://jssdk.onekey.so/1.1.0/',
+    fetchConfig: true,
+    preRelease: false
+});
+```
+
+#### React Native
+```typescript
+import HardwareBleSDK from '@onekeyfe/hd-ble-sdk';
+
+await HardwareBleSDK.init({
+    debug: false,
+    transportReconnect: true
+});
+```
+
+#### Web Browser
+```typescript
+import HardwareWebSDK from '@onekeyfe/hd-web-sdk';
+
+await HardwareWebSDK.init({
+    debug: false,
+    fetchConfig: true,
+    connectSrc: 'https://jssdk.onekey.so/1.1.0/',
+    env: 'web'
+});
+```
+
+#### React Native
+```typescript
+import HardwareBleSDK from '@onekeyfe/hd-ble-sdk';
+
+await HardwareBleSDK.init({
+    debug: false,
+    env: 'react-native'
+});
+```
+
+## Verification
+
+After initialization, verify the SDK is ready:
+
+```typescript
+const initResult = await HardwareSDK.init({ debug: false });
+if (initResult.success) {
+    console.log('SDK initialized successfully');
+    // Proceed with device discovery
+    const devices = await HardwareSDK.searchDevices();
+} else {
+    console.error('SDK initialization failed:', initResult.payload.error);
+}
+```
+
+## Next Steps
+
+After successful initialization:
+1. **[Search for devices](../device-api/search-devices.md)** - Discover connected OneKey hardware wallets
+2. **[Get device features](../device-api/get-features.md)** - Retrieve device information and capabilities
+3. **[Understand common parameters](common-params.md)** - Learn about connectId, deviceId, and other shared parameters

@@ -1,98 +1,49 @@
-# Introduction
+# OneKey Hardware SDK
 
-{% hint style="info" %}
-**Note**: This documentation is primarily for developers. If you are a regular user experiencing product usage issues, please visit our [Help Center](https://help.onekey.so/hc) or [Submit a Customer Service Ticket](https://help.onekey.so/hc/requests/new) for support.
-{% endhint %}
+Integrate OneKey hardware wallets with your applications. Built for developers, designed for security.
 
-### For users
+## Quick Start
 
-This documentation is primarily for developers. If you encounter any issues while using our products, please consult our help documentation or submit a ticket for customer service assistance.
+Choose your development environment:
 
-#### For users Useful links
+| Environment | Package | Use Case |
+|-------------|---------|----------|
+| **Node.js** | `@onekeyfe/hd-core` | Server apps, CLI tools, Electron main |
+| **Web** | `@onekeyfe/hd-web-sdk` | Web apps, browser extensions |
+| **Mobile** | `@onekeyfe/hd-ble-sdk` | React Native, mobile apps |
 
-* [OneKey Official Website](https://onekey.so/)
-* [Help Center](https://help.onekey.so/hc)
-* [Submit a ticket for customer service](https://help.onekey.so/hc/requests/new)
-* [Official Twitter - X](https://twitter.com/OneKeyHQ)
+**[→ Get Started](quick-start.md)**
 
-***
+## Features
 
-### Platform Overview
+- **25+ Blockchains** - Bitcoin, Ethereum, Solana, Cardano, and more
+- **Multi-Platform** - Node.js, Web, React Native support
+- **Type Safety** - Full TypeScript definitions
+- **Hardware Security** - Direct device communication
 
-OneKey is a leading hardware and software wallet solution that provides developers with comprehensive blockchain integration capabilities.
+## Documentation
 
-OneKey offers complete wallet infrastructure supporting multi-chain ecosystem integration. Through our SDKs and APIs, developers can easily integrate hardware security with software convenience, providing users with secure and reliable digital asset management experiences. Supports 25+ blockchain protocols including Bitcoin, Ethereum, Solana, Cosmos, and other mainstream ecosystems.
+### Getting Started
+- **[Quick Start](quick-start.md)** - Environment setup and first integration
+- **[Installation & Setup](coin-api/init.md)** - SDK initialization and configuration
+- **[Common Parameters](coin-api/common-params.md)** - Shared parameters across all methods
 
-<figure><img src=".gitbook/assets/image (6).png" alt="" width="563"><figcaption></figcaption></figure>
+### API Reference
+- **[Blockchain APIs](coin-api/README.md)** - Bitcoin, Ethereum, Solana, and 25+ blockchains
+- **[Device Management](device-api/README.md)** - Hardware wallet control and features
+- **[Air Gap SDK](air-gap-sdk/README.md)** - Offline signing with QR codes
 
-***
+### Advanced Integration
+- **[Advanced Topics](advanced/README.md)** - PIN, passphrase, and protocol details
+- **[Error Handling](coin-api/error-code.md)** - Complete error code reference
+- **[Derivation Paths](coin-api/path.md)** - BIP32/BIP44 path specifications
 
-### 🔄 OneKey Integration Workflow
+## Try It Out
 
-#### Workflow Details
+**[SDK Playground](https://hardware-example.onekeytest.com/expo-playground/)** - Test hardware wallet interactions in your browser
 
-1. **🔌 Integration Access**: dApps establish connections through OneKey Provider or SDK
-2. **🔒 Secure Communication**: Use encrypted channels to communicate with hardware/software wallets
-3. **✍️ Signature Authorization**: Users confirm and sign transactions on the device
-4. **📡 Transaction Broadcast**: Send signed transactions to the blockchain network
+## Resources
 
-**Multi-Chain Support** • **Hardware Security** • **Software Convenience** • **Developer Friendly**
-
-***
-
-### Explore OneKey Features
-
-<table data-header-hidden><thead><tr><th width="250"></th><th width="250"></th><th width="250"></th></tr></thead><tbody><tr><td><img src=".gitbook/assets/image (11).png" alt=""><br><a href="guide/web-app-integration-developer.md"><strong>🌐 DApp Integration</strong></a><br>Add wallet connection functionality to your decentralized applications</td><td><p><a href="guide/hardware-integration-developer.md"><br></a><img src=".gitbook/assets/image (15).png" alt=""></p><p><a href="guide/hardware-integration-developer.md"><strong>🔧 Hardware Integration</strong></a><br>Communicate and interact directly with OneKey hardware wallets</p></td><td><img src=".gitbook/assets/image (14).png" alt=""><br><a href="guide/external-contribution-guide.md"><strong>🤝 External Contribution</strong></a><br>Contribute code and functionality to the OneKey ecosystem</td></tr><tr><td></td><td></td><td></td></tr></tbody></table>
-
-### 🚀 OneKey Hardware SDK Playground
-
-{% hint style="info" %}
-Experience OneKey Hardware SDK functionality directly in your browser! Test hardware wallet interactions and explore our comprehensive API without any setup.
-{% endhint %}
-
-[**🔧 Try SDK Playground**](https://hardware-example.onekeytest.com/expo-playground/) - Interactive SDK testing environment with live device simulation
-
-🎪**Features:**
-
-* Live hardware wallet simulation
-* Real-time API testing
-* Multi-chain protocol support
-* No hardware device required for testing ( You could use the emulator  device）
-
-### Detailed Feature List
-
-#### 🌐 DApp Integration Features
-
-<table data-header-hidden><thead><tr><th width="250"></th><th width="250"></th><th width="250"></th><th width="250"></th></tr></thead><tbody><tr><td><div><figure><img src=".gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure></div><p><a href="connect-to-software/compatible-with-metamask/"><strong>🔗 MetaMask Compatible</strong></a><br>EIP-1193 standard support<br></p></td><td><div><figure><img src=".gitbook/assets/image (25).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-software/support-wallet-kit/"><strong>🛠️ Wallet Kit Support</strong></a><br>RainbowKit, Web3Modal, etc.<br></p></td><td><div><figure><img src=".gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure></div><p><a href="connect-to-software/webapp-connect-onekey/"><strong>⚡ Multi-Chain Provider</strong></a><br>ETH, BTC, Solana, NEAR, etc.<br></p></td><td><div><figure><img src=".gitbook/assets/image (29).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-software/using-walletconnect/"><strong>🔄 WalletConnect</strong></a><br>Cross-platform connection protocol<br></p></td></tr></tbody></table>
-
-#### 🔧 Hardware Integration Features
-
-<table data-header-hidden><thead><tr><th width="400"></th><th width="400"></th></tr></thead><tbody><tr><td><div><figure><img src=".gitbook/assets/image (17).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-hardware/page-1.md"><strong>📡 Hardware SDK</strong></a><br>Direct device communication<br>Includes device management, multi-chain APIs and complete functionality<br></p></td><td><div><figure><img src=".gitbook/assets/image (20).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-hardware/air-gap-sdk/"><strong>📱 Air Gap SDK</strong></a><br>QR code communication<br>Offline signing secure interaction<br></p></td></tr></tbody></table>
-
-
-
-{% hint style="success" %}
-[Start using OneKey now!](https://onekey.so/) Supports hardware and software wallets to protect your digital asset security.
-{% endhint %}
-
-{% hint style="warning" %}
-**Important Note**: Before using OneKey APIs in production environment, please carefully read security best practices and integration guides.
-{% endhint %}
-
-### For Developer's Useful Links
-
-#### Developer Resources
-
-* [OneKey GitHub](https://github.com/OneKeyHQ)
-* [Logo Assets](https://help.onekey.so/en/articles/11461296-media-kit-press-kit)
-
-#### Something is Missing? Contact Us!
-
-If you can't find what you need here:
-
-* [Ask an issue on GitHub](https://github.com/OneKeyHQ/OneKey-Hardware-JS-SDK/issues)
-* [Check our GitHub profile](https://github.com/OneKeyHQ)
-
-***
-
-> **💡 Tip**: This is the OneKey developer documentation navigation page. Click on the feature modules above to jump to detailed integration guides and API reference documentation.
+- **[GitHub](https://github.com/OneKeyHQ)** - Source code and issues
+- **[Help Center](https://help.onekey.so/hc)** - User support
+- **[OneKey Website](https://onekey.so/)** - Official website

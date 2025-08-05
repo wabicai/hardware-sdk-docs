@@ -1,16 +1,16 @@
-# Bitcoin
+# Bitcoin & Bitcoin forks
 
-## Method List
+## Methods
 
-* [btcGetAddress](btcgetaddress.md)
-* [btcGetPublicKey](btcgetpublickey.md)
-* [btcSignMessage](btcsignmessage.md)
-* [btcSignTransaction](btcsigntransaction.md)
-* [btcVerifyMessage](btcverifymessage.md)
+* [btcGetAddress](btcgetaddress.md) - Get wallet address
+* [btcGetPublicKey](btcgetpublickey.md) - Get public key
+* [btcSignMessage](btcsignmessage.md) - Sign message
+* [btcSignTransaction](btcsigntransaction.md) - Sign transaction
+* [btcVerifyMessage](btcverifymessage.md) - Verify message signature
 
-## Support other BTC networks
+## Supported Networks
 
-The coin field passed in the params parameter of the request can use other BTC networks.
+Use the `coin` parameter to specify the network:
 
 * BTC
 * REGTEST
