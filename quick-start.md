@@ -333,8 +333,8 @@ const signed = await HardwareSDK.{blockchain}SignTransaction(connectId, deviceId
 ### Core Integration
 - **[Blockchain APIs](coin-api/README.md)** - Bitcoin, Ethereum, Solana, and 25+ blockchains
 - **[Device Management](device-api/README.md)** - Hardware wallet discovery and control
-- **[Common Parameters](coin-api/common-params.md)** - Shared configuration across all methods
-- **[Error Handling](coin-api/error-code.md)** - Complete error code reference
+- **[Common Parameters](configuration/common-params.md)** - Shared configuration across all methods
+- **[Error Handling](configuration/error-codes.md)** - Complete error code reference
 
 ### Advanced Features
 - **[Air Gap SDK](air-gap-sdk/README.md)** - Offline signing with QR codes for maximum security
@@ -345,4 +345,4 @@ const signed = await HardwareSDK.{blockchain}SignTransaction(connectId, deviceId
 ### Development Resources
 - **[Interactive Playground](https://hardware-example.onekeytest.com/expo-playground/)** - Test SDK methods in your browser
 - **[GitHub Examples](https://github.com/OneKeyHQ/OneKey-Hardware-JS-SDK/tree/main/packages/connect-examples)** - Complete implementation examples
-- **[Derivation Paths](coin-api/path.md)** - BIP32/BIP44 path specifications
+- **[Derivation Paths](configuration/paths.md)** - BIP32/BIP44 path specifications

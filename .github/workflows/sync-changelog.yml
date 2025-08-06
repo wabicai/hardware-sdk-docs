@@ -1,0 +1,60 @@
+name: Sync Changelog to GitBook
+
+on:
+  push:
+    paths:
+      - 'CHANGELOG.md'
+      - 'packages/*/CHANGELOG.md'
+    branches: [main]
+  
+  # 手动触发
+  workflow_dispatch:
+
+jobs:
+  sync-changelog:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: |
+          npm install -g @gitbook/cli
+          npm install marked turndown
+
+      - name: Extract Latest Changes
+        run: |
+          node scripts/extract-changelog.js
+
+      - name: Convert and Update GitBook
+        run: |
+          node scripts/sync-to-gitbook.js
+        env:
+          GITBOOK_API_TOKEN: ${{ secrets.GITBOOK_API_TOKEN }}
+          GITBOOK_SPACE_ID: ${{ secrets.GITBOOK_SPACE_ID }}
+
+      - name: Create PR for Manual Review
+        uses: peter-evans/create-pull-request@v5
+        if: success()
+        with:
+          title: "docs: sync changelog updates"
+          body: |
+            ## 📝 Changelog Update
+            
+            This PR automatically syncs the latest changelog entries to GitBook documentation.
+            
+            ### Changes:
+            - Updated changelog entries
+            - Synchronized version information
+            
+            Please review the changes before merging.
+          branch: docs/sync-changelog-${{ github.sha }}
+          commit-message: "docs: sync changelog to GitBook"

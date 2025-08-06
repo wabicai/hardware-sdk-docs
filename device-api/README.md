@@ -19,10 +19,10 @@ Essential functions for managing OneKey hardware wallets.
 
 ## Related Topics
 
-- **[Common Parameters](../coin-api/common-params.md)** - Device connection parameters
+- **[Common Parameters](../configuration/common-params.md)** - Device connection parameters
 - **[PIN Management](../advanced/pin.md)** - Device PIN handling
 - **[Passphrase Handling](../advanced/passphrase.md)** - Advanced passphrase features
-- **[Error Codes](../coin-api/error-code.md)** - Device error troubleshooting
+- **[Error Codes](../configuration/error-codes.md)** - Device error troubleshooting
 
 ## Security Features
 

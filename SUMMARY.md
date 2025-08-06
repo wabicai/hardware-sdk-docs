@@ -4,14 +4,16 @@
 
 ## Getting Started
 * [Quick Start](quick-start.md)
-* [Details](coin-api/README.md)
-  * [Installation & Setup](coin-api/init.md)
-  * [Common Parameters](coin-api/common-params.md)
-  * [Path Parameters](coin-api/path.md)
-  * [Error Codes](coin-api/error-code.md)
 
-## 📟 Connect to Hardware SDK
-* [Coin Methods](coin-api/README.md)
+## Configuration
+* [Configuration Overview](configuration/README.md)
+  * [Installation & Setup](configuration/installation.md)
+  * [Common Parameters](configuration/common-params.md)
+  * [Derivation Paths](configuration/paths.md)
+  * [Error Codes](configuration/error-codes.md)
+
+## API Reference
+* [Blockchain APIs](coin-api/README.md)
   * [Bitcoin](coin-api/btc/README.md)
     * [btcGetAddress](coin-api/btc/btcgetaddress.md)
     * [btcGetPublicKey](coin-api/btc/btcgetpublickey.md)
@@ -132,7 +134,6 @@
       * [EthSignature](air-gap-sdk/api-reference/ethereum-and-evm/ethsignature.md)
       * [EthSignRequest](air-gap-sdk/api-reference/ethereum-and-evm/ethsignrequest.md)
 
-## Device API
 * [Device Management](device-api/README.md)
   * [Get Features](device-api/get-features.md)
   * [Search Devices](device-api/search-devices.md)

@@ -25,8 +25,8 @@ Choose your development environment:
 
 ### Getting Started
 - **[Quick Start](quick-start.md)** - Environment setup and first integration
-- **[Installation & Setup](coin-api/init.md)** - SDK initialization and configuration
-- **[Common Parameters](coin-api/common-params.md)** - Shared parameters across all methods
+- **[Installation & Setup](configuration/installation.md)** - SDK initialization and configuration
+- **[Common Parameters](configuration/common-params.md)** - Shared parameters across all methods
 
 ### API Reference
 - **[Blockchain APIs](coin-api/README.md)** - Bitcoin, Ethereum, Solana, and 25+ blockchains
@@ -35,8 +35,8 @@ Choose your development environment:
 
 ### Advanced Integration
 - **[Advanced Topics](advanced/README.md)** - PIN, passphrase, and protocol details
-- **[Error Handling](coin-api/error-code.md)** - Complete error code reference
-- **[Derivation Paths](coin-api/path.md)** - BIP32/BIP44 path specifications
+- **[Error Handling](configuration/error-codes.md)** - Complete error code reference
+- **[Derivation Paths](configuration/paths.md)** - BIP32/BIP44 path specifications
 
 ## Try It Out
 

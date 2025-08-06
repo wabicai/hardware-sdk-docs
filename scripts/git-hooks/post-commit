@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Git post-commit hook for changelog sync
+
+# 检查是否有 changelog 相关文件变更
+changed_files=$(git diff-tree --no-commit-id --name-only -r HEAD)
+
+if echo "$changed_files" | grep -q "CHANGELOG.md\|changelog.md"; then
+    echo "📝 Changelog changes detected, triggering sync..."
+    
+    # 异步执行同步，避免阻塞 commit
+    nohup node scripts/sync-to-gitbook.js > /tmp/gitbook-sync.log 2>&1 &
+    
+    echo "🚀 Changelog sync started in background"
+    echo "📄 Log file: /tmp/gitbook-sync.log"
+fi
