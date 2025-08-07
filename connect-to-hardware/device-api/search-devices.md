@@ -35,7 +35,7 @@ Result
             "uuid": string, // device unique id 
             "deviceType": string, // device id, this id may change with device erasure, only returned when using the @onekeyfe/hd-web-sdk library.
             "deviceId": string, // device type, 'classic' | 'mini' | 'touch' | 'pro'
-            "path": string, // path of bridge when usb is connected
+            "path": string, // device path (Advanced SDKs only - Web SDK uses WebUSB)
             "name": string, // bluetooth name for the device
         },
     ]

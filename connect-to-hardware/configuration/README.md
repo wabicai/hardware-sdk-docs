@@ -2,43 +2,58 @@
 
 Essential setup and configuration information for OneKey Hardware SDK integration.
 
-## Setup Guide
+## Getting Started with Web SDK
 
-Get your development environment ready:
+The recommended path for most developers:
 
-* **[Installation & Setup](installation.md)** - SDK installation and initialization
+* **[Installation & Setup](installation.md)** - Web SDK installation with WebUSB
 * **[Common Parameters](common-params.md)** - Required parameters for all SDK methods
 
-## Reference
+## Reference Documentation
 
 Configuration references and troubleshooting:
 
 * **[Derivation Paths](paths.md)** - BIP32/BIP44 path specifications
 * **[Error Codes](error-codes.md)** - Complete error handling reference
 
-## Quick Configuration Example
+## Quick Start Example
 
 ```typescript
-import HardwareSDK from '@onekeyfe/hd-core';
+import OneKeyConnect from '@onekeyfe/hd-web-sdk';
 
-// Initialize SDK
-await HardwareSDK.init({
-    debug: false,
-    fetchConfig: true,
-    transportReconnect: true
+// Initialize Web SDK with WebUSB
+await OneKeyConnect.init({
+    connectSrc: 'https://connect.onekey.so/',
+    debug: false
 });
 
-// Find devices and get connection parameters
-const devices = await HardwareSDK.searchDevices();
-const { connectId, deviceId } = devices.payload[0];
+// Find connected devices
+const devices = await OneKeyConnect.searchDevices();
+if (devices.success && devices.payload.length > 0) {
+    console.log('Found OneKey device:', devices.payload[0]);
+}
 
-// Use common parameters in API calls
-const result = await HardwareSDK.btcGetAddress(connectId, deviceId, {
+// Get Bitcoin address (no connectId/deviceId needed for Web SDK)
+const result = await OneKeyConnect.btcGetAddress({
     path: "m/44'/0'/0'/0/0",
     coin: 'btc',
-    showOnOneKey: false
+    showOnOneKey: true
 });
+
+if (result.success) {
+    console.log('Bitcoin address:', result.payload.address);
+}
 ```
+
+## Why Web SDK?
+
+The Web SDK is recommended because:
+
+- ✅ **Simplified API** - No need to manage connectId/deviceId parameters
+- ✅ **Direct Communication** - WebUSB eliminates the need for OneKey Bridge
+- ✅ **Better UX** - Users don't need to install additional software
+- ✅ **Cross-Platform** - Works on Windows, macOS, and Linux
+- ✅ **Secure** - Direct encrypted communication with hardware devices
 
 ## Next Steps
 

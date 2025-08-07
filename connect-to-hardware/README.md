@@ -2,30 +2,66 @@
 
 ## Overview
 
-OneKey Hardware SDK provides comprehensive support for integrating with OneKey hardware wallets. This includes direct device communication, transaction signing, and advanced features like air-gap functionality.
+OneKey Hardware SDK provides comprehensive support for integrating with OneKey hardware wallets. The **Web SDK** is the recommended solution for most applications, offering direct WebUSB communication with hardware devices in web browsers.
 
-## Integration Options
+## Recommended Integration: Web SDK
 
-### 1. Direct Hardware Integration
+### Web SDK (Recommended)
 
-Connect directly to OneKey hardware devices:
+The **@onekeyfe/hd-web-sdk** is the primary and recommended way to integrate with OneKey hardware wallets:
 
-- **[Hardware SDK](configuration/README.md)** - Direct device communication
-- **[Blockchain APIs](coin-api/README.md)** - Comprehensive blockchain support
-- **[Device Management](device-api/README.md)** - Device control and management
+- **[Getting Started](configuration/README.md)** - Quick setup and configuration
+- **[Installation Guide](configuration/installation.md)** - Web SDK installation and initialization
+- **[Blockchain APIs](coin-api/README.md)** - Complete API reference for 30+ blockchains
+- **[Device Management](device-api/README.md)** - Device discovery and control
 
-### 2. Air Gap Integration
+**Key Features:**
+- **WebUSB Support** - Direct USB communication in modern browsers
+- **No Bridge Required** - Works without additional software installation
+- **TypeScript Support** - Full type definitions included
+- **Cross-Platform** - Works on all modern web browsers
+- **Secure** - Direct device communication with encryption
+
+### Quick Start with Web SDK
+
+```bash
+# Install the Web SDK
+npm install @onekeyfe/hd-web-sdk
+```
+
+```javascript
+import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+
+// Initialize with WebUSB
+await OneKeyConnect.init({
+  connectSrc: 'https://connect.onekey.so/',
+  debug: false
+});
+
+// Get Bitcoin address
+const result = await OneKeyConnect.btcGetAddress({
+  path: "m/44'/0'/0'/0/0",
+  coin: 'btc'
+});
+```
+
+## Advanced Integration Options
+
+For specialized use cases, OneKey provides additional SDKs:
+
+### Air Gap Integration
 
 Secure air-gap communication for enhanced security:
 
 - **[Air Gap SDK](air-gap-sdk/README.md)** - QR code-based communication
 - **[Wallet Integration](air-gap-sdk/tutorial-wallet-integration.md)** - Step-by-step integration guide
 
-### 3. Advanced Features
+### Advanced SDKs
 
-Advanced hardware wallet functionality:
+For mobile and specialized environments:
 
-- **[Advanced Topics](advanced/README.md)** - PIN, passphrase, and protocol details
+- **[Advanced Integration Options](advanced/README.md)** - BLE SDK, Common Connect SDK, and custom transports
+- **[Mobile Integration](advanced/common-sdk-guide.md)** - React Native and mobile app integration
 - **[Transport Plugins](advanced/low-level-transport-plugin.md)** - Custom transport implementations
 
 ## Supported Blockchains
@@ -55,33 +91,39 @@ OneKey Hardware SDK supports 30+ blockchain networks:
 - **Nostr** - Decentralized social protocol
 - **And many more...**
 
-## Quick Start
+## Complete Integration Example
 
 ### 1. Installation
 
 ```bash
-# For web applications
+# Install Web SDK (Recommended)
 npm install @onekeyfe/hd-web-sdk
-
-# For React Native applications
-npm install @onekeyfe/hd-ble-sdk
 ```
 
-### 2. Basic Setup
+### 2. Initialize and Connect
 
 ```javascript
 import OneKeyConnect from '@onekeyfe/hd-web-sdk';
 
-// Initialize the SDK
-OneKeyConnect.init({
+// Initialize with WebUSB support
+await OneKeyConnect.init({
   connectSrc: 'https://connect.onekey.so/',
   debug: false
 });
 
+// Search for connected devices
+const devices = await OneKeyConnect.searchDevices();
+console.log('Found devices:', devices);
+```
+
+### 3. Get Address
+
+```javascript
 // Get Bitcoin address
 const result = await OneKeyConnect.btcGetAddress({
   path: "m/44'/0'/0'/0/0",
-  coin: 'btc'
+  coin: 'btc',
+  showOnOneKey: true
 });
 
 if (result.success) {
@@ -89,7 +131,7 @@ if (result.success) {
 }
 ```
 
-### 3. Transaction Signing
+### 4. Sign Transaction
 
 ```javascript
 // Sign Bitcoin transaction
@@ -114,19 +156,20 @@ if (signResult.success) {
 
 ## Key Features
 
-### 1. Multi-Platform Support
+### 1. Web SDK Advantages
 
-- **Web Applications** - Browser-based integration
-- **Desktop Applications** - Electron and native apps
-- **Mobile Applications** - React Native support
-- **Node.js** - Server-side integration
+- **WebUSB Support** - Direct USB communication in modern browsers
+- **No Additional Software** - Works without OneKey Bridge installation
+- **Cross-Browser Compatibility** - Chrome, Edge, Opera, and other Chromium-based browsers
+- **TypeScript Ready** - Full type definitions included
+- **Secure Communication** - End-to-end encrypted device communication
 
-### 2. Multiple Transport Methods
+### 2. Advanced Options Available
 
-- **WebUSB** - Direct USB communication in browsers
-- **Bridge** - OneKey Bridge application
-- **Bluetooth** - Wireless communication (mobile)
-- **HTTP** - Network-based communication
+- **Mobile Support** - React Native integration via BLE SDK
+- **Desktop Applications** - Electron and native app support
+- **Air Gap Mode** - QR code-based signing for enhanced security
+- **Custom Transports** - Extensible transport layer
 
 ### 3. Advanced Security
 
@@ -144,11 +187,11 @@ if (signResult.success) {
 
 ## Integration Guides
 
-### By Platform
-- [Web Integration](configuration/installation.md#web-integration)
-- [Desktop Integration](configuration/installation.md#desktop-integration)
-- [Mobile Integration](configuration/installation.md#mobile-integration)
-- [Node.js Integration](configuration/installation.md#nodejs-integration)
+### Getting Started (Recommended Path)
+- **[Web SDK Setup](configuration/installation.md)** - Quick start with WebUSB
+- **[Configuration Guide](configuration/README.md)** - Essential setup information
+- **[Device Discovery](device-api/search-devices.md)** - Find and connect to devices
+- **[First API Call](coin-api/btc/btcgetaddress.md)** - Get your first address
 
 ### By Blockchain
 - [Bitcoin Integration](coin-api/btc/README.md)
@@ -157,11 +200,11 @@ if (signResult.success) {
 - [Cardano Integration](coin-api/cardano/README.md)
 - [All Supported Chains](coin-api/README.md)
 
-### By Use Case
-- [Basic Address Generation](coin-api/README.md#address-generation)
-- [Transaction Signing](coin-api/README.md#transaction-signing)
-- [Message Signing](coin-api/README.md#message-signing)
-- [Device Management](device-api/README.md)
+### Advanced Integration
+- [Mobile Apps (React Native)](advanced/common-sdk-guide.md)
+- [Desktop Applications](advanced/common-sdk-guide.md)
+- [Air Gap Integration](air-gap-sdk/README.md)
+- [Custom Transport Plugins](advanced/low-level-transport-plugin.md)
 
 ## Best Practices
 
@@ -245,10 +288,10 @@ OneKey provides compatibility layers and migration guides for popular hardware w
 
 ### Common Issues
 
-1. **Device not detected** - Check USB connection and permissions
-2. **Bridge not running** - Install and start OneKey Bridge
-3. **Permission denied** - Grant necessary browser permissions
-4. **Firmware outdated** - Update device firmware
+1. **Device not detected** - Check USB connection and WebUSB permissions
+2. **WebUSB not supported** - Use a compatible browser (Chrome, Edge, Opera)
+3. **Permission denied** - Grant necessary browser permissions for device access
+4. **Firmware outdated** - Update device firmware through OneKey app
 
 ### Getting Help
 

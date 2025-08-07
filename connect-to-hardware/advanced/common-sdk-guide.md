@@ -1,18 +1,137 @@
-# Common SDK Guide
+# Alternative SDK Integration Guide
 
-## Started
+## Overview
 
-This is a guide on how to integrate the OneKey SDK for iOS, Android, and Flutter.&#x20;
+This guide covers alternative OneKey SDKs for specialized use cases where the recommended Web SDK is not suitable. These SDKs provide platform-specific optimizations and features.
 
-The following content requires you to have a basic understanding of NodeJS, Android, iOS, and Flutter.&#x20;
+## When to Use Alternative SDKs
 
-Below are the links to the relevant demos.
+**Use the Web SDK unless you specifically need:**
+- Mobile app integration (React Native)
+- Desktop native applications
+- Server-side integration
+- Platforms without WebUSB support
 
-[iOS Demo Link](https://github.com/originalix/Hardware-Lowlevel-Communicate)
+## Available Alternative SDKs
 
-[Android Demo Link](low-level-transport-plugin.md)
+### 1. BLE SDK (@onekeyfe/hd-ble-sdk)
+**For React Native mobile applications**
 
-[Flutter Demo Link](https://github.com/ByteZhang1024/OneKeyFlutterHardwareExample)
+```bash
+npm install @onekeyfe/hd-ble-sdk
+```
+
+**Features:**
+- Bluetooth Low Energy communication
+- iOS and Android support
+- Mobile-optimized connection handling
+- Background operation support
+
+### 2. Common Connect SDK (@onekeyfe/hd-common-connect-sdk)
+**For native desktop and mobile applications**
+
+```bash
+npm install @onekeyfe/hd-common-connect-sdk
+```
+
+**Features:**
+- Cross-platform desktop support
+- USB and Bluetooth connectivity
+- Native app integration
+- Electron compatibility
+
+### 3. Core SDK (@onekeyfe/hd-core)
+**For Node.js server environments**
+
+```bash
+npm install @onekeyfe/hd-core
+```
+
+**Features:**
+- Server-side transaction signing
+- Batch operations
+- Enterprise integrations
+- Headless device management
+
+## Platform-Specific Integration
+
+### React Native (BLE SDK)
+
+```typescript
+import { HardwareBleSDK } from '@onekeyfe/hd-ble-sdk';
+
+// Initialize BLE SDK
+await HardwareBleSDK.init({
+    debug: false,
+    fetchConfig: true
+});
+
+// Search for BLE devices
+const devices = await HardwareBleSDK.searchDevices();
+```
+
+### Desktop Applications (Common Connect SDK)
+
+```typescript
+import { HardwareCommonSDK } from '@onekeyfe/hd-common-connect-sdk';
+
+// Initialize Common Connect SDK
+await HardwareCommonSDK.init({
+    debug: false,
+    transportReconnect: true
+});
+```
+
+### Node.js Server (Core SDK)
+
+```typescript
+import HardwareSDK from '@onekeyfe/hd-core';
+
+// Initialize Core SDK
+await HardwareSDK.init({
+    debug: false,
+    fetchConfig: true,
+    transportReconnect: true
+});
+```
+
+## Demo Projects
+
+Below are the links to platform-specific demo projects:
+
+- **[iOS Demo](https://github.com/originalix/Hardware-Lowlevel-Communicate)** - Native iOS integration
+- **[Android Demo](low-level-transport-plugin.md)** - Native Android integration
+- **[Flutter Demo](https://github.com/ByteZhang1024/OneKeyFlutterHardwareExample)** - Flutter integration
+- **[React Native Demo](https://github.com/OneKeyHQ/hardware-js-sdk/tree/main/packages/connect-examples)** - BLE SDK examples
+
+## Migration Considerations
+
+### From Web SDK to Alternative SDKs
+
+**Key Differences:**
+1. **Connection Management** - Alternative SDKs require explicit connectId/deviceId parameters
+2. **Device Discovery** - Different search and connection patterns
+3. **Initialization** - Platform-specific initialization parameters
+4. **Error Handling** - Additional error cases for transport layers
+
+**Example Migration:**
+
+```typescript
+// Web SDK (Simple)
+const result = await OneKeyConnect.btcGetAddress({
+    path: "m/44'/0'/0'/0/0",
+    coin: 'btc'
+});
+
+// Alternative SDK (Requires device parameters)
+const devices = await HardwareSDK.searchDevices();
+const { connectId, deviceId } = devices.payload[0];
+
+const result = await HardwareSDK.btcGetAddress(connectId, deviceId, {
+    path: "m/44'/0'/0'/0/0",
+    coin: 'btc'
+});
+```
 
 
 

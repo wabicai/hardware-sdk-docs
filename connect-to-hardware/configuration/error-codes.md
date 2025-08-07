@@ -93,9 +93,9 @@ Each error code is represented by a constant variable in the SDK, which allows e
 * **ActionCancelled (803):** Action cancelled by user.
 * **FirmwareError (804):** Firmware installation failed.
 * **ResponseUnexpectTypeError (805):** Response type is not expected.
-* **BridgeNetworkError (806):** Bridge network error.
-* **BridgeTimeoutError (807):** Bridge network timeout.
-* **BridgeNotInstalled (808):** Bridge not installed.
+* **BridgeNetworkError (806):** Bridge network error (Advanced SDKs only).
+* **BridgeTimeoutError (807):** Bridge network timeout (Advanced SDKs only).
+* **BridgeNotInstalled (808):** Bridge not installed (Advanced SDKs only - Web SDK uses WebUSB).
 * **PollingTimeout (809):** Polling timeout.
 * **PollingStop (810):** Polling stopped.
 * **BlindSignDisabled (811):** BlindSign is disabled on the device.
