@@ -1,11 +1,11 @@
-# Table of contents
+# 📚 Table of contents
 
 * [Introduction](README.md)
 
-## Getting Started
+## 👋 Getting Started
 * [Quick Start](quick-start.md)
 
-## Connect to Software
+## 🔮 Connect to Software
 * [Software Integration Overview](connect-to-software/README.md)
 * [DApp Connect to OneKey](connect-to-software/webapp-connect-onekey/README.md)
   * [Ethereum & EVM](connect-to-software/webapp-connect-onekey/eth/README.md)
@@ -51,16 +51,19 @@
   * [Ethereum WalletConnect](connect-to-software/using-walletconnect/eth.md)
   * [Aptos WalletConnect](connect-to-software/using-walletconnect/aptos/README.md)
 
-## Connect to Hardware
+## 📟 Connect to Hardware
 * [Hardware SDK Overview](connect-to-hardware/README.md)
-* [Configuration](connect-to-hardware/configuration/README.md)
+* [Setup & Configuration](connect-to-hardware/configuration/README.md)
   * [Installation & Setup](connect-to-hardware/configuration/installation.md)
   * [Common Parameters](connect-to-hardware/configuration/common-params.md)
   * [Derivation Paths](connect-to-hardware/configuration/paths.md)
   * [Error Codes](connect-to-hardware/configuration/error-codes.md)
-
-## Hardware API Reference
-* [Blockchain APIs](connect-to-hardware/coin-api/README.md)
+  * [Search Devices](connect-to-hardware/device-api/search-devices.md)
+  * [Get Features](connect-to-hardware/device-api/get-features.md)
+  * [Get Passphrase State](connect-to-hardware/device-api/get-passphrase-state.md)
+  * [Cancel Request](connect-to-hardware/device-api/cancel-request.md)
+  * [Response UI Event](connect-to-hardware/device-api/response-ui-event.md)
+* [🪙 Blockchain API Reference](connect-to-hardware/coin-api/README.md)
   * [Bitcoin](connect-to-hardware/coin-api/btc/README.md)
     * [btcGetAddress](connect-to-hardware/coin-api/btc/btcgetaddress.md)
     * [btcGetPublicKey](connect-to-hardware/coin-api/btc/btcgetpublickey.md)
@@ -168,31 +171,21 @@
     * [nexaGetAddress](connect-to-hardware/coin-api/nexa/nexagetaddress.md)
     * [nexaSignTransaction](connect-to-hardware/coin-api/nexa/nexasigntransaction.md)
 
-## Hardware Air Gap SDK
-* [Air Gap SDK](connect-to-hardware/air-gap-sdk/README.md)
-  * [Getting Started](connect-to-hardware/air-gap-sdk/started.md)
-  * [Wallet Integration Tutorial](connect-to-hardware/air-gap-sdk/tutorial-wallet-integration.md)
-  * [API Reference](connect-to-hardware/air-gap-sdk/api-reference/README.md)
-    * [Basic API](connect-to-hardware/air-gap-sdk/api-reference/basic-api/README.md)
-      * [CryptoCoinInfo](connect-to-hardware/air-gap-sdk/api-reference/basic-api/cryptocoininfo.md)
-      * [CryptoHDKey](connect-to-hardware/air-gap-sdk/api-reference/basic-api/cryptohdkey.md)
-      * [CryptoKeypath](connect-to-hardware/air-gap-sdk/api-reference/basic-api/cryptokeypath.md)
-    * [Ethereum & EVM](connect-to-hardware/air-gap-sdk/api-reference/ethereum-and-evm/README.md)
-      * [EthSignature](connect-to-hardware/air-gap-sdk/api-reference/ethereum-and-evm/ethsignature.md)
-      * [EthSignRequest](connect-to-hardware/air-gap-sdk/api-reference/ethereum-and-evm/ethsignrequest.md)
+## 🔒 Air Gap SDK
+* [Air Gap SDK Overview](connect-to-hardware/air-gap-sdk/README.md)
+* [Getting Started](connect-to-hardware/air-gap-sdk/started.md)
+* [Wallet Integration Tutorial](connect-to-hardware/air-gap-sdk/tutorial-wallet-integration.md)
+* [API Reference](connect-to-hardware/air-gap-sdk/api-reference/README.md)
+  * [CryptoCoinInfo](connect-to-hardware/air-gap-sdk/api-reference/basic-api/cryptocoininfo.md)
+  * [CryptoHDKey](connect-to-hardware/air-gap-sdk/api-reference/basic-api/cryptohdkey.md)
+  * [CryptoKeypath](connect-to-hardware/air-gap-sdk/api-reference/basic-api/cryptokeypath.md)
+  * [EthSignature](connect-to-hardware/air-gap-sdk/api-reference/ethereum-and-evm/ethsignature.md)
+  * [EthSignRequest](connect-to-hardware/air-gap-sdk/api-reference/ethereum-and-evm/ethsignrequest.md)
 
-## Hardware Device Management
-* [Device Management](connect-to-hardware/device-api/README.md)
-  * [Get Features](connect-to-hardware/device-api/get-features.md)
-  * [Search Devices](connect-to-hardware/device-api/search-devices.md)
-  * [Get Passphrase State](connect-to-hardware/device-api/get-passphrase-state.md)
-  * [Cancel Request](connect-to-hardware/device-api/cancel-request.md)
-  * [Response UI Event](connect-to-hardware/device-api/response-ui-event.md)
-
-## Advanced Hardware Topics
-* [Advanced Topics](connect-to-hardware/advanced/README.md)
+## 🔧 Advanced Hardware Topics
+* [Advanced Topics Overview](connect-to-hardware/advanced/README.md)
   * [PIN Management](connect-to-hardware/advanced/pin.md)
   * [Passphrase Handling](connect-to-hardware/advanced/passphrase.md)
-  * [Common SDK Guide](connect-to-hardware/advanced/common-sdk-guide.md)
+  * [Alternative SDK Guide](connect-to-hardware/advanced/common-sdk-guide.md)
   * [Low-level Transport Plugin](connect-to-hardware/advanced/low-level-transport-plugin.md)
   * [OneKey Message Protocol](connect-to-hardware/advanced/onekey-message-protocol.md)
