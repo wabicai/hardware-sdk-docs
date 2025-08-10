@@ -1,286 +1,150 @@
-# Quick Start
+# Quick Start (WebUSB)
 
-{% hint style="info" %}
-**Explore OneKey Hardware SDKs**
+This guide helps you integrate OneKey hardware wallets into a web app using @onekeyfe/hd-web-sdk. It follows the structure and depth of the legacy docs while modernizing the flow and keeping the content lean and accurate.
 
-OneKey Hardware SDK enables seamless integration of OneKey hardware wallets with third-party applications. Built with a developer-friendly interface, it ensures secure interactions for OneKey users within your applications.
+## Overview
 
-This page walks you through installation and lets you explore SDK API for different environments.
-{% endhint %}
+- Package: @onekeyfe/hd-web-sdk
+- Transport: WebUSB 
+- Best for: Web apps and browser extensions
+- Security: Device confirmation screens and isolated connect iframe
 
-## Quick start
+## Requirements
 
-### Choose your environment
+- Browser with WebUSB support (Chrome/Edge/Opera and other Chromium-based)
+- HTTPS in production (WebUSB requires secure context)
+- A user gesture (e.g., click) is required to show the device chooser
 
-Depending on your environment you need to choose the right package and follow the particular guide:
+## 1) Install
 
-{% tabs %}
-{% tab title="🌐 Web" %}
-**For web applications and browser extensions**
-
-* Iframe-based security isolation
-* WebUSB and Bridge transport support
-* Cross-origin communication
-* Built-in UI for device interactions
-
-**Use cases:** Web apps, browser extensions
-{% endtab %}
-
-{% tab title="📱 Mobile" %}
-**For React Native and mobile applications**
-
-* Bluetooth LE communication
-* Native mobile integration
-* Permission management
-* Device discovery and pairing
-
-**Use cases:** React Native, mobile apps
-{% endtab %}
-{% endtabs %}
-
-***
-
-## 🌐 Web
-
-{% hint style="success" %}
-**Perfect for:** Web applications and browser extensions
-{% endhint %}
-
-### Architecture
-
-{% tabs %}
-{% tab title="Connect with web-usb" %}
-![OneKey Web SDK Architecture](images/onekey-web-sdk-architecture.png)
-
-The SDK automatically selects the best mode based on your environment. Iframe mode is preferred for persistent connections, but popup mode is automatically used when iframe doesn't allow WebUSB communication and OneKey Bridge is not running.
-{% endtab %}
-{% endtabs %}
-
-### About
-
-`@onekeyfe/hd-web-sdk` imports only a thin layer with API description into your 3rd party application. It has two modes of operation: core SDK logic can be either injected into **iframe** or opened in **popup**. However iframe doesn't allow WebUSB communication, so popup is automatically preferred if OneKey Bridge is not running.
-
-**Key Features:**
-
-* Iframe-based security isolation
-* WebUSB and Bridge transport support
-* Cross-origin communication
-* Built-in UI for device interactions
-
-### Quick Start Guide
-
-***
-
-## 📱 Mobile
-
-{% hint style="success" %}
-**Perfect for:** React Native and mobile applications
-{% endhint %}
-
-### Architecture
-
-{% tabs %}
-{% tab title="Bluetooth LE" %}
-![OneKey BLE SDK Architecture](images/onekey-ble-sdk-architecture.png)
-
-`@onekeyfe/hd-ble-sdk` enables React Native applications to communicate with OneKey hardware wallets via Bluetooth Low Energy (BLE). It uses native BLE transport for wireless device communication while maintaining the same API as other OneKey SDKs.
-{% endtab %}
-
-{% tab title="Permission Flow" %}
-The Mobile SDK requires specific Bluetooth permissions to function properly:
-
-1. **Android**: `BLUETOOTH`, `BLUETOOTH_ADMIN`, `ACCESS_FINE_LOCATION`
-2. **iOS**: `NSBluetoothAlwaysUsageDescription`
-3. **Runtime Permissions**: The app must request these permissions at runtime
-4. **Device Discovery**: BLE scan requires location permissions on Android
-{% endtab %}
-{% endtabs %}
-
-### About
-
-The Mobile SDK enables React Native applications to communicate with OneKey hardware wallets via Bluetooth Low Energy (BLE). It provides the same API as other OneKey SDKs but uses native BLE transport for wireless device communication.
-
-**Key Features:**
-
-* Bluetooth LE communication
-* Native mobile integration
-* Permission management
-* Device discovery and pairing
-
-### Quick Start Guide
-
-***
-
-## Universal Integration Pattern
-
-All OneKey SDKs follow the same integration pattern:
-
-{% hint style="success" %}
-**Key Advantage:** Once you learn one SDK, you know them all! The API is identical across Node.js, Web, and Mobile environments.
-{% endhint %}
-
-## Multi-Chain Support
-
-OneKey SDK supports 25+ blockchains with consistent API:
-
-{% tabs %}
-{% tab title="Bitcoin & Forks" %}
-**Supported:** BTC, BCH, LTC, DOGE, DASH
-
-```typescript
-// Bitcoin
-await HardwareSDK.btcGetAddress(connectId, deviceId, { path: "m/44'/0'/0'/0/0", coin: 'btc' });
-await HardwareSDK.btcSignTransaction(connectId, deviceId, { inputs, outputs });
-
-// Litecoin  
-await HardwareSDK.btcGetAddress(connectId, deviceId, { path: "m/44'/2'/0'/0/0", coin: 'ltc' });
-
-// Dogecoin
-await HardwareSDK.btcGetAddress(connectId, deviceId, { path: "m/44'/3'/0'/0/0", coin: 'doge' });
+```bash
+npm install @onekeyfe/hd-web-sdk
+# or
+yarn add @onekeyfe/hd-web-sdk
 ```
-{% endtab %}
 
-{% tab title="EVM Chains" %}
-**Supported:** Ethereum, BSC, Polygon, Avalanche, Arbitrum, Optimism
+## 2) Initialize
+
+Initialize once before calling any API methods.
 
 ```typescript
-// Ethereum
-await HardwareSDK.evmGetAddress(connectId, deviceId, { path: "m/44'/60'/0'/0/0" });
-await HardwareSDK.evmSignTransaction(connectId, deviceId, { to, value, data });
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
-// Polygon (same API, different chainId)
-await HardwareSDK.evmSignTransaction(connectId, deviceId, { 
-    to, value, data, chainId: 137 
-});
-
-// BSC (same API, different chainId)
-await HardwareSDK.evmSignTransaction(connectId, deviceId, { 
-    to, value, data, chainId: 56 
+await HardwareSDK.init({
+  connectSrc: 'https://connect.onekey.so/',
+  debug: false,
 });
 ```
-{% endtab %}
 
-{% tab title="Layer 1s" %}
-**Supported:** Solana, Cardano, Polkadot, Cosmos, Near, Aptos, Sui
+Notes:
+- connectSrc points to the OneKey Connect iframe host
+- Keep debug: false for production
+
+## 3) WebUSB permission model (critical)
+
+The browser requires a user gesture to display the WebUSB device chooser (navigator.usb.requestDevice). In your click/tap handler, first call requestDevice with OneKey filters, then call HardwareSDK.searchDevice().
 
 ```typescript
-// Solana
-await HardwareSDK.solGetAddress(connectId, deviceId, { path: "m/44'/501'/0'/0'" });
-await HardwareSDK.solSignTransaction(connectId, deviceId, { rawTx });
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
+import { ONEKEY_WEBUSB_FILTER } from '@onekeyfe/hd-shared';
 
-// Cardano
-await HardwareSDK.cardanoGetAddress(connectId, deviceId, { 
-    addressParameters: { addressType: 0, path: "m/44'/1815'/0'/0/0" }
+const connectButton = document.getElementById('connect');
+
+connectButton?.addEventListener('click', async () => {
+  try {
+    // 1) Ask for WebUSB permission first
+    await window?.navigator?.usb?.requestDevice({ filters: ONEKEY_WEBUSB_FILTER });
+
+    // 2) Then search devices via SDK
+    const result = await HardwareSDK.searchDevice();
+    if (result.success) {
+      console.log('devices:', result.payload);
+    } else {
+      console.error('searchDevice error:', result.payload.error);
+    }
+  } catch (e) {
+    console.error('Permission/search error:', e);
+  }
+});
+```
+
+## 4) Discover devices
+
+searchDevice returns authorized devices. If no prior permission exists, the browser will show the device chooser during requestDevice in your click handler.
+
+Typical returned item fields include:
+- connectId: string
+- uuid: string (unique id; may change after device reset)
+- deviceId: 'classic' | 'mini' | 'touch' | 'pro'
+- deviceType: string (model code when available)
+- name: string (bluetooth name for the device)
+
+## 5) First API call (Bitcoin address)
+
+After initialization and device selection, call a blockchain method such as btcGetAddress. The device will ask the user to confirm on-screen if showOnOneKey is true.
+
+```typescript
+const addressResp = await HardwareSDK.btcGetAddress({
+  path: "m/44'/0'/0'/0/0",
+  coin: 'btc',
+  showOnOneKey: true,
 });
 
-// Aptos
-await HardwareSDK.aptosGetAddress(connectId, deviceId, { path: "m/44'/637'/0'/0'/0'" });
+if (addressResp.success) {
+  console.log('BTC address:', addressResp.payload.address);
+} else {
+  console.error('btcGetAddress error:', addressResp.payload.error);
+}
 ```
-{% endtab %}
 
-{% tab title="Others" %}
-**Supported:** Ripple, Stellar, Tron, Algorand, Filecoin, TON, Kaspa
+## 6) Handling events (optional but recommended)
+
+Listen for device connect/disconnect to give users better feedback.
 
 ```typescript
-// Ripple (XRP)
-await HardwareSDK.xrpGetAddress(connectId, deviceId, { path: "m/44'/144'/0'/0/0" });
+HardwareSDK.on('device-connect', (device) => {
+  console.log('Device connected:', device);
+});
 
-// Stellar (XLM)
-await HardwareSDK.stellarGetAddress(connectId, deviceId, { path: "m/44'/148'/0'" });
-
-// Tron (TRX)
-await HardwareSDK.tronGetAddress(connectId, deviceId, { path: "m/44'/195'/0'/0/0" });
+HardwareSDK.on('device-disconnect', (device) => {
+  console.log('Device disconnected:', device);
+});
 ```
-{% endtab %}
-{% endtabs %}
 
-### Consistent API Pattern
+## 7) Error handling pattern
 
-All blockchain methods follow the same naming convention:
+Most methods resolve to { success, payload }. Use try/catch for runtime errors and check success for SDK-level results.
 
 ```typescript
-// Address methods
-const address = await HardwareSDK.{blockchain}GetAddress(connectId, deviceId, params);
-
-// Transaction signing  
-const signed = await HardwareSDK.{blockchain}SignTransaction(connectId, deviceId, params);
-
-// Public key methods (where supported)
-const pubkey = await HardwareSDK.{blockchain}GetPublicKey(connectId, deviceId, params);
-
-// Message signing (where supported)
-const signature = await HardwareSDK.{blockchain}SignMessage(connectId, deviceId, params);
+try {
+  const resp = await HardwareSDK.btcGetAddress({
+    path: "m/44'/0'/0'/0/0",
+    coin: 'btc',
+  });
+  if (!resp.success) {
+    console.error('SDK error:', resp.payload.error);
+  }
+} catch (e) {
+  console.error('Unexpected error:', e);
+}
 ```
 
-## What's Next?
+## 8) Common issues
 
-{% tabs %}
-{% tab title="🚀 Core Integration" %}
-Start building with OneKey SDK:
+- WebUSB not supported: Use a Chromium-based browser
+- HTTPS required: Use https in production and localhost in dev
+- Permission denied: Ask user to re-connect and select the device again
+- Iframe blocked: Ensure connectSrc is reachable and not restricted by CSP
 
-* [**Blockchain APIs**](coin-api/) - Bitcoin, Ethereum, Solana, and 25+ blockchains
-* [**Device Management**](device-api/) - Hardware wallet discovery and control
-* [**Configuration Guide**](configuration/) - Complete setup and configuration reference
+## 9) What’s next?
 
-{% hint style="info" %}
-**Recommended path:** Start with [Configuration Guide](configuration/) to understand common parameters and setup, then explore the [Blockchain APIs](coin-api/) for your specific use case.
-{% endhint %}
-{% endtab %}
+- Installation & Setup details: connect-to-hardware/configuration/installation.md
+- Device discovery deep dive: connect-to-hardware/device-api/search-devices.md
+- Your first blockchain calls:
+  - Bitcoin: connect-to-hardware/coin-api/btc/btcgetaddress.md
+  - EVM: connect-to-hardware/coin-api/evm/README.md
+  - Solana: connect-to-hardware/coin-api/solana/README.md
 
-{% tab title="🔧 Advanced Features" %}
-Unlock powerful capabilities:
+---
 
-* [**Air Gap SDK**](air-gap-sdk/) - Offline signing with QR codes for maximum security
-* [**PIN Management**](advanced/pin.md) - Device PIN handling and security features
-* [**Passphrase Support**](advanced/passphrase.md) - Multiple wallets on a single device
-* [**Protocol Details**](advanced/onekey-message-protocol.md) - Low-level communication protocols
-
-{% hint style="success" %}
-**For production apps:** Implement [PIN Management](advanced/pin.md) and [Passphrase Support](advanced/passphrase.md) to provide a complete user experience.
-{% endhint %}
-{% endtab %}
-
-{% tab title="📚 Resources & Examples" %}
-Learn by example and test your integration:
-
-**🎮 Interactive Tools**
-
-* [**SDK Playground**](https://hardware-example.onekeytest.com/expo-playground/) - Test all SDK methods in your browser
-* [**Method Tester**](api-explorer/) - Interactive API explorer with live device testing
-
-**📁 Code Examples**
-
-* [**Node.js Examples**](https://github.com/OneKeyHQ/OneKey-Hardware-JS-SDK/tree/main/packages/connect-examples/node) - Server applications and CLI tools
-* [**Web Examples**](https://github.com/OneKeyHQ/OneKey-Hardware-JS-SDK/tree/main/packages/connect-examples/browser-inline-script) - Browser applications
-* [**React Native Examples**](https://github.com/OneKeyHQ/OneKey-Hardware-JS-SDK/tree/main/packages/connect-examples/expo-example) - Mobile applications
-
-**📖 References**
-
-* [**Error Codes**](configuration/error-codes.md) - Complete error handling reference
-* [**Derivation Paths**](configuration/paths.md) - BIP32/BIP44 path specifications
-* [**Common Parameters**](configuration/common-params.md) - Shared configuration parameters
-
-{% hint style="info" %}
-**Quick tip:** Use the [SDK Playground](https://hardware-example.onekeytest.com/expo-playground/) to experiment with different methods and parameters before implementing them in your application.
-{% endhint %}
-{% endtab %}
-{% endtabs %}
-
-***
-
-## Try It Out
-
-{% embed url="https://hardware-example.onekeytest.com/expo-playground/" %}
-OneKey SDK Interactive Testing Tool - Test hardware wallet interactions directly in your browser
-{% endembed %}
-
-## Need Help?
-
-{% hint style="info" %}
-**Having trouble getting started?**
-
-* 📖 Check our [Configuration Guide](configuration/) for detailed setup instructions
-* 🔍 Browse [Common Issues](configuration/error-codes.md) for troubleshooting tips
-* 💬 Ask questions in our [GitHub Discussions](https://github.com/OneKeyHQ/OneKey-Hardware-JS-SDK/discussions)
-* 🐛 Report bugs via [GitHub Issues](https://github.com/OneKeyHQ/OneKey-Hardware-JS-SDK/issues)
-{% endhint %}
+This Quick Start follows the old documentation’s logical flow (install → init → permission → discover → first call → events → troubleshooting) while keeping the WebUSB-only approach and ensuring code samples match the @onekeyfe/hd-web-sdk usage pattern.

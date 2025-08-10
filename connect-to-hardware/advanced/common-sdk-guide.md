@@ -118,7 +118,7 @@ Below are the links to platform-specific demo projects:
 
 ```typescript
 // Web SDK (Simple)
-const result = await OneKeyConnect.btcGetAddress({
+const result = await HardwareSDK.btcGetAddress({
     path: "m/44'/0'/0'/0/0",
     coin: 'btc'
 });

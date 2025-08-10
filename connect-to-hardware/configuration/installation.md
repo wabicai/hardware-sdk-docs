@@ -13,7 +13,7 @@ yarn add @onekeyfe/hd-web-sdk
 ```
 
 **Why Web SDK?**
-- ✅ **No Bridge Required** - Direct WebUSB communication
+- ✅ **No additional software** - Native WebUSB communication
 - ✅ **Easy Setup** - Works out of the box in modern browsers
 - ✅ **Secure** - Direct encrypted communication with devices
 - ✅ **Cross-Platform** - Works on Windows, macOS, and Linux
@@ -41,9 +41,9 @@ For specialized use cases, see [Advanced Integration Options](../advanced/README
 Initialize the Web SDK before making any API calls:
 
 ```typescript
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
-await OneKeyConnect.init(params);
+await HardwareSDK.init(params);
 ```
 
 ### Required Parameters
@@ -61,11 +61,8 @@ await OneKeyConnect.init(params);
 The `connectSrc` parameter should point to the official OneKey Connect iframe:
 
 ```typescript
-// Production (Recommended)
+// Production (recommended)
 connectSrc: 'https://connect.onekey.so/'
-
-// Specific version (if needed)
-connectSrc: 'https://jssdk.onekey.so/1.1.0/'
 ```
 
 ### Web SDK Examples
@@ -73,10 +70,10 @@ connectSrc: 'https://jssdk.onekey.so/1.1.0/'
 #### Basic Initialization (Recommended)
 
 ```typescript
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
 // Simple initialization for most use cases
-await OneKeyConnect.init({
+await HardwareSDK.init({
     connectSrc: 'https://connect.onekey.so/',
     debug: false
 });
@@ -85,10 +82,10 @@ await OneKeyConnect.init({
 #### Development Setup
 
 ```typescript
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
 // Development configuration with debugging
-await OneKeyConnect.init({
+await HardwareSDK.init({
     connectSrc: 'https://connect.onekey.so/',
     debug: true,
     fetchConfig: true,
@@ -99,10 +96,10 @@ await OneKeyConnect.init({
 #### Production Setup
 
 ```typescript
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
 // Production configuration
-await OneKeyConnect.init({
+await HardwareSDK.init({
     connectSrc: 'https://connect.onekey.so/',
     debug: false,
     fetchConfig: true,
@@ -113,11 +110,31 @@ await OneKeyConnect.init({
 
 ### WebUSB Permissions
 
-The Web SDK uses WebUSB to communicate directly with hardware devices. Users will see a browser permission prompt when first connecting to a device.
+The Web SDK uses WebUSB to communicate directly with hardware devices. Browsers require a user gesture (e.g., click) to show the device chooser (navigator.usb.requestDevice).
 
 **Important Notes:**
+- A user gesture is required — call searchDevices inside a click/tap handler
 - WebUSB requires HTTPS in production
 - Users must manually grant device permissions
+
+```typescript
+import HardwareSDK, { ONEKEY_WEBUSB_FILTER } from '@onekeyfe/hd-web-sdk';
+
+// Must be triggered by a user gesture (e.g., a click)
+button.addEventListener('click', async () => {
+  try {
+    // 1) Ask for device permission first
+    await window?.navigator?.usb?.requestDevice({ filters: ONEKEY_WEBUSB_FILTER });
+
+    // 2) Then query devices via SDK
+    const result = await HardwareSDK.searchDevice();
+    if (result.success) console.log('devices:', result.payload);
+  } catch (e) {
+    console.error('Permission/search error:', e);
+  }
+});
+```
+
 - Some browsers may block WebUSB in certain contexts
 
 ## Verification and First Steps
@@ -125,10 +142,10 @@ The Web SDK uses WebUSB to communicate directly with hardware devices. Users wil
 After initialization, verify the SDK is ready and discover devices:
 
 ```typescript
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
 // Initialize the SDK
-const initResult = await OneKeyConnect.init({
+const initResult = await HardwareSDK.init({
     connectSrc: 'https://connect.onekey.so/',
     debug: false
 });
@@ -137,7 +154,7 @@ if (initResult.success) {
     console.log('Web SDK initialized successfully');
 
     // Search for connected devices
-    const devices = await OneKeyConnect.searchDevices();
+    const devices = await HardwareSDK.searchDevices();
 
     if (devices.success && devices.payload.length > 0) {
         console.log('Found devices:', devices.payload);
@@ -159,24 +176,24 @@ if (initResult.success) {
 Here's a complete example showing initialization and first API call:
 
 ```typescript
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
 async function setupOneKey() {
     try {
         // 1. Initialize SDK
-        await OneKeyConnect.init({
+        await HardwareSDK.init({
             connectSrc: 'https://connect.onekey.so/',
             debug: false
         });
 
         // 2. Search for devices
-        const devices = await OneKeyConnect.searchDevices();
+        const devices = await HardwareSDK.searchDevices();
         if (!devices.success || devices.payload.length === 0) {
             throw new Error('No OneKey device found');
         }
 
         // 3. Get Bitcoin address
-        const result = await OneKeyConnect.btcGetAddress({
+        const result = await HardwareSDK.btcGetAddress({
             path: "m/44'/0'/0'/0/0",
             coin: 'btc',
             showOnOneKey: true

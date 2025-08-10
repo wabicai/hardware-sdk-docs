@@ -19,22 +19,22 @@ Configuration references and troubleshooting:
 ## Quick Start Example
 
 ```typescript
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
 // Initialize Web SDK with WebUSB
-await OneKeyConnect.init({
+await HardwareSDK.init({
     connectSrc: 'https://connect.onekey.so/',
     debug: false
 });
 
 // Find connected devices
-const devices = await OneKeyConnect.searchDevices();
+const devices = await HardwareSDK.searchDevices();
 if (devices.success && devices.payload.length > 0) {
     console.log('Found OneKey device:', devices.payload[0]);
 }
 
 // Get Bitcoin address (no connectId/deviceId needed for Web SDK)
-const result = await OneKeyConnect.btcGetAddress({
+const result = await HardwareSDK.btcGetAddress({
     path: "m/44'/0'/0'/0/0",
     coin: 'btc',
     showOnOneKey: true

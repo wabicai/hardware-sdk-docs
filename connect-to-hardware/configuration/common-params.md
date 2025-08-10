@@ -6,7 +6,7 @@ The **Web SDK** simplifies parameter management by handling device connection au
 
 ```typescript
 // Web SDK - No connectId/deviceId needed
-const result = await OneKeyConnect.btcGetAddress({
+const result = await HardwareSDK.btcGetAddress({
     path: "m/44'/0'/0'/0/0",
     coin: 'btc',
     showOnOneKey: true
@@ -97,5 +97,5 @@ const { deviceId } = features.payload;
 const result = await HardwareSDK.btcGetAddress(connectId, deviceId, params);
 
 // After (Web SDK)
-const result = await OneKeyConnect.btcGetAddress(params);
+const result = await HardwareSDK.btcGetAddress(params);
 ```

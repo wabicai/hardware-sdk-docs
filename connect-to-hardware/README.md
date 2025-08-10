@@ -17,7 +17,7 @@ The **@onekeyfe/hd-web-sdk** is the primary and recommended way to integrate wit
 
 **Key Features:**
 - **WebUSB Support** - Direct USB communication in modern browsers
-- **No Bridge Required** - Works without additional software installation
+- **No Additional Software** - Works natively via WebUSB in supported browsers
 - **TypeScript Support** - Full type definitions included
 - **Cross-Platform** - Works on all modern web browsers
 - **Secure** - Direct device communication with encryption
@@ -30,18 +30,43 @@ npm install @onekeyfe/hd-web-sdk
 ```
 
 ```javascript
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
 // Initialize with WebUSB
-await OneKeyConnect.init({
+await HardwareSDK.init({
   connectSrc: 'https://connect.onekey.so/',
   debug: false
 });
 
 // Get Bitcoin address
-const result = await OneKeyConnect.btcGetAddress({
+const result = await HardwareSDK.btcGetAddress({
   path: "m/44'/0'/0'/0/0",
   coin: 'btc'
+});
+```
+
+> Note on WebUSB user gesture requirement
+>
+> Browsers require a user gesture (e.g., a button click) to trigger navigator.usb.requestDevice(). When using searchDevices in hd-web-sdk, ensure the call is initiated within a trusted user interaction handler; otherwise the permission prompt will be blocked.
+
+
+
+```typescript
+// Minimal connect button example (requires user gesture)
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
+import { ONEKEY_WEBUSB_FILTER } from '@onekeyfe/hd-shared';
+
+document.getElementById('connect')?.addEventListener('click', async () => {
+  try {
+    // 1) Ask for WebUSB permission first
+    await window?.navigator?.usb?.requestDevice({ filters: ONEKEY_WEBUSB_FILTER });
+
+    // 2) Then query devices via SDK
+    const res = await HardwareSDK.searchDevice();
+    if (res.success) console.log('devices:', res.payload);
+  } catch (e) {
+    console.error('Permission/search error:', e);
+  }
 });
 ```
 
@@ -66,188 +91,50 @@ For mobile and specialized environments:
 
 ## Supported Blockchains
 
-OneKey Hardware SDK supports 30+ blockchain networks:
+OneKey Hardware SDK supports 25+ blockchains. See the complete list and details in [Blockchain APIs](coin-api/README.md).
 
-### Major Networks
-- **Bitcoin** - Native Bitcoin support with advanced features
-- **Ethereum** - Full EVM compatibility
-- **Solana** - High-performance blockchain
-- **Cardano** - Research-driven blockchain
-- **Polkadot** - Multi-chain network
-- **Cosmos** - Interoperable ecosystem
-- **NEAR Protocol** - Developer-friendly blockchain
-- **Aptos** - Move-based blockchain
-- **Sui** - Move-based blockchain
+## Minimal Example
 
-### Additional Networks
-- **Tron** - High-throughput blockchain
-- **Stellar** - Cross-border payments
-- **Ripple** - Enterprise blockchain
-- **TON** - Telegram Open Network
-- **FileCoin** - Decentralized storage
-- **Kaspa** - High-speed blockchain
-- **Algorand** - Pure proof-of-stake
-- **Conflux** - High-performance blockchain
-- **Nostr** - Decentralized social protocol
-- **And many more...**
-
-## Complete Integration Example
-
-### 1. Installation
+### Install and Initialize
 
 ```bash
-# Install Web SDK (Recommended)
 npm install @onekeyfe/hd-web-sdk
 ```
 
-### 2. Initialize and Connect
-
-```javascript
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
-
-// Initialize with WebUSB support
-await OneKeyConnect.init({
-  connectSrc: 'https://connect.onekey.so/',
-  debug: false
-});
-
-// Search for connected devices
-const devices = await OneKeyConnect.searchDevices();
-console.log('Found devices:', devices);
+```typescript
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
+await HardwareSDK.init({ connectSrc: 'https://connect.onekey.so/', debug: false }); // init first
 ```
 
-### 3. Get Address
+### First call
 
-```javascript
-// Get Bitcoin address
-const result = await OneKeyConnect.btcGetAddress({
+```typescript
+const res = await HardwareSDK.btcGetAddress({
   path: "m/44'/0'/0'/0/0",
   coin: 'btc',
-  showOnOneKey: true
+  showOnOneKey: true,
 });
-
-if (result.success) {
-  console.log('Bitcoin address:', result.payload.address);
-}
+if (res.success) console.log(res.payload.address);
 ```
 
-### 4. Sign Transaction
+For more examples, see [Quick Start](../../quick-start.md).
 
-```javascript
-// Sign Bitcoin transaction
-const signResult = await OneKeyConnect.btcSignTransaction({
-  inputs: [{
-    address_n: [44 | 0x80000000, 0 | 0x80000000, 0 | 0x80000000, 0, 0],
-    prev_hash: 'prev_tx_hash',
-    prev_index: 0,
-    amount: '100000'
-  }],
-  outputs: [{
-    address: 'recipient_address',
-    amount: '90000'
-  }],
-  coin: 'btc'
-});
+## Why Web SDK
 
-if (signResult.success) {
-  console.log('Signed transaction:', signResult.payload.serializedTx);
-}
-```
+- WebUSB in modern browsers (no additional software)
+- TypeScript types included
+- Cross-browser (Chromium-based)
+- Secure device communication
 
-## Key Features
+## Next steps
 
-### 1. Web SDK Advantages
+- Installation & Setup: [configuration/installation.md](configuration/installation.md)
+- Device discovery: [device-api/search-devices.md](device-api/search-devices.md)
+- First API call: [coin-api/btc/btcgetaddress.md](coin-api/btc/btcgetaddress.md)
+- Full API reference: [coin-api/README.md](coin-api/README.md)
+- Advanced options: [advanced/README.md](advanced/README.md)
 
-- **WebUSB Support** - Direct USB communication in modern browsers
-- **No Additional Software** - Works without OneKey Bridge installation
-- **Cross-Browser Compatibility** - Chrome, Edge, Opera, and other Chromium-based browsers
-- **TypeScript Ready** - Full type definitions included
-- **Secure Communication** - End-to-end encrypted device communication
 
-### 2. Advanced Options Available
-
-- **Mobile Support** - React Native integration via BLE SDK
-- **Desktop Applications** - Electron and native app support
-- **Air Gap Mode** - QR code-based signing for enhanced security
-- **Custom Transports** - Extensible transport layer
-
-### 3. Advanced Security
-
-- **PIN Protection** - Device PIN management
-- **Passphrase Support** - Additional security layer
-- **Secure Communication** - Encrypted device communication
-- **Air Gap Mode** - QR code-based signing
-
-### 4. Developer-Friendly
-
-- **TypeScript Support** - Full type definitions
-- **Comprehensive Documentation** - Detailed guides and examples
-- **Error Handling** - Clear error messages and codes
-- **Event System** - Real-time device events
-
-## Integration Guides
-
-### Getting Started (Recommended Path)
-- **[Web SDK Setup](configuration/installation.md)** - Quick start with WebUSB
-- **[Configuration Guide](configuration/README.md)** - Essential setup information
-- **[Device Discovery](device-api/search-devices.md)** - Find and connect to devices
-- **[First API Call](coin-api/btc/btcgetaddress.md)** - Get your first address
-
-### By Blockchain
-- [Bitcoin Integration](coin-api/btc/README.md)
-- [Ethereum Integration](coin-api/evm/README.md)
-- [Solana Integration](coin-api/solana/README.md)
-- [Cardano Integration](coin-api/cardano/README.md)
-- [All Supported Chains](coin-api/README.md)
-
-### Advanced Integration
-- [Mobile Apps (React Native)](advanced/common-sdk-guide.md)
-- [Desktop Applications](advanced/common-sdk-guide.md)
-- [Air Gap Integration](air-gap-sdk/README.md)
-- [Custom Transport Plugins](advanced/low-level-transport-plugin.md)
-
-## Best Practices
-
-### 1. Error Handling
-
-```javascript
-try {
-  const result = await OneKeyConnect.btcGetAddress({
-    path: "m/44'/0'/0'/0/0",
-    coin: 'btc'
-  });
-  
-  if (result.success) {
-    // Handle success
-    console.log('Address:', result.payload.address);
-  } else {
-    // Handle error
-    console.error('Error:', result.payload.error);
-  }
-} catch (error) {
-  console.error('SDK Error:', error);
-}
-```
-
-### 2. Device Connection
-
-```javascript
-// Listen for device events
-OneKeyConnect.on('device-connect', (device) => {
-  console.log('Device connected:', device);
-});
-
-OneKeyConnect.on('device-disconnect', (device) => {
-  console.log('Device disconnected:', device);
-});
-```
-
-### 3. User Experience
-
-- **Clear Instructions** - Guide users through device interactions
-- **Loading States** - Show progress during operations
-- **Error Messages** - Provide helpful error information
-- **Device Status** - Display connection and device state
 
 ## Development Resources
 
@@ -272,10 +159,10 @@ OneKey SDK is based on Trezor Connect with additional features:
 
 ```javascript
 // Trezor Connect code works with minimal changes
-import OneKeyConnect from '@onekeyfe/hd-web-sdk';
+import HardwareSDK from '@onekeyfe/hd-web-sdk';
 
 // Same API, enhanced features
-const result = await OneKeyConnect.btcGetAddress({
+const result = await HardwareSDK.btcGetAddress({
   path: "m/44'/0'/0'/0/0",
   coin: 'btc'
 });
