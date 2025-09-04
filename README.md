@@ -1,65 +1,98 @@
-# OneKey Hardware SDK
+# Introduction
 
-Integrate OneKey hardware wallets with your applications. Built for developers, designed for security.
+{% hint style="info" %}
+**Note**: This documentation is primarily for developers. If you are a regular user experiencing product usage issues, please visit our [Help Center](https://help.onekey.so/hc) or [Submit a Customer Service Ticket](https://help.onekey.so/hc/requests/new) for support.
+{% endhint %}
 
-> This documentation streamlines and modernizes the structure from our previous Hardware Documents, focusing on a clear WebUSB-first integration path and concise, high-signal guidance.
+### For users
+
+This documentation is primarily for developers. If you encounter any issues while using our products, please consult our help documentation or submit a ticket for customer service assistance.
+
+#### For users Useful links
+
+* [OneKey Official Website](https://onekey.so/)
+* [Help Center](https://help.onekey.so/hc)
+* [Submit a ticket for customer service](https://help.onekey.so/hc/requests/new)
+* [Official Twitter - X](https://twitter.com/OneKeyHQ)
+
+***
+
+### Platform Overview
+
+OneKey is a leading hardware and software wallet solution that provides developers with comprehensive blockchain integration capabilities.
+
+OneKey offers complete wallet infrastructure supporting multi-chain ecosystem integration. Through our SDKs and APIs, developers can easily integrate hardware security with software convenience, providing users with secure and reliable digital asset management experiences. Supports 25+ blockchain protocols including Bitcoin, Ethereum, Solana, Cosmos, and other mainstream ecosystems.
+
+<figure><img src=".gitbook/assets/image (6).png" alt="" width="563"><figcaption></figcaption></figure>
+
+***
+
+### 🔄 OneKey Integration Workflow
+
+#### Workflow Details
+
+1. **🔌 Integration Access**: dApps establish connections through OneKey Provider or SDK
+2. **🔒 Secure Communication**: Use encrypted channels to communicate with hardware/software wallets
+3. **✍️ Signature Authorization**: Users confirm and sign transactions on the device
+4. **📡 Transaction Broadcast**: Send signed transactions to the blockchain network
+
+**Multi-Chain Support** • **Hardware Security** • **Software Convenience** • **Developer Friendly**
+
+***
+
+### Explore OneKey Features
+
+<table data-header-hidden><thead><tr><th width="250"></th><th width="250"></th><th width="250"></th></tr></thead><tbody><tr><td><img src=".gitbook/assets/image (11).png" alt=""><br><a href="guide/web-app-integration-developer.md"><strong>🌐 DApp Integration</strong></a><br>Add wallet connection functionality to your decentralized applications</td><td><p><a href="guide/hardware-integration-developer.md"><br></a><img src=".gitbook/assets/image (15).png" alt=""></p><p><a href="guide/hardware-integration-developer.md"><strong>🔧 Hardware Integration</strong></a><br>Communicate and interact directly with OneKey hardware wallets</p></td><td><img src=".gitbook/assets/image (14).png" alt=""><br><a href="guide/external-contribution-guide.md"><strong>🤝 External Contribution</strong></a><br>Contribute code and functionality to the OneKey ecosystem</td></tr><tr><td></td><td></td><td></td></tr></tbody></table>
+
+### 🚀 OneKey Hardware SDK Playground
+
+{% hint style="info" %}
+Experience OneKey Hardware SDK functionality directly in your browser! Test hardware wallet interactions and explore our comprehensive API without any setup.
+{% endhint %}
+
+[**🔧 Try SDK Playground**](https://hardware-example.onekeytest.com/expo-playground/) - Interactive SDK testing environment with live device simulation
+
+🎪**Features:**
+
+* Live hardware wallet simulation
+* Real-time API testing
+* Multi-chain protocol support
+* No hardware device required for testing ( You could use the emulator  device）
+
+### Detailed Feature List
+
+#### 🌐 DApp Integration Features
+
+<table data-header-hidden><thead><tr><th width="250"></th><th width="250"></th><th width="250"></th><th width="250"></th></tr></thead><tbody><tr><td><div><figure><img src=".gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure></div><p><a href="connect-to-software/compatible-with-metamask/"><strong>🔗 MetaMask Compatible</strong></a><br>EIP-1193 standard support<br></p></td><td><div><figure><img src=".gitbook/assets/image (25).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-software/support-wallet-kit/"><strong>🛠️ Wallet Kit Support</strong></a><br>RainbowKit, Web3Modal, etc.<br></p></td><td><div><figure><img src=".gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure></div><p><a href="connect-to-software/webapp-connect-onekey/"><strong>⚡ Multi-Chain Provider</strong></a><br>ETH, BTC, Solana, NEAR, etc.<br></p></td><td><div><figure><img src=".gitbook/assets/image (29).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-software/using-walletconnect/"><strong>🔄 WalletConnect</strong></a><br>Cross-platform connection protocol<br></p></td></tr></tbody></table>
+
+#### 🔧 Hardware Integration Features
+
+<table data-header-hidden><thead><tr><th width="400"></th><th width="400"></th></tr></thead><tbody><tr><td><div><figure><img src=".gitbook/assets/image (17).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-hardware/hardware-sdk/README.md"><strong>📡 Hardware SDK</strong></a><br>Direct device communication<br>Includes device management, multi-chain APIs and complete functionality<br></p></td><td><div><figure><img src=".gitbook/assets/image (20).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-hardware/air-gap-sdk/"><strong>📱 Air Gap SDK</strong></a><br>QR code communication<br>Offline signing secure interaction<br></p></td></tr></tbody></table>
 
 
-## Quick Start
 
-Choose your development environment:
+{% hint style="success" %}
+[Start using OneKey now!](https://onekey.so/) Supports hardware and software wallets to protect your digital asset security.
+{% endhint %}
 
-| Environment | Package | Use Case |
-|-------------|---------|----------|
-| **Web** | `@onekeyfe/hd-web-sdk` | Web apps, browser extensions |
-| **Mobile** | `@onekeyfe/hd-ble-sdk` | React Native, mobile apps |
+{% hint style="warning" %}
+**Important Note**: Before using OneKey APIs in production environment, please carefully read security best practices and integration guides.
+{% endhint %}
 
+### For Developer's Useful Links
 
-## SDKs at a Glance
+#### Developer Resources
 
-- Hardware SDK
-  - Repo: https://github.com/OneKeyHQ/hardware-js-sdk
-  - Primary packages: @onekeyfe/hd-web-sdk (WebUSB, browser), @onekeyfe/hd-ble-sdk (React Native)
-- Software SDK (cross-inpage provider)
-  - Repo: https://github.com/OneKeyHQ/cross-inpage-provider
-  - Purpose: dApp-facing provider to connect web apps to OneKey software wallets (extension/app), WalletConnect, etc.
-  - See: connect-to-software/ for integration guides
+* [OneKey GitHub](https://github.com/OneKeyHQ)
+* [Logo Assets](https://help.onekey.so/en/articles/11461296-media-kit-press-kit)
 
-| **Web** | `@onekeyfe/hd-web-sdk` | Web apps, browser extensions |
-| **Mobile** | `@onekeyfe/hd-ble-sdk` | React Native, mobile apps |
+#### Something is Missing? Contact Us!
 
-**[→ Get Started](quick-start.md)**
+If you can't find what you need here:
 
-## Features
+* [Ask an issue on GitHub](https://github.com/OneKeyHQ/OneKey-Hardware-JS-SDK/issues)
+* [Check our GitHub profile](https://github.com/OneKeyHQ)
 
-- **25+ Blockchains** - Bitcoin, Ethereum, Solana, Cardano, and more
-- **Multi-Platform** - Node.js, Web, React Native support
-- **Type Safety** - Full TypeScript definitions
-- **Hardware Security** - Direct device communication
+***
 
-## Documentation
-
-### Getting Started
-- **[Quick Start](quick-start.md)** - Environment setup and first integration (WebUSB)
-- **[Connect to Hardware](connect-to-hardware/README.md)** - WebUSB overview and routes to details
-- **[Installation & Setup](connect-to-hardware/configuration/installation.md)** - SDK initialization, permissions, compatibility
-
-### API Reference
-- **[Blockchain APIs](connect-to-hardware/coin-api/README.md)** - Bitcoin, Ethereum, Solana, and more
-- **[Device Management](connect-to-hardware/device-api/README.md)** - Hardware wallet control and features
-- **[Air Gap SDK](connect-to-hardware/air-gap-sdk/README.md)** - Offline signing with QR codes
-
-### Advanced Integration
-- **[Advanced Topics](advanced/README.md)** - PIN, passphrase, and protocol details
-- **[Error Handling](configuration/error-codes.md)** - Complete error code reference
-- **[Derivation Paths](configuration/paths.md)** - BIP32/BIP44 path specifications
-
-## Try It Out
-
-**[SDK Playground](https://hardware-example.onekeytest.com/expo-playground/)** - Test hardware wallet interactions in your browser
-
-## Resources
-
-- **[GitHub](https://github.com/OneKeyHQ)** - Source code and issues
-- **[Help Center](https://help.onekey.so/hc)** - User support
-- **[OneKey Website](https://onekey.so/)** - Official website
+> **💡 Tip**: This is the OneKey developer documentation navigation page. Click on the feature modules above to jump to detailed integration guides and API reference documentation.

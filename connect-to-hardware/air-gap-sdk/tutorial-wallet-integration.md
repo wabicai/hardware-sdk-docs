@@ -26,13 +26,7 @@ yarn add @onekeyfe/hd-air-gap-sdk
 
 Then, we need to add the hardware account to the software.
 
-<!-- TODO: Add screenshots showing the hardware account setup process -->
-
-**Steps:**
-1. Connect your OneKey hardware device
-2. Navigate to the account management section
-3. Select "Add Hardware Account"
-4. Follow the on-screen instructions to generate the QR code
+<table data-view="cards"><thead><tr><th></th></tr></thead><tbody><tr><td><img src="../../.gitbook/assets/image (3) (1).png" alt="" data-size="original"></td></tr><tr><td><img src="../../.gitbook/assets/image (4) (1).png" alt="" data-size="original"></td></tr><tr><td><img src="../../.gitbook/assets/image (7) (1).png" alt=""></td></tr></tbody></table>
 
 
 
@@ -204,13 +198,7 @@ For more details, you can refer to the documentation below.
 
 ### Hardware processing signature
 
-<!-- TODO: Add screenshots showing the transaction signing process -->
-
-**Transaction Signing Steps:**
-1. **Scan QR Code** - Use hardware device to scan the transaction QR code
-2. **Review Transaction** - Verify transaction details on device screen
-3. **Sign Transaction** - Confirm and sign the transaction on device
-4. **Export Signature** - Generate QR code with signed transaction data
+<table data-view="cards"><thead><tr><th></th></tr></thead><tbody><tr><td><img src="../../.gitbook/assets/image (6) (1).png" alt="" data-size="original"></td></tr><tr><td><img src="../../.gitbook/assets/Scan.png" alt="" data-size="original"></td></tr><tr><td><img src="../../.gitbook/assets/Tx-Sign.png" alt="" data-size="original"></td></tr><tr><td><img src="../../.gitbook/assets/Export Signed Transaction.png" alt="" data-size="original"></td></tr></tbody></table>
 
 
 
