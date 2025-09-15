@@ -1,53 +1,62 @@
-# Web App Developer
+# Web App Integration Guide
 
-## &#x20;Started
+This page helps you quickly integrate a web DApp with OneKey.
 
-To develop for OneKey Browser Extension or Mobile Apps, Please install it on your development machine. [Download here.](https://onekey.so/download?client=browserExtension)
+## Quick Start
+1) Install OneKey on your dev machine (browser extension / desktop / mobile). [Download](https://onekey.so/download?client=browserExtension)
+2) Detect the provider in your app (EIP‑1193 style)
+3) Request accounts and permissions
+4) Call chain‑specific provider methods (e.g. ETH, Solana, NEAR)
+5) Handle errors and events (account/network changes)
 
-{% hint style="info" %}
-This guide assumes intermediate knowledge of HTML, CSS, and JavaScript.
-{% endhint %}
+Once OneKey is installed and running, you should find a `window.$onekey` object in DevTools. This is how your site interacts with OneKey.
 
-Once OneKey is installed and running, you should find that new browser tabs have a `window.$onekey` object available in the developer console. This is how your website will interact with OneKey.
+## Choose your integration path
+- Use OneKey Provider (recommended)
+  - Cross‑chain provider APIs by chain → ../connect-to-software/webapp-connect-onekey/
+- Use a wallet aggregator
+  - Web3 Onboard → ../connect-to-software/support-wallet-kit/web3-onboard.md
+  - RainbowKit → ../connect-to-software/support-wallet-kit/rainbowkit.md
+  - Web3Modal → ../connect-to-software/support-wallet-kit/web3modal.md
+- Use WalletConnect
+  - Overview → ../connect-to-software/using-walletconnect/README.md
 
-## Intro
+## Minimal example (ETH)
+```js
+// 1) Detect OneKey provider
+const provider = window?.$onekey?.ethereum;
+if (!provider) {
+  alert('Please install or open OneKey to continue');
+  throw new Error('OneKey provider not found');
+}
 
-As a DApp developer, you have the following options for connecting to OneKey:
+// 2) Request accounts
+await provider.request({ method: 'eth_requestAccounts' });
 
-## OneKey Provider API
+// 3) Read current account
+const [account] = await provider.request({ method: 'eth_accounts' });
+console.log('Connected account:', account);
 
-OneKey injects the Provider API into websites visited by users, allowing these websites to request relevant APIs to interact with blockchains through OneKey. e.g [Ethereum Provider API](../connect-to-software/webapp-connect-onekey/eth/provider-api.md).
+// 4) Listen to changes
+provider.on('accountsChanged', (accounts) => console.log('accountsChanged', accounts));
+provider.on('chainChanged', (chainId) => console.log('chainChanged', chainId));
 
-OneKey provides Provider APIs for many blockchains.
-
-{% content-ref url="../connect-to-software/webapp-connect-onekey/" %}
-[webapp-connect-onekey](../connect-to-software/webapp-connect-onekey/)
-{% endcontent-ref %}
-
-
-
-Below are scenarios for different clients using the Provider API.
-
-| Client                              | DApp support                                                                    |
-| ----------------------------------- | ------------------------------------------------------------------------------- |
-| OneKey Chrome plugin                | You can use DApp to connect to OneKey in Chrome.                                |
-| OneKey Edge plugin                  | You can use DApp to connect to OneKey in Edge.                                  |
-| OneKey Desktop（Windows、macOS、Linux） | You can use DApp to connect to OneKey in Built-in Browser on the Desktop.       |
-| OneKey Mobile client（iOS、Android）   | You can use DApp to connect to OneKey in Built-in Browser on the Mobile client. |
+// 5) Send a read RPC (example: chain id)
+const chainId = await provider.request({ method: 'eth_chainId' });
+console.log('chainId:', chainId);
+```
 
 
+## Supported clients
+| Client | DApp support |
+| --- | --- |
+| OneKey Chrome plugin | Connect in Chrome |
+| OneKey Edge plugin | Connect in Edge |
+| OneKey Desktop（Windows、macOS、Linux） | Connect in the built‑in browser |
+| OneKey Mobile（iOS、Android） | Connect in the built‑in browser |
 
-## Use Wallet aggregator GUIs and SDKs
-
-Below are the wallet aggregator GUIs and SDKs that already support OneKey. If you are looking for a GUI or SDK, consider using one of the following aggregators that support OneKey. If you have already integrated with one of these aggregators, you can also refer to the documentation for better integration with OneKey.
-
-* Metamask SDK  [Read more >>>](../connect-to-software/compatible-with-metamask/)
-* Web3 Onboard [Read more >>>](../connect-to-software/support-wallet-kit/web3-onboard.md)
-* Rainbowkit [Read more >>>](../connect-to-software/support-wallet-kit/rainbowkit.md)
-
-## WalletConnect Integration
-
-If you are using a DApp application, you can choose the WalletConnect connection method. Use the OneKey software wallet to scan the WalletConnect QR code to instantly connect to the DApp. You can then use the assets managed in OneKey to use the corresponding DApp.
-
-* DApp developers who want to add WalletConnect connectivity to their projects to connect to OneKey can [refer to the relevant WalletConnect documentation](https://docs.walletconnect.com/quickstart).
+## Troubleshooting
+- If provider is not detected, ensure OneKey is installed and unlocked
+- For chain‑specific APIs, follow the docs under WebApp Connect OneKey by chain
+- For WalletConnect, follow WalletConnect docs for QR flow
 

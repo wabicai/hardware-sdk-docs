@@ -3,10 +3,11 @@
 ## 👋 GUIDE
 
 * [Introduction](README.md)
-* [Web App Integration Developer](guides/web-app-integration-developer.md)
-* [Hardware Integration Developer](guides/hardware-integration-developer.md)
-* [External Contribution Guide](guides/external-contribution-guide.md)
-* [Common Terms](guides/common-terms.md)
+* [Developer Guide](guides/developer-guide.md)
+* [Web App Integration Guide](guides/web-app-integration-developer.md)
+* [Hardware Integration Guide](guides/hardware-integration-developer.md)
+
+
 
 ## 🔮 Connect To Software
 
@@ -253,16 +254,10 @@
       * [EthSignRequest](connect-to-hardware/air-gap-sdk/api-reference/ethereum-and-evm/ethsignrequest.md)
       * [EthSignature](connect-to-hardware/air-gap-sdk/api-reference/ethereum-and-evm/ethsignature.md)
 
-## ⛳ Best Practice
 
-* [Registering Your Contract's Method Names](best-practices/registering-your-contracts-method-names.md)
-* [Registering Tokens with Users](best-practices/registering-tokens-with-users.md)
-* [Defining Your App's Icon](best-practices/defining-your-apps-icon.md)
-* [Migration from MetaMask](best-practices/migration-from-metamask.md)
 
 ***
 
-* [🎨 Logo Assets](https://help.onekey.so/hc/articles/360002200956)
-* [🧙 Support](https://help.onekey.so/)
-* [🕹️ Trouble Shooting](troubleshooting.md)
-* [❤️ Contribute](contributing.md)
+* [❤️ Contribute](contribute/README.md)
+
+
