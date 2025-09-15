@@ -1,4 +1,4 @@
-# Rainbowkit
+# RainbowKit
 
 ## Docs <a href="#install" id="install"></a>
 
@@ -18,7 +18,7 @@ npm install @rainbow-me/rainbowkit wagmi viem
 
 ## Config OneKey
 
-Add the OneKey Wallet Id when Rainbowkit.
+Add the OneKey Wallet Id when using RainbowKit.
 
 ```javascript
 // import OneKey Wallet

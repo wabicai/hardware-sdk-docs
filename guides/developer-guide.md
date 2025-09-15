@@ -27,9 +27,9 @@ This guide helps you choose the right integration path with OneKey and jump to t
 
 | Integration Method | Best For | Get Started |
 |-------------------|----------|-------------|
-| **OneKey Provider** (EIP-1193) | Direct provider integration | [**→ Web App Guide**](web-app-integration-developer.md) |
-| **Wallet Aggregators** | Web3 Onboard, RainbowKit, Web3Modal | [**→ Web App Guide**](web-app-integration-developer.md) |
-| **WalletConnect** | Mobile/desktop connectivity | [**→ Web App Guide**](web-app-integration-developer.md) |
+| **OneKey Provider** (EIP-1193) | Direct provider integration | [**→ OneKey Provider**](../connect-to-software/webapp-connect-onekey/) |
+| **Wallet Aggregators** | Web3 Onboard, RainbowKit, Web3Modal | [**→ Wallet Kits**](../connect-to-software/support-wallet-kit/) |
+| **WalletConnect** | Mobile/desktop connectivity | [**→ WalletConnect**](../connect-to-software/using-walletconnect/) |
 
 ### 🔧 Hardware Direct Integration
 
@@ -85,4 +85,15 @@ This guide helps you choose the right integration path with OneKey and jump to t
 - 📖 [**Troubleshooting Guide**](../troubleshooting.md)
 - 💬 [**Community Support**](https://github.com/OneKeyHQ/hardware-js-sdk/discussions)
 - 🐛 [**Report Issues**](https://github.com/OneKeyHQ/hardware-js-sdk/issues)
+
+## 📚 术语表（Common Terms） {#common-terms}
+
+- **connectId**: 与设备当前会话的连接标识，来源于 `searchDevices` 返回结果。
+- **deviceId**: 设备的持久标识，通过 `getFeatures` 获取，某些链或设备操作会使用。
+- **transport**: 通讯方式（USB / BLE / Lowlevel）。Web 通过 Bridge+WebUSB，React Native 通过 BLE，原生可用 Lowlevel 插件。
+- **Bridge**: 浏览器/桌面端通过 USB 与硬件通讯的辅助服务，Web SDK 通过 `connectSrc` 关联。
+- **env**: SDK 运行环境预设，例如 `web`、`react-native`、`lowlevel`。
+- **showOnOneKey**: 是否在设备上弹出确认并显示信息。
+- **passphrase**: 可选的额外口令，保护独立钱包空间，详见高级文档。
+- **firmware version**: 设备固件版本，决定功能可用性与 API 行为，通过 `getFeatures` 获取。
 

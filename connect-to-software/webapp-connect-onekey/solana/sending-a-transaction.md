@@ -3,10 +3,10 @@
 Sending a TransactionOnce a web application is connected to OneKey, it can prompt the user for permission to send transactions on their behalf.In order to send a transaction, a web application must:
 
 1. 1.Create an unsigned transaction.
-2. 2.Have the transaction be signed and submitted to the network by the user's OneKey wallet.
+2. Have the transaction be signed and submitted to the network by the user's OneKey wallet.
 3. 3.Optionally await network confirmation using a Solana JSON RPC connection.
 
-For more information about the nature of Solana transactions, please review the [`solana-web3.js` docs](https://solana-labs.github.io/solana-web3.js/) as well as the [Solana Cookbook](https://solanacookbook.com/core-concepts/transactions.html#transactions).For a sample OneKey transaction.
+For more information about the nature of Solana transactions, please review the [`solana-web3.js` docs](https://solana-labs.github.io/solana-web3.js/) as well as the [Solana Cookbook](https://solanacookbook.com/core-concepts/transactions.html#transactions). For a sample OneKey transaction, see our examples below.
 
 ## Signing and Sending a Transaction <a href="#signing-and-sending-a-transaction" id="signing-and-sending-a-transaction"></a>
 

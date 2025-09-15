@@ -126,6 +126,10 @@ console.log('Device info:', result);
 - 📦 [**Wallet Kits**](../connect-to-software/support-wallet-kit/) - RainbowKit, Web3Modal
 - 🔗 [**WalletConnect**](../connect-to-software/using-walletconnect/) - Cross-platform connectivity
 
+### 📊 Platform/Device Support
+
+Review supported transports by device model and platform: [SDK Compatibility](../connect-to-hardware/hardware-sdk/install-sdk.md#platform-device-support-matrix)
+
 ## ❓ Need Help?
 
 - 🚀 [**Getting Started Tutorial**](../connect-to-hardware/hardware-sdk/tutorial.md)

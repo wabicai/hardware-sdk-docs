@@ -8,7 +8,7 @@ function call(connectId: string; deviceId: string; commonParams: CommonParams)
 
 The input parameters are obtained as follows:
 
-* `connectId`: Obtained from the `connectId` field of the device returned in the `searchDevice` interface.&#x20;
+* `connectId`: Obtained from the `connectId` field of the device returned in the `searchDevices` interface.&#x20;
   * The connect id of the device is never changed.
 * `deviceId`: The deviceId field returned by the `getFeatures` interface.&#x20;
   * The device id changes when the hardware is reset. Like wipe the device.

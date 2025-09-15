@@ -1,4 +1,4 @@
-# startcoinGetAddress
+# starcoinGetAddress
 
 ## Starcoin: get address
 

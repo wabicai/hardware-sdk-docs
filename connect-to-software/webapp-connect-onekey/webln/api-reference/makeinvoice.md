@@ -6,7 +6,7 @@ Request that the user creates an invoice to be used by the web app. This will re
 * By specifying a `minimumAmount` and / or `maximumAmount`, the user's provider should enforce that the user generate an invoice with an amount field constrained by that amount
 * When an explicit `amount` is _not_ set, the us
 
-Amounts are denominated in satoshis. For large amounts, it's recommended you use a big number library such as [bn.js](https://www.npmjs.com/package/bn.js) or [big.js](https://www.npmjs.com/package/big.js) as Javascript only supports 32 bit integers.
+Amounts are denominated in satoshis. For large amounts, it's recommended you use a big number library such as [bn.js](https://www.npmjs.com/package/bn.js) or [big.js](https://www.npmjs.com/package/big.js) because JavaScript numbers are IEEE-754 doubles and can lose precision for large integers.
 
 ### Method
 

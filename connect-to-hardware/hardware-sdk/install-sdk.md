@@ -6,11 +6,11 @@ The support status for Bluetooth and USB on different devices.
 
 | Device            | Bluetooth            | USB                  |
 | ----------------- | -------------------- | -------------------- |
-| OneKey Classic    | :white\_check\_mark: | :white\_check\_mark: |
-| OneKey Classic 1s | :white\_check\_mark: | :white\_check\_mark: |
-| OneKey Mini       | :x:                  | :white\_check\_mark: |
-| OneKey Touch      | :white\_check\_mark: | :white\_check\_mark: |
-| Onekey Pro        | :white\_check\_mark: | :white\_check\_mark: |
+| OneKey Classic    | :white_check_mark: | :white_check_mark: |
+| OneKey Classic 1s | :white_check_mark: | :white_check_mark: |
+| OneKey Mini       | :x:                  | :white_check_mark: |
+| OneKey Touch      | :white_check_mark: | :white_check_mark: |
+| OneKey Pro        | :white_check_mark: | :white_check_mark: |
 
 
 
@@ -35,7 +35,7 @@ import { HardwareWebSdk as HardwareSDK } from '@onekeyfe/hd-web-sdk';
 HardwareSDK.init({
   debug: true,
   fetchConfig: true,
-  connectSrc: 'https://jssdk.onekey.so/1.0.38/'
+  connectSrc: 'https://jssdk.onekey.so/1.1.10/'
 })
 ```
 
@@ -43,9 +43,9 @@ HardwareSDK.init({
 
 **connectSrc**: The official web page deployed by OneKey is used to create an iframe on the page to communicate with OneKey Bridge.&#x20;
 
-The complete link to the web page is `https://jssdk.onekey.so/1.0.38/iframe.html`.
+The complete link to the web page is `https://jssdk.onekey.so/1.1.10/iframe.html`.
 
-Normally, the number after the URL should match the version number of the SDK you installed. For example, “1.0.38” in this case.
+Normally, the number after the URL should match the version number of the SDK you installed. For example, “1.1.10” in this case.
 
 If encountering issues with the web page failing to load for the corresponding version number, please try using a different version of the SDK or submit an issue on [GitHub](https://github.com/OneKeyHQ/hardware-js-sdk/issues) for feedback. We will work quickly to resolve the problem.
 {% endtab %}
@@ -62,7 +62,7 @@ yarn add @onekeyfe/hd-ble-sdk
 ## Initialization
 
 ```javascript
-import { HardwareWebSdk as HardwareSDK } from '@onekeyfe/hd-ble-sdk';
+import { HardwareBleSdk as HardwareSDK } from '@onekeyfe/hd-ble-sdk';
 
 HardwareSDK.init({
   debug: true,
@@ -70,7 +70,7 @@ HardwareSDK.init({
 })
 ```
 
-**connectSrc**: The official web page deployed by OneKey is used to create an iframe on the page to communicate with OneKey Bridge.&#x20;
+Note: `connectSrc` is for Web only and is not required for React Native.
 
 **fetchConfig:** Allows querying for updated device version information over the network, used for prompting device updates and informing which version is needed for older hardware to use new features.
 {% endtab %}
@@ -95,3 +95,21 @@ For specific platforms, how to integrate hd-common-connect-sdk, and demos for re
 {% endtabs %}
 
 Next, you can return to the [Quickstart](started.md) and proceed with the steps for [Configuring the Event](config-event.md).
+
+## Platform/Device Support Matrix {#platform-device-support-matrix}
+
+This section summarizes supported transports by device model and platform.
+
+| Device Model     | USB Support | Bluetooth (BLE) | Notes |
+|------------------|-------------|------------------|-------|
+| OneKey Classic   | Yes         | Yes              |       |
+| OneKey Classic 1s| Yes         | Yes              |       |
+| OneKey Mini      | Yes         | No               |       |
+| OneKey Touch     | Yes         | Yes              |       |
+| OneKey Pro       | Yes         | Yes              |       |
+
+| Platform                              | USB Transport                 | BLE Transport                 | Notes |
+|---------------------------------------|-------------------------------|-------------------------------|-------|
+| Web (Browser/Desktop)                 | hd-web-sdk + Bridge           | —                             | HTTPS required for WebUSB |
+| React Native (iOS/Android)            | —                             | hd-ble-sdk                    | Native BLE permissions required |
+| Android Native / iOS Native / Flutter | hd-common-connect-sdk (USB)   | hd-common-connect-sdk (BLE)   | Requires Lowlevel plugin integration |

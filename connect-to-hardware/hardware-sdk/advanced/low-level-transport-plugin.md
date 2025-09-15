@@ -2,7 +2,7 @@
 
 Our Bluetooth SDK is developed using React Native. You may not be using React Native to develop your application, for example, you may be using Swift, Kotlin, or Flutter.At this point, adding a dependency on React Native to your project may not be a good choice.
 
-We provide a new communication method where you can use the LowlevelTransportPlugin to communicate with the hardware. You are free to use any technology stack of your choice. You will need to finish the protocol for device connect, disconnect, send data, and receive data.
+We provide a new communication method where you can use the LowlevelTransportSharedPlugin to communicate with the hardware. You are free to use any technology stack of your choice. You will need to finish the protocol for device connect, disconnect, send data, and receive data.
 
 Since the Bluetooth data sent by the device is 64 bytes per packet, the receive method needs to externally determine whether a complete data packet has been received. You must return the complete data packet, otherwise the device will not be able to correctly parse the data.
 
@@ -40,7 +40,8 @@ function createLowlevelPlugin() {
       // TODO: send data
     },
     receive: () => {
-      return Promise.resolve(result hex string)
+      // Return a complete hex string assembled from 64-byte packets
+      return Promise.resolve('a1b2c3...');
     },
     connect: (uuid) => {
       // TODO: connect device

@@ -10,7 +10,7 @@ Below are the links to the relevant demos.
 
 [iOS Demo Link](https://github.com/originalix/Hardware-Lowlevel-Communicate)
 
-[Android Demo Link](low-level-transport-plugin.md)
+[Android Demo Link](https://github.com/ByteZhang1024/OneKeyHardwareExample)
 
 [Flutter Demo Link](https://github.com/ByteZhang1024/OneKeyFlutterHardwareExample)
 
@@ -44,7 +44,7 @@ After determining the runtime environment, we also need a communication solution
 {% tab title="Flutter" %}
 For Flutter, there are two options for the JavaScript runtime environment:
 
-* [Javascript engine](https://pub.dev/packages/flutter\_js) to use with flutter.
+* [JavaScript engine](https://pub.dev/packages/flutter_js) to use with flutter.
 * The WebView approach.
 
 Here, for consistency with other demos, the method of loading JavaScript using WebView was still chosen. You can try selecting others.
@@ -77,9 +77,9 @@ For detailed configuration, you can refer to the web settings in the demo.
 
 These steps will help set up the JavaScript environment and integrate the necessary SDK and dependencies for the OneKey integration on iOS and Android platforms.
 
-### Cnfigure the LowlevelPlugin
+### Configure the LowlevelPlugin
 
-Next, configure the LowlevelPlugin. There is a document you can refer to for more information [Read more>>>](low-level-transport-plugin.md)
+Next, configure the LowlevelPlugin. There is a document you can refer to for more information [Read more →](low-level-transport-plugin.md)
 
 
 
@@ -98,7 +98,7 @@ To forward `LowlevelPlugin` functionality to the Native side and return related 
 
 If unclear, you can refer to the related demos for guidance.
 
-## Connection Device
+## Connect Device
 
 {% tabs %}
 {% tab title="Bluetooth" %}

@@ -1,6 +1,6 @@
 # Trouble Shooting
 
-When making requests to OneKey in [Establishing a Connection](broken-reference), [Sending Transactions](broken-reference), [Signing Messages](broken-reference), or [RPC API Calling](broken-reference), OneKey may respond with an error. Here are the error codes and their meanings. These are inspired the corresponding by [EIP-1474](https://eips.ethereum.org/EIPS/eip-1474#error-codes) and [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193#provider-errors) on Ethereum.
+When making requests to OneKey in [Establishing a Connection](../integrating/establishing-a-connection.md), [Sending Transactions](../integrating/sending-transactions/README.md), [Signing Messages](../integrating/signing-messages.md), or [RPC API Calling](../integrating/rpc-api-calling.md), OneKey may respond with an error. Here are the error codes and their meanings. These are inspired the corresponding by [EIP-1474](https://eips.ethereum.org/EIPS/eip-1474#error-codes) and [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193#provider-errors) on Ethereum.
 
 | **Code** | **Title**             | **Description**                                                          |
 | -------- | --------------------- | ------------------------------------------------------------------------ |

@@ -10,7 +10,7 @@ The web terminal can communicate with hardware only after a hardware bridge is i
 
 [Install Hardware Bridge](https://onekey.so/download?client=bridge)
 
-#### Setp 2: Debug
+#### Step 2: Debug
 
 You can use a USB connection to the device for debugging APIs.
 
@@ -18,7 +18,7 @@ You can use a USB connection to the device for debugging APIs.
 
 
 
-## **Step 1: Selector and Initialize the SDK**
+## **Step 1: Select and Initialize the SDK**
 
 1. Select the appropriate version of the SDK for your platform. [See SDK Platform Selection Guide](install-sdk.md).
 2. Download and install the latest version of the SDK for timely technical support.
@@ -33,7 +33,7 @@ After the hardware is successfully connected:
    * Entering the hardware unlock PIN code in the software is implemented through the corresponding `EVENT`.
    * Requests requiring hardware confirmation will also inform the client through `EVENT`, like opening or closing confirmation windows.
 
-By default, the device's PIN code input is handled by the software. if you need the hardware to handle related EVENTs, additional steps are required.
+By default, the device's PIN code input is handled by the software. If you need the hardware to handle related EVENTs, additional steps are required.
 
 To ensure that you can fully understand and correctly handle these events, we recommend that you thoroughly refer to our [Event documentation](config-event.md).
 
@@ -43,7 +43,7 @@ Before using the API, ensure:
 
 1. You understand the API call instructions and common parameters. See [API Call Instructions](install-sdk.md#initialization).
 2. Invoke the API, including the common parameters ([Common Params](api-reference/common-params.md)).
-3. Select the appropriate API based on the hardware firmware version. See [API Documentation](../air-gap-sdk/api-reference/).
+3. Select the appropriate API based on the hardware firmware version. See [API Documentation](../hardware-sdk/api-reference/).
 
 #### **Response and Error Handling**
 
@@ -117,7 +117,7 @@ First, you need to understand [Common Params](api-reference/common-params.md) an
 
 Thus, the normal process for adding a new device is:
 
-1. Use [searchDevice](api-reference/basic-api/search-devices.md) to find nearby devices.
+1. Use [searchDevices](api-reference/basic-api/search-devices.md) to find nearby devices.
    1. In the returned results, there will be information such as `connectId`, `deviceType`, and `name` that you need to save. For USB devices, there will also be a `DeviceId`.
    2. If it is a Bluetooth device, you will need to additionally use the [getFeatures](api-reference/basic-api/get-features.md) to obtain `DeviceId` relevant information and persistently save it.&#x20;
 2. Later, for other business operations, you only need to call the relevant APIs and pass in the ConnectId and DeviceId.
