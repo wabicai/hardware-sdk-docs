@@ -42,7 +42,38 @@ OneKey offers complete wallet infrastructure supporting multi-chain ecosystem in
 
 ### Explore OneKey Features
 
-<table data-header-hidden><thead><tr><th width="250"></th><th width="250"></th><th width="250"></th></tr></thead><tbody><tr><td><img src=".gitbook/assets/image (11).png" alt=""><br><a href="guides/web-app-integration-developer.md"><strong>🌐 DApp Integration</strong></a><br>Add wallet connection functionality to your decentralized applications</td><td><p><a href="guides/hardware-integration-developer.md"><br></a><img src=".gitbook/assets/image (15).png" alt=""></p><p><a href="guides/hardware-integration-developer.md"><strong>🔧 Hardware Integration</strong></a><br>Communicate and interact directly with OneKey hardware wallets</p></td><td><img src=".gitbook/assets/image (14).png" alt=""><br><a href="contribute/README.md"><strong>🤝 External Contribution</strong></a><br>Contribute code and functionality to the OneKey ecosystem</td></tr><tr><td></td><td></td><td></td></tr></tbody></table>
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 30px 0;">
+  <div style="text-align: center; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div style="font-size: 48px; margin-bottom: 16px;">🌐</div>
+    <h3 style="margin: 0 0 12px 0;"><a href="guides/web-app-integration-developer.md" style="color: white; text-decoration: none;">DApp Integration</a></h3>
+    <p style="margin: 0; opacity: 0.9;">Add wallet connection functionality to your decentralized applications</p>
+    <div style="margin-top: 16px;">
+      <a href="guides/web-app-integration-developer.md" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold;">🚀 Get Started</a>
+    </div>
+  </div>
+
+  <div style="text-align: center; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+    <div style="font-size: 48px; margin-bottom: 16px;">🔧</div>
+    <h3 style="margin: 0 0 12px 0;"><a href="guides/hardware-integration-developer.md" style="color: white; text-decoration: none;">Hardware Integration</a></h3>
+    <p style="margin: 0; opacity: 0.9;">Communicate and interact directly with OneKey hardware wallets</p>
+    <div style="margin-top: 16px;">
+      <a href="guides/hardware-integration-developer.md" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold;">🔧 Build Now</a>
+    </div>
+  </div>
+
+  <div style="text-align: center; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+    <div style="font-size: 48px; margin-bottom: 16px;">🤝</div>
+    <h3 style="margin: 0 0 12px 0;"><a href="contribute/README.md" style="color: white; text-decoration: none;">Contribute</a></h3>
+    <p style="margin: 0; opacity: 0.9;">Contribute code and functionality to the OneKey ecosystem</p>
+    <div style="margin-top: 16px;">
+      <a href="contribute/README.md" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold;">❤️ Join Us</a>
+    </div>
+  </div>
+</div>
+
+### 🎯 Quick Navigation
+
+**New to OneKey?** Start here: [**📚 Developer Guide**](guides/developer-guide.md) → Choose your integration path in 5 minutes
 
 ### 🚀 OneKey Hardware SDK Playground
 
@@ -95,4 +126,23 @@ If you can't find what you need here:
 
 ***
 
-> **💡 Tip**: This is the OneKey developer documentation navigation page. Click on the feature modules above to jump to detailed integration guides and API reference documentation.
+---
+
+## 🚀 Quick Start Navigation
+
+<table style="width: 100%; border-collapse: collapse;">
+<tr>
+<td style="padding: 20px; border: 2px solid #28a745; border-radius: 8px; background: #f8fff8; text-align: center;">
+  <h4 style="margin: 0 0 12px 0; color: #28a745;">🎆 First Time Here?</h4>
+  <p style="margin: 0 0 16px 0;">Get oriented with our comprehensive guide</p>
+  <a href="guides/developer-guide.md" style="background: #28a745; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">📚 Start with Developer Guide</a>
+</td>
+<td style="padding: 20px; border: 2px solid #007bff; border-radius: 8px; background: #f8fcff; text-align: center;">
+  <h4 style="margin: 0 0 12px 0; color: #007bff;">🗺️ Explore by Feature</h4>
+  <p style="margin: 0 0 16px 0;">Browse all available integrations</p>
+  <a href="#detailed-feature-list" style="background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">🗺️ View All Features</a>
+</td>
+</tr>
+</table>
+
+> **💡 Navigation Tip**: Use the sidebar for detailed API references, or follow the guided paths in our developer guides for step-by-step integration.
