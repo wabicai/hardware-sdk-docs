@@ -95,6 +95,7 @@
     * [Sending a Transaction](connect-to-software/webapp-connect-onekey/solana/sending-a-transaction.md)
     * [Signing a Message](connect-to-software/webapp-connect-onekey/solana/signing-a-message.md)
 * [Using WalletConnect](connect-to-software/using-walletconnect/README.md)
+  * [Mobile Deep Link Integration](connect-to-software/using-walletconnect/mobile-deep-link.md)
   * [ETH](connect-to-software/using-walletconnect/eth.md)
   * [APTOS](connect-to-software/using-walletconnect/aptos/README.md)
     * [Wallet Connect API](connect-to-software/using-walletconnect/aptos/wallet-connect-api.md)
