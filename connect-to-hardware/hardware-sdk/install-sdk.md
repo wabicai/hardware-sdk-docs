@@ -29,25 +29,25 @@ yarn add @onekeyfe/hd-web-sdk
 
 ## Initialization
 
-```
+```javascript
 import { HardwareWebSdk as HardwareSDK } from '@onekeyfe/hd-web-sdk';
 
 HardwareSDK.init({
   debug: true,
   fetchConfig: true,
-  connectSrc: 'https://jssdk.onekey.so/1.1.10/'
+  env: 'webusb'
 })
 ```
 
 **fetchConfig:** Allows querying for updated device version information over the network, used for prompting device updates and informing which version is needed for older hardware to use new features.
 
-**connectSrc**: The official web page deployed by OneKey is used to create an iframe on the page to communicate with OneKey Bridge.&#x20;
+**env**: Set to `'webusb'` to use the WebUSB protocol for direct device communication through the browser. This requires:
+- HTTPS environment (WebUSB is only available over HTTPS)
+- Modern browser with WebUSB support (Chrome, Edge, Opera)
+- User authorization for device access
 
-The complete link to the web page is `https://jssdk.onekey.so/1.1.10/iframe.html`.
+The SDK will use the browser's native WebUSB API to communicate directly with OneKey hardware devices, eliminating the need for additional bridge software.
 
-Normally, the number after the URL should match the version number of the SDK you installed. For example, “1.1.10” in this case.
-
-If encountering issues with the web page failing to load for the corresponding version number, please try using a different version of the SDK or submit an issue on [GitHub](https://github.com/OneKeyHQ/hardware-js-sdk/issues) for feedback. We will work quickly to resolve the problem.
 {% endtab %}
 
 {% tab title="React Native" %}
@@ -110,6 +110,6 @@ This section summarizes supported transports by device model and platform.
 
 | Platform                              | USB Transport                 | BLE Transport                 | Notes |
 |---------------------------------------|-------------------------------|-------------------------------|-------|
-| Web (Browser/Desktop)                 | hd-web-sdk + Bridge           | —                             | HTTPS required for WebUSB |
+| Web (Browser/Desktop)                 | hd-web-sdk (WebUSB)           | —                             | HTTPS required, WebUSB-compatible browser needed |
 | React Native (iOS/Android)            | —                             | hd-ble-sdk                    | Native BLE permissions required |
 | Android Native / iOS Native / Flutter | hd-common-connect-sdk (USB)   | hd-common-connect-sdk (BLE)   | Requires Lowlevel plugin integration |

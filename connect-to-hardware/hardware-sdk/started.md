@@ -4,17 +4,19 @@ This guide provides clear and concise steps to seamlessly integrate and fully ut
 
 ## **Step 0: Try** Online debugging tool
 
-#### Step 1: Install bridge
+### Test with Online Debugging Tool
 
-The web terminal can communicate with hardware only after a hardware bridge is installed.
+You can use the online debugging tool to test SDK functionality with your OneKey hardware device.
 
-[Install Hardware Bridge](https://onekey.so/download?client=bridge)
-
-#### Step 2: Debug
-
-You can use a USB connection to the device for debugging APIs.
+**Requirements:**
+- HTTPS environment (WebUSB requires secure context)
+- Modern browser with WebUSB support (Chrome, Edge, Opera)
+- OneKey hardware device connected via USB
+- User authorization for device access (browser will prompt)
 
 [Online Debugging Tool](https://hardware-example.onekeytest.com/)
+
+**Note:** The SDK now uses WebUSB for direct browser-to-device communication, eliminating the need for additional bridge software.
 
 
 

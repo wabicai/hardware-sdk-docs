@@ -51,8 +51,7 @@ This guide helps you choose the right integration path with OneKey and jump to t
 
 | Tool | Purpose | Link |
 |------|---------|------|
-| **Hardware Bridge** | USB transport helper for browsers | [**Download →**](https://onekey.so/download?client=bridge) |
-| **SDK Playground** | Test hardware integration online | [**Try Now →**](https://hardware-example.onekeytest.com/expo-playground/) |
+| **SDK Playground** | Test hardware integration online with WebUSB | [**Try Now →**](https://hardware-example.onekeytest.com/expo-playground/) |
 
 ## 🔍 API Reference Quick Access
 
@@ -90,9 +89,9 @@ This guide helps you choose the right integration path with OneKey and jump to t
 
 - **connectId**: 与设备当前会话的连接标识，来源于 `searchDevices` 返回结果。
 - **deviceId**: 设备的持久标识，通过 `getFeatures` 获取，某些链或设备操作会使用。
-- **transport**: 通讯方式（USB / BLE / Lowlevel）。Web 通过 Bridge+WebUSB，React Native 通过 BLE，原生可用 Lowlevel 插件。
-- **Bridge**: 浏览器/桌面端通过 USB 与硬件通讯的辅助服务，Web SDK 通过 `connectSrc` 关联。
-- **env**: SDK 运行环境预设，例如 `web`、`react-native`、`lowlevel`。
+- **transport**: 通讯方式（WebUSB / BLE / Lowlevel）。Web 通过 WebUSB 直接通信，React Native 通过 BLE，原生可用 Lowlevel 插件。
+- **WebUSB**: 浏览器原生 USB 通信协议，允许 Web 应用直接访问 USB 设备，需要 HTTPS 环境和用户授权。
+- **env**: SDK 运行环境预设，例如 `webusb`、`react-native`、`lowlevel`。
 - **showOnOneKey**: 是否在设备上弹出确认并显示信息。
 - **passphrase**: 可选的额外口令，保护独立钱包空间，详见高级文档。
 - **firmware version**: 设备固件版本，决定功能可用性与 API 行为，通过 `getFeatures` 获取。

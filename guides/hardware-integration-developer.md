@@ -15,10 +15,9 @@ Integrate OneKey hardware wallets directly into your native applications using U
 <div style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); padding: 20px; border-radius: 12px; margin: 16px 0;">
   <h4 style="margin: 0 0 12px 0; color: #2d3748;">🚀 Step-by-Step Setup</h4>
   <ol style="margin: 0; padding-left: 20px; color: #4a5568;">
-    <li><strong>Install Hardware Bridge</strong> → <a href="https://onekey.so/download?client=bridge" style="color: #e53e3e; font-weight: bold;">Download Bridge</a></li>
     <li><strong>Connect Device</strong> → USB or Bluetooth</li>
     <li><strong>Test Integration</strong> → <a href="https://hardware-example.onekeytest.com/expo-playground/" style="color: #e53e3e; font-weight: bold;">SDK Playground</a></li>
-    <li><strong>Add to Your App</strong> → Install & Initialize SDK</li>
+    <li><strong>Add to Your App</strong> → Install & Initialize SDK with WebUSB</li>
     <li><strong>Handle UI Events</strong> → Prompts & Results</li>
   </ol>
 </div>
@@ -71,9 +70,10 @@ console.log('Device info:', result);
 <div style="background: #fff3cd; border: 2px solid #ffeaa7; padding: 20px; border-radius: 8px; margin: 20px 0;">
   <h4 style="margin: 0 0 12px 0; color: #856404;">⚠️ Platform Requirements</h4>
   <ul style="margin: 0; color: #856404;">
-    <li><strong>Hardware Bridge</strong> - Required for browser/desktop USB communication</li>
+    <li><strong>WebUSB Support</strong> - Modern browsers (Chrome, Edge, Opera) for direct USB communication</li>
+    <li><strong>HTTPS Required</strong> - WebUSB only works in secure contexts (HTTPS)</li>
     <li><strong>Bluetooth Support</strong> - Depends on platform capabilities (mobile native apps)</li>
-    <li><strong>HTTPS Required</strong> - For web applications using WebUSB</li>
+    <li><strong>User Authorization</strong> - Browser will prompt for device access permission</li>
   </ul>
 </div>
 
