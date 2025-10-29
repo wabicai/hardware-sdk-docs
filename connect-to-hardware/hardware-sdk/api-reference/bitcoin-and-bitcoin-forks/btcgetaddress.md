@@ -26,7 +26,7 @@ const result = await HardwareSDK.btcGetAddress(connectId, deviceId, params);
 
 ### Get different types of addresses
 
-获取不同类型的 BTC 地址需要不同的 Path 参数。
+Different BTC address types require different derivation path parameters.
 
 | Type                | Path            | Eg.                                                          |
 | ------------------- | --------------- | ------------------------------------------------------------ |

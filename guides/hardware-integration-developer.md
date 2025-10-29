@@ -122,9 +122,7 @@ console.log('Device info:', result);
 ## 🔗 Related Integration Methods
 
 **Need web-based integration instead?**
-- 🌐 [**Web App Integration**](web-app-integration-developer.md) - Provider APIs, WalletConnect
-- 📦 [**Wallet Kits**](../connect-to-software/support-wallet-kit/) - RainbowKit, Web3Modal
-- 🔗 [**WalletConnect**](../connect-to-software/using-walletconnect/) - Cross-platform connectivity
+- 🌐 [**OneKey dApp documentation**](https://github.com/OneKeyHQ/hardware-js-sdk/tree/main/dapp-docs) – Provider, WalletConnect, and aggregator guides
 
 ### 📊 Platform/Device Support
 

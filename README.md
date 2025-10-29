@@ -43,21 +43,21 @@ OneKey offers complete wallet infrastructure supporting multi-chain ecosystem in
 ### Explore OneKey Features
 
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 30px 0;">
-  <div style="text-align: center; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-    <div style="font-size: 48px; margin-bottom: 16px;">🌐</div>
-    <h3 style="margin: 0 0 12px 0;"><a href="guides/web-app-integration-developer.md" style="color: white; text-decoration: none;">DApp Integration</a></h3>
-    <p style="margin: 0; opacity: 0.9;">Add wallet connection functionality to your decentralized applications</p>
-    <div style="margin-top: 16px;">
-      <a href="guides/web-app-integration-developer.md" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold;">🚀 Get Started</a>
-    </div>
-  </div>
-
   <div style="text-align: center; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
     <div style="font-size: 48px; margin-bottom: 16px;">🔧</div>
     <h3 style="margin: 0 0 12px 0;"><a href="guides/hardware-integration-developer.md" style="color: white; text-decoration: none;">Hardware Integration</a></h3>
     <p style="margin: 0; opacity: 0.9;">Communicate and interact directly with OneKey hardware wallets</p>
     <div style="margin-top: 16px;">
       <a href="guides/hardware-integration-developer.md" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold;">🔧 Build Now</a>
+    </div>
+  </div>
+
+  <div style="text-align: center; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div style="font-size: 48px; margin-bottom: 16px;">📱</div>
+    <h3 style="margin: 0 0 12px 0;"><a href="connect-to-hardware/air-gap-sdk/README.md" style="color: white; text-decoration: none;">Air Gap SDK</a></h3>
+    <p style="margin: 0; opacity: 0.9;">Deliver secure QR-based offline signing workflows</p>
+    <div style="margin-top: 16px;">
+      <a href="connect-to-hardware/air-gap-sdk/started.md" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold;">📱 Start Building</a>
     </div>
   </div>
 
@@ -70,6 +70,10 @@ OneKey offers complete wallet infrastructure supporting multi-chain ecosystem in
     </div>
   </div>
 </div>
+
+{% hint style="info" %}
+Looking for dApp provider, WalletConnect, or wallet aggregator guides? Visit the dedicated [OneKey dApp documentation](https://github.com/OneKeyHQ/hardware-js-sdk/tree/main/dapp-docs) repository for everything related to application-facing integrations.
+{% endhint %}
 
 ### 🎯 Quick Navigation
 
@@ -91,10 +95,6 @@ Experience OneKey Hardware SDK functionality directly in your browser! Test hard
 * No hardware device required for testing ( You could use the emulator  device）
 
 ### Detailed Feature List
-
-#### 🌐 DApp Integration Features
-
-<table data-header-hidden><thead><tr><th width="250"></th><th width="250"></th><th width="250"></th><th width="250"></th></tr></thead><tbody><tr><td><div><figure><img src=".gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure></div><p><a href="connect-to-software/compatible-with-metamask/"><strong>🔗 MetaMask Compatible</strong></a><br>EIP-1193 standard support<br></p></td><td><div><figure><img src=".gitbook/assets/image (25).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-software/support-wallet-kit/"><strong>🛠️ Wallet Kit Support</strong></a><br>RainbowKit, Web3Modal, etc.<br></p></td><td><div><figure><img src=".gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure></div><p><a href="connect-to-software/webapp-connect-onekey/"><strong>⚡ Multi-Chain Provider</strong></a><br>ETH, BTC, Solana, NEAR, etc.<br></p></td><td><div><figure><img src=".gitbook/assets/image (29).png" alt="" width="188"><figcaption></figcaption></figure></div><p><a href="connect-to-software/using-walletconnect/"><strong>🔄 WalletConnect</strong></a><br>Cross-platform connection protocol<br></p></td></tr></tbody></table>
 
 #### 🔧 Hardware Integration Features
 
