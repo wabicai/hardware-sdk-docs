@@ -1,36 +1,17 @@
 # Table of contents
 
 * [Introduction](README.md)
+* [Quick Start](quick-start.md)
 
-## Getting Started
+## Transport Recipes
 
-* [Getting Started Overview](getting-started/README.md)
-* [Connection Options Overview](getting-started/connection-options.md)
-* [Environment Setup and Initialization](getting-started/installation.md)
-* [Hardware SDK Quickstart](getting-started/hardware-sdk-quickstart.md)
-* [Device Events and UI Interaction](getting-started/device-events.md)
+* [Transport Recipes Overview](transport-recipes/README.md)
+* [Common Connect (WebUSB / native host)](transport-recipes/common-connect.md)
+* [React Native BLE](transport-recipes/react-native-ble.md)
 
-## Beginner Guides
+## Air-Gap Signing
 
-* [Beginner Guides Overview](beginner-guides/README.md)
-* [Developer Guide](beginner-guides/developer-guide.md)
-* [Hardware Integration Guide](beginner-guides/hardware-integration-developer.md)
-* [Common Connect Quickstart](beginner-guides/common-connect-basics.md)
-
-## Integration Walkthroughs
-
-* [Integration Walkthroughs](integration-walkthroughs/README.md)
-* [Hardware SDK Walkthrough Overview](integration-walkthroughs/hardware-sdk/README.md)
-  * [WebUSB Integration Walkthrough](integration-walkthroughs/hardware-sdk/web-usb.md)
-
-## Advanced
-
-* [Advanced Topics](advanced/README.md)
-* [Common Connect Transport Guide](advanced/transports/common-connect.md)
-* [React Native BLE Transport](advanced/transports/react-native-ble.md)
-* [QR-code (Air Gap) Overview](advanced/qr-code/README.md)
-  * [QR-code Quickstart](advanced/qr-code/quickstart.md)
-  * [QR-code Wallet Integration](advanced/qr-code/wallet-integration.md)
+* [Air-Gap Overview](air-gap/README.md)
 
 ## References
 
@@ -174,7 +155,7 @@
     * [EthSignRequest](references/air-gap-sdk/api-reference/ethereum-and-evm/ethsignrequest.md)
     * [EthSignature](references/air-gap-sdk/api-reference/ethereum-and-evm/ethsignature.md)
 
-## Explanations
+## Concepts and Troubleshooting
 
 * [Concepts and Background](explanations/README.md)
 * [Hardware Security and Advanced Capabilities](explanations/hardware-sdk/README.md)

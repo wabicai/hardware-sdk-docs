@@ -1,46 +1,37 @@
 # OneKey Hardware SDK Documentation
 
-This repository hosts the developer documentation for integrating OneKey hardware wallets. It follows the same layered approach as Ledger’s device-interaction and clear-signing guides: start with the essential WebUSB journey, then opt in to advanced transports or security enhancements as needed.
-
-## Who should use this documentation
-
-- Product engineers building WebUSB experiences on desktop browsers.
-- Mobile, native, or cross-platform teams planning to reuse the Common Connect transport core.
-- Integrators that require QR-code (Air Gap) signing or advanced security flows such as Clear Signing and Passphrase management.
+This documentation helps you integrate OneKey hardware wallets from prototype to production. Start with the Quick Start to run your first command, then choose the transport recipe that matches your target environment. All examples are backed by working projects in the `hardware-js-sdk` repository.
 
 ## Documentation roadmap
 
-| Section | Purpose | Read if you need |
+| Section | Purpose | When to use it |
 | --- | --- | --- |
-| [Getting Started](getting-started/README.md) | Core setup, transport choice, first API call | You are new to the hardware SDK and want a working prototype quickly |
-| [Beginner Guides](beginner-guides/README.md) | Decision support, architectural guidance, common pitfalls | You need help choosing the right integration model or planning delivery |
-| [Integration Walkthroughs](integration-walkthroughs/README.md) | Step-by-step WebUSB runbook | You are ready to execute the standard device-interaction flow |
-| [Advanced Topics](advanced/README.md) | Specialized transports and QR-code signing | You require BLE, native low-level plugins, or offline signing |
-| [References](references/README.md) | API index, chain-specific commands, error catalog | You are implementing signing flows or troubleshooting responses |
-| [Explanations](explanations/README.md) | Security concepts, message protocol, passphrase handling | You want the theory behind the APIs or need to harden UX patterns |
+| [Quick Start](quick-start.md) | Install the SDK, initialize the transport, handle events, run a sample call | First-time setup |
+| [Transport Recipes](transport-recipes/README.md) | Platform-specific guidance and example projects | After you know which environment you need to support |
+| [References](references/README.md) | API index, chain-specific commands, error catalog | While implementing real signing flows |
+| [Concepts](explanations/README.md) | Background on passphrase, message protocol, low-level transport design | When you need deeper theory or to customise behaviour |
+| [Troubleshooting](explanations/troubleshooting.md) | Links to support channels and diagnostics tips | When you hit an issue |
 
-## Quick start flow (mirrors Ledger’s device-interaction guide)
+## Fast-track flow
 
-1. **Choose a transport** – Review [Connection Options Overview](getting-started/connection-options.md) to decide between WebUSB, Common Connect, BLE, or QR-code.
-2. **Install and initialize** – Follow the snippets in [Environment Setup and Initialization](getting-started/installation.md) for your platform.
-3. **Run the quickstart** – Complete [Hardware SDK Quickstart](getting-started/hardware-sdk-quickstart.md) to enumerate a device, fetch features, and execute the first signing command.
-4. **Handle UI events** – Implement the event loop described in [Device Events and UI Interaction](getting-started/device-events.md) so PIN, passphrase, and approval prompts are surfaced properly.
-5. **Extend as needed** – After the baseline flow works, move to the WebUSB walkthrough or the Advanced transports.
+1. Complete the [Quick Start](quick-start.md) checklist to install `@onekeyfe/hd-common-connect-sdk`, subscribe to UI events, and execute a first command.
+2. Launch the Expo playground (`hardware-js-sdk/packages/connect-examples/expo-playground`) to validate your environment or the hardware emulator.
+3. Pick the transport recipe that matches your deployment target (Common Connect or React Native BLE).
+4. Implement the required APIs using the [Hardware SDK reference](references/hardware-sdk/README.md).
+5. Layer on security messaging with the guidance in [Clear Signing Best Practices](explanations/security/clear-signing.md).
 
-## Integration choices
+## Transport overview
 
-| Path | Description | Documentation |
-| --- | --- | --- |
-| WebUSB (recommended first path) | Browser-based device interaction over USB with no bridge software | [WebUSB Integration Walkthrough](integration-walkthroughs/hardware-sdk/web-usb.md) |
-| Common Connect transports | Unified USB/BLE implementation for React Native, Electron, Flutter, or native shells | [Common Connect Transport Guide](advanced/transports/common-connect.md) |
-| React Native BLE | Bluetooth-only flow for mobile wallets | [React Native BLE Transport](advanced/transports/react-native-ble.md) |
-| QR-code signing (Air Gap) | Offline approval channel with UR-encoded payloads | [QR-code Overview](advanced/qr-code/README.md) |
+| Transport | Description | Documentation | Example project |
+| --- | --- | --- | --- |
+| Common Connect (WebUSB / native host) | Unified SDK surface for browsers, native shells, and mixed USB/BLE flows | [Common Connect](transport-recipes/common-connect.md) | `hardware-js-sdk/packages/connect-examples/expo-playground`, `native-ios-example`, `native-android-example` |
+| React Native BLE | Bluetooth communication in React Native apps | [React Native BLE](transport-recipes/react-native-ble.md) | `hardware-js-sdk/packages/connect-examples/native-android-example` |
 
-## Security and UX best practices
+## Security and UX essentials
 
-- **Clear Signing** – Present transaction details clearly and synchronize prompts with hardware events following [Clear Signing Best Practices](explanations/security/clear-signing.md).
-- **Hidden wallets** – Understand Passphrase workflows and user expectations in [Passphrase](explanations/hardware-sdk/passphrase.md).
-- **Protocol details** – Inspect packet structure and custom transport guidance in [Low-level Transport Plugin](explanations/hardware-sdk/low-level-transport-plugin.md) and [OneKey Message Protocol](explanations/hardware-sdk/onekey-message-protocol.md).
+- Follow [Clear Signing Best Practices](explanations/security/clear-signing.md) to keep on-screen information aligned with the hardware prompts.
+- Review [Passphrase](explanations/hardware-sdk/passphrase.md) and [PIN](explanations/hardware-sdk/pin.md) to understand hidden wallets and secure unlock flows.
+- Inspect [Low-level Transport Adapter](explanations/hardware-sdk/low-level-transport-plugin.md) and [OneKey Message Protocol](explanations/hardware-sdk/onekey-message-protocol.md) if you need custom native behaviour.
 
 ## Support and community
 
@@ -49,4 +40,4 @@ This repository hosts the developer documentation for integrating OneKey hardwar
 - Issue tracker: https://github.com/OneKeyHQ/hardware-js-sdk/issues
 - Help Center: https://help.onekey.so/hc
 
-Use the sidebar to navigate between sections. For a workflow-driven introduction, follow the quick start steps above; for specific API references or advanced integrations, jump directly to the corresponding sections.
+Use the sidebar to navigate between sections. The Quick Start plus the transport recipes will take you from zero to a working integration in minutes.

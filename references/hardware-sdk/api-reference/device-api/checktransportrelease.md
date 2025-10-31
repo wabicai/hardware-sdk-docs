@@ -1,8 +1,10 @@
 # checkTransportRelease
 
-## Check OneKey bridge release
+> **DEPRECATED**: Common Connect handles WebUSB and native transports directly. This helper is only relevant for legacy desktop setups that relied on the OneKey Bridge background service.
 
-Check the version update status of the hardware connection tool `Bridge`.
+## Legacy transport release info
+
+Check the version update status of the legacy hardware connection tool.
 
 ```typescript
 const response = await HardwareSDK.checkTransportRelease();
@@ -23,7 +25,7 @@ Result
 ```typescript
 {
   success: true,
-  payload: string, // local bridge version status, 'valid' or 'outdated'
+  payload: string, // legacy desktop status, 'valid' or 'outdated'
 }
 ```
 

@@ -6,13 +6,12 @@ This is a guide on how to integrate the OneKey SDK for iOS, Android, and Flutter
 
 The following content requires you to have a basic understanding of NodeJS, Android, iOS, and Flutter.&#x20;
 
-Below are the links to the relevant demos.
+Below are the maintained demos inside `hardware-js-sdk`:
 
-[iOS Demo Link](https://github.com/originalix/Hardware-Lowlevel-Communicate)
-
-[Android Demo Link](https://github.com/ByteZhang1024/OneKeyHardwareExample)
-
-[Flutter Demo Link](https://github.com/ByteZhang1024/OneKeyFlutterHardwareExample)
+- [Expo Playground](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/expo-playground)
+- [Native iOS Example](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/native-ios-example)
+- [Native Android Example](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/native-android-example)
+- [React Native Demo (Air-Gap and BLE)](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/react-native-demo)
 
 
 
@@ -57,44 +56,36 @@ Create a folder and use `yarn init` to initialize a NodeJS project.
 
 ```bash
 # Install via YARN
-yarn add @onekeyfe/hd-common-connect-sdk @noble/hashes ripple-keypairs
+yarn add @onekeyfe/hd-common-connect-sdk
 ```
-
-It's necessary to install both `@noble/hashes` and `ripple-keypairs` as these libraries are dependencies required by the OneKey SDK.
 
 Create `index.html` and `index.js` and package the JavaScript code. Since only simple JavaScript packaging is needed, [Parcel](https://parceljs.org/) is chosen over WebPack due to its simplicity and lack of complex configuration.
 
-```
-# Install via YARN
-yarn add --dev parcel
-```
+Parcel or Vite work well for bundling; the maintained examples configure Vite with `yarn build` to emit the assets consumed by the native shells. Copy the setup from:
 
-For detailed configuration, you can refer to the web settings in the demo.
-
-* [iOS web Demo Link](https://github.com/originalix/Hardware-Lowlevel-Communicate/tree/main/web)
-* [Android web Demo Link](https://github.com/ByteZhang1024/OneKeyHardwareExample/tree/main/web)
-* [Flutter Demo Link](https://github.com/ByteZhang1024/OneKeyFlutterHardwareExample)
+* [Native iOS Web Bundle](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/native-ios-example/web)
+* [Native Android Web Bundle](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/native-android-example/web)
 
 These steps will help set up the JavaScript environment and integrate the necessary SDK and dependencies for the OneKey integration on iOS and Android platforms.
 
-### Configure the LowlevelPlugin
+### Configure the low-level adapter
 
-Next, configure the LowlevelPlugin. There is a document you can refer to for more information [Read more ->](low-level-transport-plugin.md)
+Next, configure the low-level adapter. There is a document you can refer to for more information [Read more ->](low-level-transport-plugin.md)
 
 
 
-To forward `LowlevelPlugin` functionality to the Native side and return related results, follow these steps:
+To forward adapter functionality to the Native side and return related results, follow these steps:
 
-1. **Define Interface**: Define an interface in `LowlevelPlugin` for calling Native functionality.
+1. **Define Interface**: Define an interface in the adapter for calling Native functionality.
 2. **Implement Forwarding Mechanism**:
-   * Capture the calls in `LowlevelPlugin` that need to be forwarded.
+   * Capture the calls in the adapter that need to be forwarded.
    * Forward the details of the call (such as method name, parameters, etc.) to the Native side.
 3. **Native Side Processing**:
    * On the Native side, receive the request, parse the method name and parameters.
    * Execute the corresponding Native functionality.
 4. **Return Results**:
-   * Once the Native side has completed execution, return the results or error information back to `LowlevelPlugin`.
-   * `LowlevelPlugin` then returns this information to the caller.
+   * Once the Native side has completed execution, return the results or error information back to the adapter.
+   * The adapter then returns this information to the caller.
 
 If unclear, you can refer to the related demos for guidance.
 
@@ -199,4 +190,4 @@ Coming soon
 {% endtab %}
 {% endtabs %}
 
-Next, you can return to [Quickstart](../../getting-started/hardware-sdk-quickstart.md) to view the relevant documentation for [Config Event](../../getting-started/device-events.md). Then, configure the Event in your JavaScript code.
+Next, revisit the [Quick Start](../../quick-start.md) guide to review event handling and sample API calls, then wire the relevant listeners into your JavaScript messaging layer.

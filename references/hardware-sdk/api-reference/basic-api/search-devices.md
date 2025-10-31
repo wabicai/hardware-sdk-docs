@@ -33,8 +33,8 @@ Result
         {
             "connectId": string, // device connection id
             "uuid": string, // device unique id 
-            "deviceType": string, // device id, this id may change with device erasure, only returned when using the @onekeyfe/hd-web-sdk library.
-            "deviceId": string, // device type, 'classic' | 'mini' | 'touch' | 'pro'
+            "deviceType": string, // device type, 'classic' | 'mini' | 'touch' | 'pro'
+            "deviceId": string, // device id, this id may change with device erasure, only returned when using the webusb transport of @onekeyfe/hd-common-connect-sdk.
             "path": string, // device serial number when USB is connected via WebUSB
             "name": string, // bluetooth name for the device
         },
@@ -53,4 +53,3 @@ Error
     }
 }
 ```
-
