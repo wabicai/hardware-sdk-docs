@@ -68,7 +68,7 @@ These steps will help set up the JavaScript environment and integrate the necess
 
 ### Configure the low-level adapter
 
-Next, configure the low-level adapter. There is a document you can refer to for more information [Read more ->](low-level-transport-plugin.md)
+Next, configure the low-level adapter. There is a document you can refer to for more information [Read more ->](../../transport-recipes/common-connect-1/low-level-transport-plugin.md)
 
 To forward adapter functionality to the Native side and return related results, follow these steps:
 
