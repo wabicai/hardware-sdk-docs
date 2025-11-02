@@ -2,18 +2,16 @@
 
 ## Started
 
-This is a guide on how to integrate the OneKey SDK for iOS, Android, and Flutter.&#x20;
+This is a guide on how to integrate the OneKey SDK for iOS, Android, and Flutter.
 
-The following content requires you to have a basic understanding of NodeJS, Android, iOS, and Flutter.&#x20;
+The following content requires you to have a basic understanding of NodeJS, Android, iOS, and Flutter.
 
 Below are the maintained demos inside `hardware-js-sdk`:
 
-- [Expo Playground](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/expo-playground)
-- [Native iOS Example](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/native-ios-example)
-- [Native Android Example](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/native-android-example)
-- [React Native Demo (Air-Gap and BLE)](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/react-native-demo)
-
-
+* [Expo Playground](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/expo-playground)
+* [Native iOS Example](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/native-ios-example)
+* [Native Android Example](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/native-android-example)
+* [React Native Demo (Air-Gap and BLE)](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/react-native-demo)
 
 ## JavaScript Runtime Environment
 
@@ -71,8 +69,6 @@ These steps will help set up the JavaScript environment and integrate the necess
 ### Configure the low-level adapter
 
 Next, configure the low-level adapter. There is a document you can refer to for more information [Read more ->](low-level-transport-plugin.md)
-
-
 
 To forward adapter functionality to the Native side and return related results, follow these steps:
 
@@ -183,10 +179,6 @@ webview.addHandler("disconnect", (data: String?, function: CallBackFunction?) {
 ```
 
 This pseudocode provides a framework for integrating Bluetooth functionalities within a WebView environment, allowing for communication between the web content and the native platform's Bluetooth capabilities. The actual implementation will depend on the specific requirements of the application and the characteristics of the connected Bluetooth device.
-{% endtab %}
-
-{% tab title="USB" %}
-Coming soon
 {% endtab %}
 {% endtabs %}
 

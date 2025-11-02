@@ -1,4 +1,4 @@
-# WebUSB
+# Native BLE
 
 `@onekeyfe/hd-common-connect-sdk` powers WebUSB in the browser and the low-level adapter used by native shells. Think of it as the universal transport surface for USB and BLE. Use this page to wire the transport before you call any chain-specific APIs.
 
@@ -81,8 +81,8 @@ await HardwareSDK.init({ env: 'lowlevel', debug: true, fetchConfig: true }, unde
 
 ## Shared tips
 
-* Persist `connectId` and `deviceId` between calls (see the [Quick Start](../quick-start.md) for the sample flow).
+* Persist `connectId` and `deviceId` between calls (see the [Quick Start](../../quick-start.md) for the sample flow).
 * Subscribe to `UI_EVENT` immediately after initialization so PIN, passphrase, and button prompts surface correctly.
 * Combine Common Connect with the guidance in [Clear Signing Best Practices](broken-reference) to align UI prompts with the hardware display.
 
-With the transport established, continue using the same API calls documented in the [Hardware SDK Reference](../hardware-sdk/).
+With the transport established, continue using the same API calls documented in the [Hardware SDK Reference](../../hardware-sdk/).
