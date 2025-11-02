@@ -1,7 +1,13 @@
 # Table of contents
 
 * [Introduction](README.md)
-* [Quick Start](quick-start.md)
+* [Quick Start](quick-start/README.md)
+  * [Step 1 · Prepare Your Environment](quick-start/1-environment.md)
+  * [Step 2 · Install SDK Dependencies](quick-start/2-install-sdk.md)
+  * [Step 3 · Wire the Basic Initialisation](quick-start/3-basic-initialisation.md)
+  * [Step 4 · Connect and Authorize Your Device](quick-start/4-connect-device.md)
+  * [Step 5 · Run Your First Command](quick-start/5-run-first-command.md)
+  * [Step 6 · Where to Go Next](quick-start/6-next-steps.md)
 
 ## Transport Recipes
 

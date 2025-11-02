@@ -14,6 +14,8 @@ await HardwareSDK.init({
 });
 ```
 
+The setup mirrors [Quick Start · Step 3](../quick-start/3-basic-initialisation.md). Centralise the helper (for example in `src/lib/hardware.ts`) so it can be shared between the browser quick start and native shells.
+
 Switch transports at runtime when needed:
 
 ```typescript
@@ -40,8 +42,6 @@ For native shells, pass a low-level adapter as the third argument—see the "Nat
 
 2. **Example** – Review `hardware-js-sdk/packages/connect-examples/expo-playground`. `WebUsbAuthorizeDialog.tsx` implements the chooser modal, retry prompts, and device filtering. Replicate that component when wiring WebUSB into your own UI.
 3. **Hosting** – Serve the application over HTTPS; WebUSB is blocked on insecure origins.
-4. **Emulator support** – The playground can connect to the OneKey Docker emulator. Start it (`build-emu.sh pro-emu`) and choose the **Emulator** transport in the UI.
-
 ## Native hosts (iOS / Android)
 
 When running in a WebView or JavaScriptCore, provide a low-level adapter that forwards transport calls to native code.
