@@ -5,7 +5,7 @@
 
 ## Transport Recipes
 
-* [WebUSB](transport-recipes/common-connect.md)
+* [WebUSB Connection Guide](transport-recipes/web-usb.md)
 * [Native BLE](transport-recipes/common-connect-1/README.md)
   * [OneKey Message Protocol](transport-recipes/common-connect-1/onekey-message-protocol.md)
   * [Low-level Transport Plugin](transport-recipes/common-connect-1/low-level-transport-plugin.md)

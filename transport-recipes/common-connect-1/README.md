@@ -1,88 +1,69 @@
-# Native BLE
+# Native BLE (low-level adapter and protocol)
 
-`@onekeyfe/hd-common-connect-sdk` powers WebUSB in the browser and the low-level adapter used by native shells. Think of it as the universal transport surface for USB and BLE. Use this page to wire the transport before you call any chain-specific APIs.
+On iOS/Android/Flutter native hosts, we recommend using the `lowlevel` adapter of `@onekeyfe/hd-common-connect-sdk` so you can reuse the exact same SDK API as the Web path. JS stays identical; only the transport adapter forwards calls to the native layer for BLE/USB I/O.
 
-## SDK initialization
+> Workflow: finish initialization and UI-event wiring from Quick Start, then plug in the low-level adapter. Chain API calls remain identical.
 
-```typescript
+## Adapter contract (JS ↔ Native)
+
+```ts
 import HardwareSDK from '@onekeyfe/hd-common-connect-sdk';
 
-await HardwareSDK.init({
-  env: 'webusb',                     // use 'webusb', 'webble', 'lowlevel', etc.
-  debug: process.env.NODE_ENV !== 'production',
-  fetchConfig: true,
-});
-```
-
-The setup mirrors [Quick Start · Step 3](broken-reference). Centralise the helper (for example in `src/lib/hardware.ts`) so it can be shared between the browser quick start and native shells.
-
-Switch transports at runtime when needed:
-
-```typescript
-await HardwareSDK.switchTransport('webusb');
-await HardwareSDK.switchTransport('webble');
-```
-
-For native shells, pass a low-level adapter as the third argument—see the "Native hosts" section below.
-
-## WebUSB in browsers
-
-1. **User gesture requirement** – Call `navigator.usb.requestDevice` directly inside the click handler that opens the chooser.
-
-```tsx
-<Button
-  onClick={async () => {
-    const device = await navigator.usb.requestDevice({ filters: ONEKEY_WEBUSB_FILTER });
-    await HardwareSDK.switchTransport('webusb');
-  }}
->
-  Select Device
-</Button>
-```
-
-2. **Example** – Review `hardware-js-sdk/packages/connect-examples/expo-playground`. `WebUsbAuthorizeDialog.tsx` implements the chooser modal, retry prompts, and device filtering. Replicate that component when wiring WebUSB into your own UI.
-3. **Hosting** – Serve the application over HTTPS; WebUSB is blocked on insecure origins.
-
-## Native hosts (iOS / Android)
-
-When running in a WebView or JavaScriptCore, provide a low-level adapter that forwards transport calls to native code.
-
-### Adapter contract
-
-```typescript
-const adapter = {
-  enumerate: () => Promise<LowLevelDevice[]>,
-  connect: (id: string) => Promise<void>,
-  disconnect: (id: string) => Promise<void>,
-  send: (id: string, data: string) => Promise<void>,
-  receive: () => Promise<string>,
-  init: () => Promise<void>,
-  version: 'OneKey-1.0',
+type LowLevelAdapter = {
+  enumerate: () => Promise<Array<{ id: string; name: string }>>; // scan and return device list
+  connect: (id: string) => Promise<void>;                         // open connection and set up listeners
+  disconnect: (id: string) => Promise<void>;                      // close connection and cleanup
+  send: (id: string, data: string) => Promise<void>;              // send hex-encoded payload
+  receive: () => Promise<string>;                                 // receive one frame (hex); JS reassembles full message
+  init?: () => Promise<void>;                                     // optional adapter init
+  version: string;
 };
 
+const adapter: LowLevelAdapter = { /* ... */ };
 await HardwareSDK.init({ env: 'lowlevel', debug: true, fetchConfig: true }, undefined, adapter);
 ```
 
-### iOS example (`hardware-js-sdk/packages/connect-examples/native-ios-example`)
+- JS assembles/disassembles 64-byte frames (see Protocol).
+- The `id` returned from `enumerate` is used by `connect/send/disconnect` as the connection key.
 
-* Bundled under `hardware-js-sdk/packages/connect-examples/native-ios-example`.
-* Registers WebKit message handlers (via `WKWebViewJavascriptBridge`) such as `enumerate`, `connect`, `send`, and `monitorCharacteristic`.
-* BLE notifications arrive in 64-byte packets; `monitorCharacteristic` buffers them until a full payload is assembled, then resolves the deferred promise created in `receive`.
-* PIN and confirmation prompts call native handlers (`requestPinInput`, `requestButtonConfirmation`, `closeUIWindow`). Implement these before loading the WebView bundle.
-* Rebuild the JavaScript assets (`yarn && yarn build` inside `web/`) whenever you modify the messaging layer.
+## Protocol (must read)
 
-### Android example (`hardware-js-sdk/packages/connect-examples/native-android-example`)
+- Transport uses 64-byte packets: `../../explanations/hardware-sdk/onekey-message-protocol.md`
+- Default BLE UUIDs (filter and bind):
+  - `serviceUuid`: `00000001-0000-1000-8000-00805f9b34fb`
+  - `writeCharacteristic`: `00000002-0000-1000-8000-00805f9b34fb`
+  - `notifyCharacteristic`: `00000003-0000-1000-8000-00805f9b34fb`
+- General patterns (messaging bridge, bundling, permissions): `../../explanations/hardware-sdk/common-sdk-guide.md`
 
-* Located at `hardware-js-sdk/packages/connect-examples/native-android-example`.
-* Uses SmallBuer message handlers (`WebViewJavascriptBridge`) to expose identical functions from `MainActivity.kt`.
-* BLE scanning relies on Nordic’s library; request `BLUETOOTH_SCAN`, `BLUETOOTH_CONNECT`, and location permissions on Android 12+ before scanning.
-* USB enumeration filters VID/PID via `UsbManager` so only OneKey devices appear in the chooser.
-* Notifications are buffered just like the iOS demo to satisfy the SDK’s packet expectations.
+## Platform notes
+
+### iOS (CoreBluetooth + WKWebView)
+- Initialize the bridge (e.g., `WKWebViewJavascriptBridge`) before loading `index.html`.
+- Register `enumerate/connect/send/monitorCharacteristic` handlers.
+- Filter scans by `serviceUuid`; cache `CBPeripheral` and characteristics after connect.
+- Forward 64-byte notifications to JS as hex; JS reassembles full payload for `receive()`.
+- Present PIN/confirmation prompts via native UI and respond with `HardwareSDK.uiResponse`.
+
+### Android (WebView + Nordic BLE)
+- Use `com.smallbuer:jsbridge` for the messaging bridge; JS Engine is optional on newer systems.
+- Request `BLUETOOTH_SCAN/BLUETOOTH_CONNECT` and location permissions on Android 12+.
+- Filter scans by `serviceUuid`; persist `Gatt` and map `connect/disconnect/send`.
+- Buffer notification chunks then forward to JS receiver.
+- Optional USB support: filter by a whitelist in `enumerate`.
+
+### Flutter
+- Choose `flutter_js` or WebView; reuse the same bridge + framing logic.
+- Follow the demo bundling process for web assets.
+
+Working examples:
+- iOS: `hardware-js-sdk/packages/connect-examples/native-ios-example`
+- Android: `hardware-js-sdk/packages/connect-examples/native-android-example`
+- React Native (BLE/Air-Gap together): `hardware-js-sdk/packages/connect-examples/react-native-demo`
 
 ## Shared tips
 
-* Persist `connectId` and `deviceId` between calls (see the [Quick Start](../../quick-start.md) for the sample flow).
-* Subscribe to `UI_EVENT` immediately after initialization so PIN, passphrase, and button prompts surface correctly.
-* Combine Common Connect with the guidance in [Clear Signing Best Practices](broken-reference) to align UI prompts with the hardware display.
+- Subscribe to `UI_EVENT` early so PIN/Passphrase/confirmation flows are not missed.
+- After the first connection, call `getFeatures(connectId)` and persist `device_id`.
+- Centralize the hardware access layer so your app toggles transports (WebUSB/BLE/lowlevel) without changing business calls.
 
-With the transport established, continue using the same API calls documented in the [Hardware SDK Reference](../../hardware-sdk/).
+With the adapter in place, continue with the chain-specific references under `hardware-sdk/` for address, public key, and signing operations.

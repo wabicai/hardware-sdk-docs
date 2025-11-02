@@ -1,78 +1,118 @@
-# React Native BLE
+# React Native BLE (hd-ble-sdk)
 
-Use this recipe when your React Native or Expo application needs to talk to OneKey hardware over Bluetooth. The flow mirrors the native demos bundled in `hardware-js-sdk` and builds on the same Common Connect surface (`env: 'lowlevel'`) so the rest of your code can stay identical to the browser/WebUSB path.
+This guide shows how to use the pure React Native BLE stack with `@onekeyfe/hd-ble-sdk` and `@onekeyfe/hd-transport-react-native`. No WebView or low-level adapter is required. The chain API usage stays the same as in Quick Start.
 
-## Demo projects to copy
-
-* `hardware-js-sdk/packages/connect-examples/native-android-example` – Kotlin WebView container with Nordic BLE stack.
-* `hardware-js-sdk/packages/connect-examples/native-ios-example` – Swift WebView container backed by CoreBluetooth.
-* `hardware-js-sdk/packages/connect-examples/react-native-demo` – Expo project that exercises BLE, Air-Gap, and deep-link flows side by side.
-
-Run each project once to verify permissions, message wiring, and UI prompts before writing your own glue code.
-
-## JavaScript bundle
-
-Both native examples reuse the same JavaScript transport bundle located under their `web/` directories. Key points:
-
-```ts
-import HardwareSDK from '@onekeyfe/hd-common-connect-sdk';
-
-await HardwareSDK.init(
-  { env: 'lowlevel', debug: __DEV__, fetchConfig: true },
-  undefined,
-  createLowlevelPlugin(),
-);
-```
-
-`createLowlevelPlugin()` forwards `enumerate`, `connect`, `disconnect`, `send`, and `receive` to the host platform. Review `hardware-js-sdk/packages/connect-examples/native-android-example/web/index.js` for the canonical implementation, including the packet buffering logic for 64-byte BLE frames.
-
-Whenever you tweak the bundle:
+## Install
 
 ```bash
-cd hardware-js-sdk/packages/connect-examples/native-android-example/web
-yarn
-yarn build        # emits web_dist/ for Android and iOS containers
+npm i @onekeyfe/hd-ble-sdk @onekeyfe/hd-transport-react-native @onekeyfe/hd-common-connect-sdk
 ```
 
-Copy the generated `web_dist/` assets into your application (Android `app/src/main/assets`, iOS application bundle, or your own WebView loader).
+Optional polyfills (depending on your project):
 
-## Android checklist
+```bash
+npm i buffer process react-native-get-random-values react-native-url-polyfill
+```
 
-Reference `hardware-js-sdk/packages/connect-examples/native-android-example/app/src/main/java/com/onekey/hardware/hardwareexample/MainActivity.kt`.
+In your app entry (e.g., `index.js` or `App.tsx`):
 
-* **Permissions** – Request `BLUETOOTH_SCAN`, `BLUETOOTH_CONNECT`, and `ACCESS_FINE_LOCATION` on Android 12+. Call `checkBluetoothPermissions()` before scanning so the JS layer receives predictable results.
-* **Scanning** – Use Nordic’s `BleScanner` with a service filter `00000001-0000-1000-8000-00805f9b34fb` to reduce noise. The demo debounces results via `BleScanResultAggregator` and returns `{ id, name }` pairs back to JS.
-* **Connection** – Persist the `ClientBleGatt` instance and expose `connect`, `disconnect`, and `send` handlers through `BridgeWebView`. The JS side handles request routing based on `connectId`.
-* **Notifications** – Forward 64-byte packets through the `monitorCharacteristic` handler. The web bundle reassembles multi-chunk payloads before resolving the pending `receive()` promise.
-* **UI prompts** – Implement `requestPinInput`, `requestButtonConfirmation`, and `closeUIWindow` so PIN, passphrase, and confirmation messages surface in native UI instead of staying silent.
-* **USB fallback** – The same adapter supports WebUSB when you expose `enumerate` with an optional `{ transport: 'usb' }` parameter. See the whitelist in `MainActivity.kt` for accepted VID/PID pairs.
+```ts
+// Polyfills (adjust to your project needs)
+import 'react-native-get-random-values';
+import 'react-native-url-polyfill/auto';
+// @ts-ignore
+global.Buffer = global.Buffer || require('buffer').Buffer;
+// @ts-ignore
+global.process = global.process || require('process');
 
-## iOS checklist
+// Register RN transport side-effects before SDK init
+import '@onekeyfe/hd-transport-react-native';
 
-Reference `hardware-js-sdk/packages/connect-examples/native-ios-example/native-ios-example/ViewController.swift`.
+import HardwareSDK from '@onekeyfe/hd-common-connect-sdk';
+```
 
-* **CoreBluetooth** – Use `CBCentralManager` to scan for the service UUID `00000001-0000-1000-8000-00805f9b34fb`. Cache `CBPeripheral`, write (`00000002-…`) and notify (`00000003-…`) characteristics after connecting.
-* **WebView messaging** – Initialise `WKWebViewJavascriptBridge` before loading `index.html` so handlers (`enumerate`, `connect`, `send`, `monitorCharacteristic`) are registered in time.
-* **Notifications** – Accumulate `Data` fragments until you have an entire payload, then convert to hex and pass it to the JS handler. The helper `readDataInChunks` in the demo shows the pattern.
-* **User prompts** – Surface PIN/passphrase/button requests via native alert controllers. Map JS callbacks to the appropriate UI actions and call `SDK.uiResponse` once the user acts.
-* **State restore** – Persist the last successful `connectId` to reconnect automatically when the peripheral is available again (see `loadLastConnectedDevice()` in the sample).
+## Android setup
 
-## Using `@onekeyfe/hd-ble-sdk` directly
+Add permissions in `AndroidManifest.xml` (Android 12+):
 
-If you prefer a pure React Native stack without embedding a WebView, import `@onekeyfe/hd-ble-sdk` alongside `@onekeyfe/hd-transport-react-native` and reuse the same event wiring from the Quick Start. The Expo demo under `react-native-demo/src/features` shows how to hydrate transports in a JavaScript-only environment after polyfilling `Buffer`, `process`, and crypto primitives.
+```xml
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
-Core steps:
+<uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/>
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/>
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation"/>
+<uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+```
 
-1. `npm install @onekeyfe/hd-ble-sdk @onekeyfe/hd-transport-react-native`.
-2. Initialise the transport: `await HardwareSDK.init({ env: 'webble', fetchConfig: true });`.
-3. Call `HardwareSDK.switchTransport('webble')` after the user opts into BLE, then follow the standard device search / getFeatures flow.
+At runtime, request `BLUETOOTH_SCAN` and `BLUETOOTH_CONNECT` (and location on Android 12+).
 
-Use the same UI event subscriptions as the browser path so PIN and confirmation prompts remain consistent across platforms.
+## iOS setup
 
-## Testing workflow
+Add to `Info.plist`:
 
-1. Launch the Expo playground (`hardware-js-sdk/packages/connect-examples/expo-playground`) to validate that firmware, emulator, and Common Connect behave as expected.
-2. Run the Android and iOS native examples on physical devices to confirm permissions, Bluetooth stability, and UI hooks.
-3. Bring the validated adapter into your production app, keeping the JavaScript bundle and native handlers in sync.
+- `NSBluetoothAlwaysUsageDescription` (required)
+- Optionally `NSBluetoothPeripheralUsageDescription` for older iOS versions
 
-Once BLE transport is stable, continue with the [Hardware SDK API Navigation](../hardware-sdk/) for chain-specific commands or jump to the [Air-Gap overview](../air-gap/air-gap.md) for offline scenarios.
+## Initialize and subscribe to events
+
+```ts
+export async function setupBle() {
+  await HardwareSDK.init({
+    env: 'webble',                 // React Native BLE transport
+    debug: __DEV__,
+    fetchConfig: true,
+  });
+
+  // Subscribe to UI events (PIN / Passphrase / confirmations)
+  // import { UI_EVENT, UI_REQUEST, UI_RESPONSE } from '@onekeyfe/hd-core'
+  // HardwareSDK.on(UI_EVENT, (msg) => { /* open dialogs and reply via HardwareSDK.uiResponse(...) */ });
+}
+```
+
+## Discover devices and identify device_id
+
+```ts
+const devices = await HardwareSDK.searchDevices();
+if (!devices.success) throw new Error(devices.payload.error);
+
+// BLE returns id + name; fetch features to obtain device_id
+const candidate = devices.payload[0];
+const connectId = candidate.connectId;
+
+const features = await HardwareSDK.getFeatures(connectId);
+if (!features.success) throw new Error(features.payload.error);
+const deviceId = features.payload.device_id;
+```
+
+Persist `connectId` and `deviceId` (most chain APIs require both).
+
+## First call example (BTC address)
+
+```ts
+const res = await HardwareSDK.btcGetAddress(connectId, deviceId, {
+  path: "m/44'/0'/0'/0/0",
+  coin: 'btc',
+  showOnOneKey: false,
+});
+
+if (res.success) {
+  console.log('BTC address:', res.payload.address);
+} else {
+  console.error('Error:', res.payload.error, res.payload.code);
+}
+```
+
+## Tips
+
+- Always subscribe early to `UI_EVENT` so PIN/Passphrase/confirmations do not stall requests.
+- Keep BLE permissions in sync with the OS version. Test on physical devices.
+- For additional examples, check `hardware-js-sdk/packages/connect-examples/react-native-demo`.
+
+## Continue
+
+- Quick Start (response shapes, event handling): `../quick-start.md`
+- Error codes and common params: `../hardware-sdk/error-code.md`, `../hardware-sdk/common-params.md`
+- Protocol framing (64 bytes, for reference only): `../explanations/hardware-sdk/onekey-message-protocol.md`
