@@ -266,3 +266,8 @@ In JS, you would call these handlers from your adapter to mirror the demo’s be
 - Persist `connectId` (peripheral UUID) and fetch `device_id` with `getFeatures(connectId)` after the first connection.
 - Always subscribe to `UI_EVENT` in JS to avoid stalled requests.
 - Keep `web/web_dist/` in your app bundle and adjust the `load` path accordingly.
+
+## References
+
+- Message Protocol (64‑byte framing): `./onekey-message-protocol.md`
+- Low‑level transport plugin contract: `./low-level-transport-plugin.md`

@@ -23,8 +23,8 @@ For Flutter apps that load a JS bundle via WebView or a JS engine and bridge to 
 
 ## References
 
-- Protocol framing: `../../explanations/hardware-sdk/onekey-message-protocol.md`
-- General adapter patterns: `../../explanations/hardware-sdk/common-sdk-guide.md`
-- UI events (PIN/Passphrase): `../../explanations/hardware-sdk/pin.md`, `../../explanations/hardware-sdk/passphrase.md`
+- Protocol framing: `./onekey-message-protocol.md`
+- UI events (PIN/Passphrase): `../../quick-start/ui-events-pin.md`, `../../quick-start/ui-events-passphrase.md`
+- Platform details: iOS `./ios-ble.md`, Android `./android-ble.md`
 
 Once wired, the chain API usage is identical to WebUSB: provide `connectId` and (when required) `deviceId`.

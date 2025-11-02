@@ -2,6 +2,12 @@
 
 * [Introduction](README.md)
 * [Quick Start](quick-start.md)
+  * [Setup and Init](quick-start/setup-and-init.md)
+  * [Device Discovery and Features](quick-start/device-discovery-and-features.md)
+  * [UI Events: PIN](quick-start/ui-events-pin.md)
+  * [UI Events: Passphrase](quick-start/ui-events-passphrase.md)
+  * [First Command](quick-start/first-command.md)
+  * [Communication Flow](quick-start/communication-flow.md)
 
 ## Transport Recipes
 
@@ -12,7 +18,7 @@
   * [iOS BLE](transport-recipes/common-connect-1/ios-ble.md)
   * [Android BLE](transport-recipes/common-connect-1/android-ble.md)
   * [Flutter BLE](transport-recipes/common-connect-1/flutter-ble.md)
-* [React Native](transport-recipes/react-native-ble.md)
+* [React Native BLE (hd-ble-sdk)](transport-recipes/react-native-ble.md)
 
 ***
 
@@ -152,7 +158,7 @@
 * [Hardware Security and Advanced Capabilities](explanations/hardware-sdk/README.md)
   * [Passphrase](explanations/hardware-sdk/passphrase.md)
   * [Pin](explanations/hardware-sdk/pin.md)
-  * [Common SDK Guide](explanations/hardware-sdk/common-sdk-guide.md)
+
 
 ## Contribute
 

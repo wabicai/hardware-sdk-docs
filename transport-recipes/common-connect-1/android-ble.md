@@ -210,3 +210,8 @@ Handle `UI_EVENT` in your JS bundle and respond with `HardwareSDK.uiResponse`. S
 - Register handlers before loading the HTML to avoid race conditions.
 - Request runtime permissions on Android 12+ before scanning/connecting.
 - Persist `connectId` (MAC) and cache `device_id` via `getFeatures(connectId)` after the first connection.
+
+## References
+
+- Message Protocol (64‑byte framing): `./onekey-message-protocol.md`
+- Low‑level transport plugin contract: `./low-level-transport-plugin.md`

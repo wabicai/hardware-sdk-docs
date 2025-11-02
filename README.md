@@ -1,44 +1,54 @@
 # Introduction
 
-This site helps you integrate OneKey hardware wallets from prototype to production. Start with the multi-step WebUSB quick start and then branch into the transport recipe that matches your deployment target.
+This documentation helps you integrate OneKey hardware wallets from prototype to production. Start with the Quick Start to learn the essential device lifecycle (init → discover → identify → UI events → first command). Then choose the transport guide that matches your platform.
 
-## Onboarding flow
+## Getting started
 
-* Follow the [Quick Start overview](quick-start.md) to complete the six-step WebUSB journey.
-* Use the [communication matrix](./#communication-matrix) to jump to transport-specific demos and references.
-* Implement business logic with the [Hardware SDK reference](hardware-sdk/).
-* Deep dive into transport internals and security guidance under [Concepts & best practices](broken-reference).
+- Quick Start (step-by-step)
+  - Overview: `quick-start.md`
+  - Sub-guides: setup/init, device discovery, PIN, passphrase, first command, communication flow (linked from the Quick Start index)
+- Choose your transport
+  - WebUSB (browser): `transport-recipes/web-usb.md`
+  - Native BLE (iOS): `transport-recipes/common-connect-1/ios-ble.md`
+  - Native BLE (Android): `transport-recipes/common-connect-1/android-ble.md`
+  - React Native BLE (pure RN stack): `transport-recipes/react-native-ble.md`
+- API reference (per-chain): `hardware-sdk/README.md`
 
-## Communication matrix
+## Demo projects (reference implementations)
 
-<table><thead><tr><th width="128">Transport</th><th>Typical platforms</th><th>Quick start entry</th><th>Demo project</th><th>Primary docs</th><th>Notes</th></tr></thead><tbody><tr><td>WebUSB</td><td>Chrome / Edge desktop browsers</td><td></td><td></td><td></td><td>Requires a user gesture; Windows needs WinUSB drivers</td></tr><tr><td>React Native BLE</td><td>iOS / Android Natvie apps</td><td><a href="transport-recipes/react-native-ble.md">React Native recipe</a></td><td><a href="https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples">hardware-js-sdk/packages/connect-examples</a></td><td><a href="transport-recipes/react-native-ble.md">React Native BLE guide</a></td><td>Configure platform permissions; Android recommends SDK ≥ 1.1.0</td></tr><tr><td>Native BLE</td><td>React Native</td><td></td><td></td><td></td><td>Inject a low-level transport adapter and manage lifecycle threads</td></tr><tr><td>Air-GAP</td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+- iOS native (WKWebView + CoreBluetooth):
+  - https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-ios-example
+- Android native (WebView + JSBridge + Nordic BLE):
+  - https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-android-example
+- React Native / Expo (BLE & Air-Gap showcase):
+  - https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/react-native-demo
 
-## Device compatibility
+## Device and transport compatibility
 
-* **USB transports** – OneKey Classic, OneKey Touch, and OneKey Mini Pro expose a unified USB interface and work directly with the Common Connect WebUSB flow described in the quick start.
-* **Bluetooth transports** – OneKey Touch and OneKey Mini Pro ship with Bluetooth Low Energy, enabling WebBLE, React Native, and native mobile integrations once the USB path is validated.
-* **Air-gapped products** – OneKey Lite and other QR-based devices require the [Air-Gap signing guide](air-gap/air-gap.md) instead of Common Connect.
+- USB (WebUSB): OneKey Classic / Touch / Mini Pro — works over HTTPS in desktop Chrome/Edge with a user gesture.
+- BLE (iOS/Android): OneKey Touch / Mini Pro — use native BLE transports after validating USB flows.
+- Air-Gap (QR devices): Use the Air-Gap signing guide instead of transports.
 
-## Packages
+## Core packages
 
-| Package                               | Description                                                          | Version                                                                                                                                                   | Source                                                                                             |
-| ------------------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `@onekeyfe/hd-common-connect-sdk`     | Universal transport layer for WebUSB, WebBLE, and low-level adapters | [![npm version](https://img.shields.io/npm/v/@onekeyfe/hd-common-connect-sdk.svg)](https://www.npmjs.com/package/@onekeyfe/hd-common-connect-sdk)         | [GitHub](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect)                |
-| `@onekeyfe/hd-core`                   | Event constants, message formatting, and shared types                | [![npm version](https://img.shields.io/npm/v/@onekeyfe/hd-core.svg)](https://www.npmjs.com/package/@onekeyfe/hd-core)                                     | [GitHub](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/core)                   |
-| `@onekeyfe/hd-transport-react-native` | React Native bridge for BLE and USB transports                       | [![npm version](https://img.shields.io/npm/v/@onekeyfe/hd-transport-react-native.svg)](https://www.npmjs.com/package/@onekeyfe/hd-transport-react-native) | [GitHub](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/transport-react-native) |
-| `@onekeyfe/hd-ble-sdk`                | JavaScript BLE implementation for React Native and Expo              | [![npm version](https://img.shields.io/npm/v/@onekeyfe/hd-ble-sdk.svg)](https://www.npmjs.com/package/@onekeyfe/hd-ble-sdk)                               | [GitHub](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/ble-sdk)                |
+| Package                               | Purpose                                                             |
+| ------------------------------------- | ------------------------------------------------------------------- |
+| `@onekeyfe/hd-common-connect-sdk`     | Unified SDK surface (WebUSB, low-level adapter hooks)               |
+| `@onekeyfe/hd-core`                   | Events, shared types, and core message wiring                       |
+| `@onekeyfe/hd-transport-react-native` | React Native transport provider (BLE/USB integration for RN)        |
+| `@onekeyfe/hd-ble-sdk`                | Pure React Native BLE stack                                         |
 
-## Extended modules
+## Concepts and advanced topics
 
-* **Security & UX** – [Clear signing best practices](broken-reference), [Passphrase](explanations/hardware-sdk/passphrase.md), [PIN](explanations/hardware-sdk/pin.md)
-* **Troubleshooting** – [Diagnostics playbook](broken-reference) with log collection tips and common error codes
-* **Reference catalog** – [Reference index](broken-reference) for every chain, error code, and parameter schema
+- PIN and Passphrase UX and flows: `explanations/hardware-sdk/pin.md`, `explanations/hardware-sdk/passphrase.md`
+- Message protocol (for debugging low-level transports): `transport-recipes/common-connect-1/onekey-message-protocol.md`
+- Notes:
+  - The legacy "Common SDK Guide" content has been consolidated into per-platform transport guides (iOS/Android/Flutter). Use the transport recipes for up-to-date integration steps.
 
-## Support & community
+## Support
 
-* GitHub repository: https://github.com/OneKeyHQ/app-monorepo
-* Discussions: https://github.com/OneKeyHQ/hardware-js-sdk/discussions
-* Issue tracker: https://github.com/OneKeyHQ/hardware-js-sdk/issues
-* Help Center: https://help.onekey.so/hc
+- Discussions: https://github.com/OneKeyHQ/hardware-js-sdk/discussions
+- Issues: https://github.com/OneKeyHQ/hardware-js-sdk/issues
+- Help Center: https://help.onekey.so/hc
 
-Work through the quick start, pick the transport that matches your platform, and keep iterating with the playground to catch regressions early.\n\*\*\* End Patch
+Work through the Quick Start, pick your transport, and keep iterating with the demos to validate permissions, UI events, and first commands end-to-end.

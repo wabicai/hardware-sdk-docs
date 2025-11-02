@@ -28,12 +28,12 @@ await HardwareSDK.init({ env: 'lowlevel', debug: true, fetchConfig: true }, unde
 
 ## Protocol (must read)
 
-- Transport uses 64-byte packets: `../../explanations/hardware-sdk/onekey-message-protocol.md`
+- Transport uses 64-byte packets: `./onekey-message-protocol.md`
 - Default BLE UUIDs (filter and bind):
   - `serviceUuid`: `00000001-0000-1000-8000-00805f9b34fb`
   - `writeCharacteristic`: `00000002-0000-1000-8000-00805f9b34fb`
   - `notifyCharacteristic`: `00000003-0000-1000-8000-00805f9b34fb`
-- General patterns (messaging bridge, bundling, permissions): `../../explanations/hardware-sdk/common-sdk-guide.md`
+- General patterns: see per-platform guides (iOS/Android/Flutter) and Quick Start UI events
 
 ## Platform notes
 
