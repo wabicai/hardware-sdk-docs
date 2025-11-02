@@ -8,7 +8,7 @@
 * [WebUSB Connection Guide](transport-recipes/web-usb.md)
 * [Native BLE](transport-recipes/common-connect-1/README.md)
   * [OneKey Message Protocol](transport-recipes/common-connect-1/onekey-message-protocol.md)
-  * [Low-level Transport Plugin](transport-recipes/common-connect-1/low-level-transport-plugin.md)
+  * [What is  Low-level Transport Plugin](transport-recipes/common-connect-1/low-level-transport-plugin.md)
   * [iOS BLE](transport-recipes/common-connect-1/ios-ble.md)
   * [Android BLE](transport-recipes/common-connect-1/android-ble.md)
   * [Flutter BLE](transport-recipes/common-connect-1/flutter-ble.md)
