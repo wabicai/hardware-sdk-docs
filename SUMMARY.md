@@ -12,7 +12,7 @@
   * [iOS BLE](transport-recipes/common-connect-1/ios-ble.md)
   * [Android BLE](transport-recipes/common-connect-1/android-ble.md)
   * [Flutter BLE](transport-recipes/common-connect-1/flutter-ble.md)
-* [React Native BLE](transport-recipes/react-native-ble.md)
+* [React Native](transport-recipes/react-native-ble.md)
 
 ***
 
