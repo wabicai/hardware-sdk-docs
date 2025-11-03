@@ -19,7 +19,7 @@ OneKey BLE UUIDs:
 - Write:   `00000002-0000-1000-8000-00805f9b34fb`
 - Notify:  `00000003-0000-1000-8000-00805f9b34fb`
 
-## 1. Pod and web assets
+## Step 1. Pod and web assets
 
 Podfile (add the bridge dependency):
 ```ruby
@@ -48,7 +48,7 @@ Copy web assets into your app target resources (two options):
 
 Keep the HTML `<script src="...">` paths consistent with your placement.
 
-## 2. State and handler names
+## Step 2. State and handler names
 
 ```swift
 class ViewController: UIViewController {
@@ -70,7 +70,7 @@ class ViewController: UIViewController {
 }
 ```
 
-## 3. WKWebView + Bridge + load HTML (initialization order matters)
+## Step 3. WKWebView + Bridge + load HTML (initialization order matters)
 
 - Create the WKWebView
 - Create the bridge
@@ -104,7 +104,7 @@ class ViewController: UIViewController {
 }
 ```
 
-## 4. Bridge handlers (enumerate / connect / disconnect / send)
+## Step 4. Bridge handlers (enumerate / connect / disconnect / send)
 
 ```swift
 extension ViewController {
@@ -171,7 +171,7 @@ extension ViewController {
 }
 ```
 
-## 5. CoreBluetooth scanning and notifications
+## Step 5. CoreBluetooth scanning and notifications
 
 ```swift
 extension ViewController: CBCentralManagerDelegate, CBPeripheralDelegate {
@@ -226,13 +226,13 @@ extension ViewController: CBCentralManagerDelegate, CBPeripheralDelegate {
 }
 ```
 
-## 6. JavaScript bundle (low-level adapter)
+## Step 6. JavaScript bundle (low-level adapter)
 
 The demo’s web project (under `native-ios-example/web`) already builds a bundle that initializes the SDK with `env: 'lowlevel'` and wires the low-level adapter. You typically do NOT need to write extra JS — just build and include the `web/web_dist/` directory in your app resources so it can be loaded (e.g., `web/web_dist/index.html`).
 
 If you customize the adapter, keep the same pattern: initialize with `env: 'lowlevel'` and forward `enumerate/connect/disconnect/send/receive` to the native bridge.
 
-## 7. (Optional) Native UI prompts bridging
+## Step 7. (Optional) Native UI prompts bridging
 
 If you want to present native PIN/confirmation UI instead of handling dialogs only in JS, expose extra handlers so JS can request native UI and receive results. The demo shows this pattern.
 
@@ -260,7 +260,7 @@ bridge.register(handlerName: "closeUIWindow") { _, callback in
 
 In JS, you would call these handlers from your adapter to mirror the demo’s behavior. Otherwise, you can handle UI entirely in JS using `UI_EVENT` (see WebUSB guide for minimal dialogs) — both approaches are supported.
 
-## 8. Checklist
+## Step 8. Checklist
 
 - Register handlers before loading the HTML to avoid race conditions.
 - Scan with service UUID filter and stop within a reasonable time window.
@@ -270,5 +270,5 @@ In JS, you would call these handlers from your adapter to mirror the demo’s be
 
 ## References
 
-- Message Protocol (64‑byte framing): `./onekey-message-protocol.md`
-- Low‑level transport plugin contract: `./low-level-transport-plugin.md`
+- Message Protocol (64‑byte framing): [OneKey Message Protocol](./onekey-message-protocol.md)
+- Low‑level transport plugin contract: [Low-level Transport Plugin](./low-level-transport-plugin.md)

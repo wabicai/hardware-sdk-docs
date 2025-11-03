@@ -28,7 +28,7 @@ await HardwareSDK.init({ env: 'lowlevel', debug: true, fetchConfig: true }, unde
 
 ## Protocol (must read)
 
-- Transport uses 64-byte packets: `./onekey-message-protocol.md`
+- Transport uses 64-byte packets: [OneKey Message Protocol](./onekey-message-protocol.md)
 - Default BLE UUIDs (filter and bind):
   - `serviceUuid`: `00000001-0000-1000-8000-00805f9b34fb`
   - `writeCharacteristic`: `00000002-0000-1000-8000-00805f9b34fb`
@@ -56,9 +56,9 @@ await HardwareSDK.init({ env: 'lowlevel', debug: true, fetchConfig: true }, unde
 - Follow the demo bundling process for web assets.
 
 Working examples:
-- iOS: `hardware-js-sdk/packages/connect-examples/native-ios-example`
-- Android: `hardware-js-sdk/packages/connect-examples/native-android-example`
-- React Native (BLE/Air-Gap together): `hardware-js-sdk/packages/connect-examples/react-native-demo`
+- iOS: https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-ios-example
+- Android: https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-android-example
+- React Native (BLE/Air-Gap together): https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/react-native-demo
 
 ## Shared tips
 

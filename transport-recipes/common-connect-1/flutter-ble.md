@@ -2,18 +2,26 @@
 
 For Flutter apps that load a JS bundle via WebView or a JS engine and bridge to `@onekeyfe/hd-common-connect-sdk` using a low-level adapter.
 
-## Runtime options
+## Step 1. Choose a runtime
 
 - WebView: stable and broadly supported; bridge API identical to iOS/Android native shells
 - JS engine: e.g. `flutter_js`, run the built JS bundle directly in Dart
 
-## Integration steps
+## Step 2. Build the JS bundle
 
-1. Build the JS bundle (see the `web/` directories in the native examples)
-2. Load the JS bundle in Flutter (WebView or JS engine)
-3. Implement a messaging bridge exposing `enumerate/connect/disconnect/send/receive` to the JS side
-4. Follow the protocol: forward 64-byte BLE notification chunks, reassemble hex payloads for `receive()` on JS
-5. Handle UI events: show native dialogs for PIN/Passphrase/confirmations and respond via `HardwareSDK.uiResponse`
+Build in the native examples under the hardware-js-sdk repository (see `web/` directories) and produce `web_dist/` assets.
+
+## Step 3. Load the JS bundle
+
+Load the `web_dist/` assets in Flutter (either via WebView or a JS engine).
+
+## Step 4. Implement the messaging bridge
+
+Expose `enumerate/connect/disconnect/send/receive` from native to JS, keeping the same signatures. Forward 64‑byte BLE notification chunks and reassemble hex payloads for `receive()` on JS.
+
+## Step 5. Handle UI events
+
+Show native dialogs for PIN/Passphrase/confirmations and respond via `HardwareSDK.uiResponse`.
 
 ## BLE UUIDs
 
@@ -23,8 +31,8 @@ For Flutter apps that load a JS bundle via WebView or a JS engine and bridge to 
 
 ## References
 
-- Protocol framing: `./onekey-message-protocol.md`
-- UI events (PIN/Passphrase): `../../quick-start/ui-events-pin.md`, `../../quick-start/ui-events-passphrase.md`
-- Platform details: iOS `./ios-ble.md`, Android `./android-ble.md`
+- Protocol framing: [OneKey Message Protocol](./onekey-message-protocol.md)
+- UI events: [PIN](../../quick-start/ui-events-pin.md), [Passphrase](../../quick-start/ui-events-passphrase.md)
+- Platform details: [iOS BLE](./ios-ble.md), [Android BLE](./android-ble.md)
 
-Once wired, the chain API usage is identical to WebUSB: provide `connectId` and (when required) `deviceId`.
+Once wired, the chain API usage is identical to WebUSB: provide `connectId` and (when required) `deviceId`. 

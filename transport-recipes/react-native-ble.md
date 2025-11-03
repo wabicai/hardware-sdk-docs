@@ -150,10 +150,10 @@ if (res.success) {
 
 - Always subscribe early to `UI_EVENT` so PIN/Passphrase/confirmations do not stall requests.
 - Keep BLE permissions in sync with the OS version. Test on physical devices.
-- For additional examples, check `hardware-js-sdk/packages/connect-examples/react-native-demo`.
+- For additional examples, check: https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo
 
 ## Continue
 
-- Quick Start (response shapes, event handling): `../quick-start.md`
-- Error codes and common params: `../hardware-sdk/error-code.md`, `../hardware-sdk/common-params.md`
-- Protocol framing (64 bytes, for reference only): `../explanations/hardware-sdk/onekey-message-protocol.md`
+- [Quick Start](../quick-start.md)
+- [Error Code](../hardware-sdk/error-code.md), [Common Params](../hardware-sdk/common-params.md)
+- Protocol framing (64 bytes, for reference only): [OneKey Message Protocol](common-connect-1/onekey-message-protocol.md)

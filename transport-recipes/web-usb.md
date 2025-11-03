@@ -17,7 +17,7 @@ Focus: WebUSB only.
 ## Step 2. Install
 
 ```bash
-npm i @onekeyfe/hd-common-connect-sdk @onekeyfe/hd-shared
+npm i @onekeyfe/hd-common-connect-sdk @onekeyfe/hd-shared @onekeyfe/hd-core
 ```
 
 ## Step 3. Initialize and bind events
@@ -87,7 +87,7 @@ function bindHardwareEvents() {
   });
 }
 
-// --- Minimal UI helpers (functionality only, no styling) ---
+## Step 6. Appendix: Minimal UI helpers (optional)
 
 // Blind keypad map (matches hardware positional mapping)
 const BLIND_KEYBOARD_MAP = ['7', '8', '9', '4', '5', '6', '1', '2', '3'];
@@ -263,5 +263,5 @@ if (res.success) {
 
 ## Continue
 
-- Quick Start overview: `../quick-start.md`
-- Error codes and common params: `../hardware-sdk/error-code.md`, `../hardware-sdk/common-params.md`
+- [Quick Start](../quick-start.md)
+- [Error Code](../hardware-sdk/error-code.md), [Common Params](../hardware-sdk/common-params.md)
