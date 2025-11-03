@@ -3,13 +3,12 @@
 ### Method List
 
 * [checkBLEFirmwareRelease](checkblefirmwarerelease.md)
-* [checkBridgeStatus](broken-reference)
 * [checkFirmwareRelease](checkfirmwarerelease.md)
-* [checkTransportRelease](checktransportrelease.md)
 * [deviceChangePin](broken-reference)
 * [deviceReset](broken-reference)
 * [deviceSettings](broken-reference)
 * [deviceUpdateReboot](deviceupdatereboot.md)
 * [deviceVerify](broken-reference)
 * [deviceWipe](devicewipe.md)
-* [firmwareUpdate](broken-reference)
+* [firmwareUpdateV2](firmwareupdatev2.md)
+* [firmwareUpdateV3](firmwareupdatev3.md)

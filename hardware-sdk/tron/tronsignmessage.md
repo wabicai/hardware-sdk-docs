@@ -14,6 +14,7 @@ const result = await HardwareSDK.tronSignMessage(connectId, deviceId, params);
 
 * `path` - _required_ `string | Array<number>` minimum length is `3`. read more
 * `messageHex` - _required_ `string` message to sign in hex text
+* `messageType` - _optional_ `string` TRON message signing algorithm type. Recommended `'v2'` for better compatibility and security. Allowed: `'v1' | 'v2'`. Unless you have a legacy constraint, use `'v2'`.
 
 ### Example
 
@@ -26,7 +27,8 @@ const messageHex = Buffer.from(message).toString('hex');
 
 HardwareSDK.tronSignMessage(connectId, deviceId, {
     path: "m/44'/195'/0'/0/0",
-    message: messageHex
+    messageHex,
+    messageType: 'v2'
 });
 ```
 
