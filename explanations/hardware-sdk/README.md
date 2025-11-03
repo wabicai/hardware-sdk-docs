@@ -1,14 +1,25 @@
-# Hardware Security and Advanced Capabilities
+# Security & Advanced Features
 
-Use these articles when designing PIN/Passphrase UX and debugging low-level transports. Platform-specific integration steps now live under Transport Recipes.
+Use this section when you need to:
+- Design PIN/Passphrase UX and responses
+- Debug low‑level transports with the OneKey message framing
 
-- PIN: `explanations/hardware-sdk/pin.md`
-- Passphrase: `explanations/hardware-sdk/passphrase.md`
-- Message Protocol (64-byte framing, for low-level debugging): `transport-recipes/common-connect-1/onekey-message-protocol.md`
+## Topics
 
-Notes:
-- The former "Common SDK Guide" and low-level adapter materials have been consolidated into platform-specific transport guides:
-  - iOS BLE (WKWebView + CoreBluetooth): `transport-recipes/common-connect-1/ios-ble.md`
-  - Android BLE (WebView + JSBridge + Nordic BLE): `transport-recipes/common-connect-1/android-ble.md`
-  - Flutter BLE (JS engine/WebView): `transport-recipes/common-connect-1/flutter-ble.md`
-- For end-to-end event flows (PIN/Passphrase), start with Quick Start sub-guides (UI Events: PIN / Passphrase) and wire the same responses in your chosen transport.
+- PIN: [PIN](pin.md)
+- Passphrase: [Passphrase](passphrase.md)
+- Message protocol (64‑byte framing, for low‑level debugging): [OneKey Message Protocol](../../transport-recipes/common-connect-1/onekey-message-protocol.md)
+
+## Related
+
+- Event model & responses: [Config Event](../../hardware-sdk/config-event.md), [Response UI Event](../../hardware-sdk/basic-api/response-ui-event.md)
+- Quick Web path: see [Quick Start](../../quick-start.md)
+
+## Platform guides
+
+For platform‑specific integration, follow Transport Recipes:
+- WebUSB (browser): [WebUSB Connection Guide](../../transport-recipes/web-usb.md)
+- iOS BLE (WKWebView + CoreBluetooth): [iOS BLE](../../transport-recipes/common-connect-1/ios-ble.md)
+- Android BLE (WebView + JSBridge + Nordic BLE): [Android BLE](../../transport-recipes/common-connect-1/android-ble.md)
+- Flutter BLE (WebView/JS engine): [Flutter BLE](../../transport-recipes/common-connect-1/flutter-ble.md)
+- React Native BLE: [React Native BLE](../../transport-recipes/react-native-ble.md)

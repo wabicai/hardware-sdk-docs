@@ -1,5 +1,9 @@
 # WebUSB Connection Guide
 
+{% hint style="info" %}
+Demo: Playground (supports emulator) → https://hardware-example.onekey.so/
+{% endhint %}
+
 Use this step‑by‑step guide to wire WebUSB in the browser with `@onekeyfe/hd-common-connect-sdk`. Once connected, you can call any chain API (BTC/EVM/etc.) as in Quick Start.
 
 Focus: WebUSB only.

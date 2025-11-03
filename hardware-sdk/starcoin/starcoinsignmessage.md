@@ -12,7 +12,7 @@ const result = await HardwareSDK.starcoinSignMessage(connectId, deviceId, params
 
 [**Optional common params**](../common-params.md)
 
-* `path` - _required_ `string | Array<number>` minimum length is `3`. read more
+* `path` — _required_ `string | Array<number>` minimum length is `3`. read more
 * `messageHex` - _required_ `string` message to sign in hex text
 
 ### Example

@@ -1,4 +1,4 @@
-# starcoinGetAddress
+# startcoinGetAddress
 
 ## Starcoin: get address
 
@@ -14,8 +14,8 @@ const response = await HardwareSDK.starcoinGetAddress(connectId, deviceId, param
 
 **Exporting single address**
 
-* `path` - _required_ `string | Array<number>`  minimum length is 5. [more information](../path.md)
-* `showOnOneKey` - _optional_ `boolean` determines if address will be displayed on device. Default is set to `true`
+* `path` — _required_ `string | Array<number>`  minimum length is 5. [more information](../path.md)
+* `showOnOneKey` — _optional_ `boolean` determines if address will be displayed on device. Default is set to `true`
 
 **Exporting bundle of addresses**
 

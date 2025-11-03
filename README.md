@@ -1,17 +1,10 @@
 # Introduction
 
-Integrate OneKey hardware wallets from prototype to production with a clean path: start with Quick Start, choose a transport by your platform, wire events, and call chain APIs.
+Developer‑focused documentation for integrating OneKey hardware in Web and Native apps. Start with Quick Start (Web), then pick your transport guide, wire events, and call chain APIs.
 
 ## Quick Start
 
-- Overview: [Quick Start](quick-start.md)
-- Sub‑guides:
-  - [Setup and Init](quick-start/setup-and-init.md)
-  - [Device Discovery and Features](quick-start/device-discovery-and-features.md)
-  - [UI Events: PIN](quick-start/ui-events-pin.md)
-  - [UI Events: Passphrase](quick-start/ui-events-passphrase.md)
-  - [First Command](quick-start/first-command.md)
-
+For Web developers getting started quickly: a compact path from init to first call, with copy‑pastable code snippets. See [Quick Start](quick-start.md).
 ## Choose Your Transport
 
 | Platform (Stack)     | Transport  | SDK Package                                                                                           | Guide                                                     |
@@ -23,11 +16,16 @@ Integrate OneKey hardware wallets from prototype to production with a clean path
 | Flutter              | BLE        | [@onekeyfe/hd-common-connect-sdk](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/hd-common-connect-sdk) | [Flutter BLE](transport-recipes/common-connect-1/flutter-ble.md) |
 
 - Playground: [hardware-example.onekey.so](https://hardware-example.onekey.so/) — Try WebUSB connection, call sample APIs, and test with the built‑in emulator device.
+  - Features:
+    - Live hardware wallet simulation
+    - Real-time API testing
+    - Multi-chain protocol support
+    - No hardware device required for testing (you can use the emulator device)
 
 ## API References
 
 - Per‑chain APIs: [Hardware SDK API References](hardware-sdk/README.md)
-- Events and UI responses: [Config Event](references/hardware-sdk/api-reference/config-event.md)
+- Events and UI responses: [Config Event](hardware-sdk/config-event.md)
 
 ## Device and transport compatibility
 
@@ -59,13 +57,13 @@ The support status for Bluetooth and USB on different devices.
 
 ## Concepts and advanced topics
 
-- PIN and Passphrase UX and flows: `explanations/hardware-sdk/pin.md`, `explanations/hardware-sdk/passphrase.md`
-- Message protocol (for debugging low-level transports): `transport-recipes/common-connect-1/onekey-message-protocol.md`
-- Notes:
-  - The legacy "Common SDK Guide" content has been consolidated into per-platform transport guides (iOS/Android/Flutter). Use the transport recipes for up-to-date integration steps.
+- PIN and Passphrase UX and flows: [PIN](explanations/hardware-sdk/pin.md), [Passphrase](explanations/hardware-sdk/passphrase.md)
+- Message protocol (for debugging low-level transports): [OneKey Message Protocol](transport-recipes/common-connect-1/onekey-message-protocol.md)
 
 ## Support
 
+For users: This documentation is primarily for developers. If you encounter issues while using our products, please consult our Help Center or submit a support ticket.
+
+- Help Center: https://help.onekey.so/hc
 - Discussions: https://github.com/OneKeyHQ/hardware-js-sdk/discussions
 - Issues: https://github.com/OneKeyHQ/hardware-js-sdk/issues
-- Help Center: https://help.onekey.so/hc

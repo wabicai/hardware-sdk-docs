@@ -14,8 +14,8 @@ const result = await HardwareSDK.starcoinGetPublicKey(connectId, deviceId, param
 
 ### Exporting single public key
 
-* `path` - _required_ `string | Array<number>` minimum length is `1`. read more
-* `showOnOneKey` - _optional_ `boolean` determines if address will be displayed on device. Default is set to `true`
+* `path` — _required_ `string | Array<number>` minimum length is `1`. read more
+* `showOnOneKey` — _optional_ `boolean` determines if address will be displayed on device. Default is set to `true`
 
 #### Exporting bundle of public keys
 

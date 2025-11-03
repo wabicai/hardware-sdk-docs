@@ -1,16 +1,48 @@
-# Hardware SDK API Navigation
+# Hardware SDK API References
 
-Use this directory to locate chain-specific API references and shared metadata.
+Use this page as a concise index to jump into each module. Links point to the canonical docs under this folder.
 
-- `common-params.md`, `path.md`, `error-code.md`, `init.md` - Common parameters, derivation rules, error catalog, and initialization helpers.
-- `basic-api/` - Device enumeration, feature retrieval, and UI response utilities.
-- `device-api/` - Firmware upgrades, verification, wipes, and other management calls.
-- Chain directories (for example `bitcoin-and-bitcoin-forks`, `ethereum-and-evm`) - Address, public key, and signing examples for each protocol.
+## Core Modules
 
-Suggested reading order:
+- Common Params: [common-params.md](common-params.md)
+- Path Params (derivation rules): [path.md](path.md)
+- Error Codes: [error-code.md](error-code.md)
+- Init SDK: [init.md](init.md)
+- Config Event (UI/config events): [references → config-event](../hardware-sdk/config-event.md)
+- Basic API (device discovery & UI flow): [basic-api/README.md](basic-api/README.md)
+- Device API (settings, update, verify): [device-api/README.md](device-api/README.md)
 
-1. Start with `common-params.md` so every request shares the same baseline arguments.
-2. Jump to the chain directory that matches your product surface.
-3. When an error occurs, consult `error-code.md` together with the troubleshooting article in the Explanations section.
+## Per‑chain APIs
 
-Reminder: If you rely on Common Connect or custom transports, the API signatures remain the same-just supply the appropriate `connectId` and `deviceId` values.
+- Bitcoin and Bitcoin Forks: [bitcoin-and-bitcoin-forks/README.md](bitcoin-and-bitcoin-forks/README.md)
+- Ethereum and EVM: [ethereum-and-evm/README.md](ethereum-and-evm/README.md)
+- Algorand: [algorand/README.md](algorand/README.md)
+- Alephium: [alephium/README.md](alephium/README.md)
+- Aptos: [aptos/README.md](aptos/README.md)
+- Benfen: [benfen/README.md](benfen/README.md)
+- Cardano: [cardano/README.md](cardano/README.md)
+- Conflux: [conflux/README.md](conflux/README.md)
+- Cosmos: [cosmos/README.md](cosmos/README.md)
+- Dynex: [dynex/README.md](dynex/README.md)
+- Filecoin: [filecoin/README.md](filecoin/README.md)
+- Kaspa: [kaspa/README.md](kaspa/README.md)
+- NEAR: [near/README.md](near/README.md)
+- NEM: [nem/README.md](nem/README.md)
+- Nervos: [nervos/README.md](nervos/README.md)
+- Nexa: [nexa/README.md](nexa/README.md)
+- Nostr: [nostr/README.md](nostr/README.md)
+- Polkadot: [polkadot/README.md](polkadot/README.md)
+- Ripple: [ripple/README.md](ripple/README.md)
+- SCDO: [scdo/README.md](scdo/README.md)
+- Solana: [solana/README.md](solana/README.md)
+- Starcoin: [starcoin/README.md](starcoin/README.md)
+- Stellar: [stellar/README.md](stellar/README.md)
+- Sui: [sui/README.md](sui/README.md)
+- TON: [ton/README.md](ton/README.md)
+- Tron: [tron/README.md](tron/README.md)
+
+## Notes
+
+- All requests share the same base arguments; start with Common Params and Path.
+- API signatures are transport‑agnostic; provide the right `connectId` / `deviceId` if you use custom transports.
+- See Error Codes for troubleshooting during development.

@@ -1,9 +1,10 @@
 # Android BLE (Native, low-level adapter)
 
-This guide shows how to integrate `@onekeyfe/hd-common-connect-sdk` in a native Android host via a low-level adapter. The JavaScript bundle runs in a WebView; transport calls are forwarded to native (Nordic BLE) and bridged back to JS.
+{% hint style="info" %}
+Demo: Native Android example (WebView + JSBridge + Nordic BLE) → https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-android-example
+{% endhint %}
 
-Reference demo (onekey branch):
-- https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-android-example
+This guide shows how to integrate `@onekeyfe/hd-common-connect-sdk` in a native Android host via a low-level adapter. The JavaScript bundle runs in a WebView; transport calls are forwarded to native (Nordic BLE) and bridged back to JS.
 
 Key libraries:
 - WebView JS bridge: `com.smallbuer:jsbridge:1.0.7`

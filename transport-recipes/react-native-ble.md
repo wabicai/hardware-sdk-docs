@@ -1,11 +1,15 @@
 # React Native BLE (hd-ble-sdk)
 
+{% hint style="info" %}
+Demo: React Native / Expo example → https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/react-native-demo
+{% endhint %}
+
 This guide shows how to use the pure React Native BLE stack with `@onekeyfe/hd-ble-sdk` and `@onekeyfe/hd-transport-react-native`. No WebView or low-level adapter is required. The chain API usage stays the same as in Quick Start.
 
 ## Install
 
 ```bash
-npm i @onekeyfe/hd-ble-sdk @onekeyfe/hd-transport-react-native @onekeyfe/hd-common-connect-sdk
+npm i @onekeyfe/hd-ble-sdk @onekeyfe/hd-transport-react-native
 ```
 
 Optional polyfills (depending on your project):
@@ -28,7 +32,7 @@ global.process = global.process || require('process');
 // Register RN transport side-effects before SDK init
 import '@onekeyfe/hd-transport-react-native';
 
-import HardwareSDK from '@onekeyfe/hd-common-connect-sdk';
+import HardwareSDK from '@onekeyfe/hd-ble-sdk';
 ```
 
 ## Android setup

@@ -6,11 +6,10 @@
   * [Device Discovery and Features](quick-start/device-discovery-and-features.md)
   * [UI Events: PIN](quick-start/ui-events-pin.md)
   * [UI Events: Passphrase](quick-start/ui-events-passphrase.md)
-  * [First Command](quick-start/first-command.md)
+  * [Signer](quick-start/first-command.md)
 
 ## Transport Recipes
 
-* [Overview and Demos](transport-recipes/README.md)
 * [WebUSB Connection Guide](transport-recipes/web-usb.md)
 * [Native BLE](transport-recipes/common-connect-1/README.md)
   * [OneKey Message Protocol](transport-recipes/common-connect-1/onekey-message-protocol.md)
@@ -33,7 +32,7 @@
     * [Get Passphrase State](hardware-sdk/basic-api/get-passphrase-state.md)
     * [Cancel Request](hardware-sdk/basic-api/cancel-request.md)
     * [Response UI Event](hardware-sdk/basic-api/response-ui-event.md)
-  * [Config Event](references/hardware-sdk/api-reference/config-event.md)
+  * [Config Event](hardware-sdk/config-event.md)
   * [Device API](hardware-sdk/device-api/README.md)
     * [deviceSupportFeatures](hardware-sdk/device-api/devicesupportfeatures.md)
     * [checkFirmwareRelease](hardware-sdk/device-api/checkfirmwarerelease.md)
@@ -155,7 +154,7 @@
 
 ## Concepts and Troubleshooting
 
-* [Hardware Security and Advanced Capabilities](explanations/hardware-sdk/README.md)
+* [Security & Advanced Features](explanations/hardware-sdk/README.md)
   * [Passphrase](explanations/hardware-sdk/passphrase.md)
   * [Pin](explanations/hardware-sdk/pin.md)
 

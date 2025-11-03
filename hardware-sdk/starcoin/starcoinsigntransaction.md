@@ -12,7 +12,7 @@ const result = await HardwareSDK.starcoinSignTransaction(connectId, deviceId, pa
 
 [**Optional common params**](../common-params.md)
 
-* `path` - _required_ `string | Array<number>` minimum length is `3`. read more
+* `path` — _required_ `string | Array<number>` minimum length is `3`. read more
 * `rawTx` - _required_ `string` type of serialized transaction string.
 
 ### Examples

@@ -2,8 +2,8 @@
 
 ### Method List
 
-* [starcoinGetAddress](../../coin-api/starcoin/startcoingetaddress.md)
-* [starcoinGetPublicKey](broken-reference)
-* [starcoinSignMessage](broken-reference)
-* [starcoinSignTransaction](broken-reference)
+* [starcoinGetAddress](startcoingetaddress.md)
+* [starcoinGetPublicKey](starcoingetpublickey.md)
+* [starcoinSignMessage](starcoinsignmessage.md)
+* [starcoinSignTransaction](starcoinsigntransaction.md)
 * [starcoinVerifyMessage](starcoinverifymessage.md)
