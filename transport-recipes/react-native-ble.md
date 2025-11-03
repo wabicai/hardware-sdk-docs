@@ -8,14 +8,12 @@ This guide shows how to use the pure React Native BLE stack with `@onekeyfe/hd-b
 
 ## Install
 
-```bash
-npm i @onekeyfe/hd-ble-sdk @onekeyfe/hd-transport-react-native
-```
-
-Optional polyfills (depending on your project):
+We recommend installing the RN-native dependencies at the app layer so that autolinking includes the native modules in your Dev Client build:
 
 ```bash
-npm i buffer process react-native-get-random-values react-native-url-polyfill
+npm i @onekeyfe/hd-ble-sdk @onekeyfe/hd-transport-react-native \
+      @onekeyfe/react-native-ble-utils react-native-ble-plx \
+      buffer process react-native-get-random-values react-native-url-polyfill
 ```
 
 In your app entry (e.g., `index.js` or `App.tsx`):
@@ -47,11 +45,10 @@ Add permissions in `AndroidManifest.xml` (Android 12+):
 <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/>
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/>
 <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation"/>
-<uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
 <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
 ```
 
-At runtime, request `BLUETOOTH_SCAN` and `BLUETOOTH_CONNECT` (and location on Android 12+).
+At runtime, request `BLUETOOTH_SCAN` and `BLUETOOTH_CONNECT` (and location on Android 12+). Ensure the system Location toggle is ON.
 
 ## iOS setup
 
@@ -59,13 +56,53 @@ Add to `Info.plist`:
 
 - `NSBluetoothAlwaysUsageDescription` (required)
 - Optionally `NSBluetoothPeripheralUsageDescription` for older iOS versions
+- If your app uses the camera (e.g. QR scanning), add `NSCameraUsageDescription`
+
+If using Expo, you can declare these in `app.json` under `expo.ios.infoPlist` and `expo.android.permissions`.
+
+## Metro config (polyfills & exports)
+
+Map Node core APIs and enable package exports for subpath imports like `@noble/hashes/blake2b`:
+
+```js
+// metro.config.js
+config.resolver.extraNodeModules = {
+  buffer: require.resolve('buffer/'),
+  crypto: require.resolve('crypto-browserify'),
+  stream: require.resolve('stream-browserify'),
+  process: require.resolve('process/browser'),
+  events: require.resolve('events/'),
+  http: require.resolve('http-browserify'),
+  https: require.resolve('https-browserify'),
+  zlib: require.resolve('browserify-zlib'),
+  util: require.resolve('util/'),
+  url: require.resolve('url/'),
+  path: require.resolve('path-browserify'),
+};
+config.resolver.unstable_enablePackageExports = true;
+```
+
+## Build Dev Client (real devices)
+
+Expo Go does not include your native BLE modules. Build a Dev Client:
+
+```bash
+# iOS
+expo run:ios --device
+
+# Android
+expo run:android --device
+
+# Start bundler for Dev Client
+expo start --dev-client -c
+```
 
 ## Initialize and subscribe to events
 
 ```ts
 export async function setupBle() {
   await HardwareSDK.init({
-    env: 'webble',                 // React Native BLE transport
+    env: 'react-native',                 // React Native BLE transport
     debug: __DEV__,
     fetchConfig: true,
   });

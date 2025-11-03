@@ -4,11 +4,24 @@
 - Two options:
   - Enter on device (most secure):
     ```ts
-    await HardwareSDK.uiResponse({ type: UI_RESPONSE.RECEIVE_PASSPHRASE, payload: { passphraseOnDevice: true, value: '' } });
+    await HardwareSDK.uiResponse({ 
+      type: UI_RESPONSE.RECEIVE_PASSPHRASE, 
+      payload: { 
+        passphraseOnDevice: true, 
+        value: '' 
+      } 
+    });
     ```
   - Software input (optionally cache for session):
     ```ts
-    await HardwareSDK.uiResponse({ type: UI_RESPONSE.RECEIVE_PASSPHRASE, payload: { value, passphraseOnDevice: false, save: true } });
+    await HardwareSDK.uiResponse({ 
+      type: UI_RESPONSE.RECEIVE_PASSPHRASE, 
+      payload: {
+        value, 
+        passphraseOnDevice: false, 
+        save: true 
+      } 
+    });
     ```
 - Force Standard Wallet for a call: add `useEmptyPassphrase: true` in method params.
 

@@ -5,7 +5,7 @@ This page covers installing the SDK and initializing it as early as possible, so
 ## Install
 
 ```bash
-npm i @onekeyfe/hd-common-connect-sdk @onekeyfe/hd-shared
+npm i @onekeyfe/hd-common-connect-sdk @onekeyfe/hd-shared @onekeyfe/hd-core
 ```
 
 ## Initialize the SDK
@@ -13,7 +13,7 @@ npm i @onekeyfe/hd-common-connect-sdk @onekeyfe/hd-shared
 ```ts
 import HardwareSDK from '@onekeyfe/hd-common-connect-sdk';
 
-export async function initSdk(env: 'webusb' | 'lowlevel' | 'webble' = 'webusb') {
+export async function initSdk(env: 'webusb' | 'lowlevel' | 'react-native' = 'webusb') {
   await HardwareSDK.init({
     env,
     debug: process.env.NODE_ENV !== 'production',
@@ -24,7 +24,7 @@ export async function initSdk(env: 'webusb' | 'lowlevel' | 'webble' = 'webusb') 
 
 - `env: 'webusb'` → browser WebUSB
 - `env: 'lowlevel'` → native shells (iOS/Android/Flutter) via a low-level adapter bundle
-- `env: 'webble'` → React Native with pure BLE transports
+- `env: 'react-native'` → React Native with pure BLE transports
 
 ## Bind events early
 
