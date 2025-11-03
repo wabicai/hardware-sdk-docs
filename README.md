@@ -22,7 +22,7 @@ Integrate OneKey hardware wallets from prototype to production with a clean path
 | iOS (Native)         | BLE        | [@onekeyfe/hd-common-connect-sdk](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/hd-common-connect-sdk) | [iOS BLE](transport-recipes/common-connect-1/ios-ble.md)  |
 | Flutter              | BLE        | [@onekeyfe/hd-common-connect-sdk](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/hd-common-connect-sdk) | [Flutter BLE](transport-recipes/common-connect-1/flutter-ble.md) |
 
-- Playground (supports emulator): https://hardware-example.onekey.so/
+- Playground: [hardware-example.onekey.so](https://hardware-example.onekey.so/) — Try WebUSB connection, call sample APIs, and test with the built‑in emulator device.
 
 ## API References
 
@@ -46,12 +46,16 @@ The support status for Bluetooth and USB on different devices.
 
 | Package                               | Purpose                                                             |
 | ------------------------------------- | ------------------------------------------------------------------- |
-| `@onekeyfe/hd-common-connect-sdk`     | Unified SDK surface (shared connect helpers)                        |
-| `@onekeyfe/hd-web-sdk`                | Web SDK wrapper (lower priority; use common-connect on Web)         |
+| `@onekeyfe/hd-common-connect-sdk`     | Unified SDK surface for Web/Native; recommended entry for transports |
+| `@onekeyfe/hd-ble-sdk`                | Pure React Native BLE stack (recommended for RN projects)           |
+| `@onekeyfe/hd-transport-react-native` | React Native transport side‑effects/bridge                          |
+| `@onekeyfe/hd-transport-web-device`   | Web transport for device access in web contexts                     |
+| `@onekeyfe/hd-transport-emulator`     | Emulator transport (develop and test without a physical device)     |
+| `@onekeyfe/hd-transport-http`         | HTTP bridge transport                                               |
+| `@onekeyfe/hd-transport-lowlevel`     | Low‑level host adapter contract (for native integrations)           |
 | `@onekeyfe/hd-core`                   | Core events, constants, message wiring                              |
-| `@onekeyfe/hd-transport-webusb`       | WebUSB transport provider                                           |
-| `@onekeyfe/hd-transport-react-native` | React Native transport provider (BLE/USB integration for RN)        |
-| `@onekeyfe/hd-ble-sdk`                | Pure React Native BLE stack                                         |
+| `@onekeyfe/hd-shared`                 | Shared utilities and types                                          |
+| `@onekeyfe/hd-web-sdk`                | Web SDK wrapper (not recommended; prefer hd-common-connect-sdk)     |
 
 ## Concepts and advanced topics
 

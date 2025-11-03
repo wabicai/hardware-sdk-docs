@@ -1,19 +1,17 @@
-# Quick Start (hd-common-connect-sdk)
+# Quick Start (Web, hd-common-connect-sdk)
 
-Use this index to learn the device flow from init to first call. Each page is short and copy‑pastable.
+This page gives a concise mental model for integrating OneKey hardware in the browser: initialize the SDK, discover devices, handle UI prompts, and make your first call. Code details live in the sub‑pages.
 
-- Setup and Init → [quick-start/setup-and-init.md](quick-start/setup-and-init.md)
-- Device Discovery and Features → [quick-start/device-discovery-and-features.md](quick-start/device-discovery-and-features.md)
-- UI Events: PIN → [quick-start/ui-events-pin.md](quick-start/ui-events-pin.md)
-- UI Events: Passphrase → [quick-start/ui-events-passphrase.md](quick-start/ui-events-passphrase.md)
-- First Command → [quick-start/first-command.md](quick-start/first-command.md)
+Scope: Web (browser) using WebUSB with `@onekeyfe/hd-common-connect-sdk`.
 
-Event binding and responses
-- Config Event (subscribe & dispatch) → [references/hardware-sdk/api-reference/config-event.md](references/hardware-sdk/api-reference/config-event.md)
-- Response UI Event (respond to UI requests) → [hardware-sdk/basic-api/response-ui-event.md](hardware-sdk/basic-api/response-ui-event.md)
+1. Setup & Init — Install the SDK, initialize early, and enable debug when needed.
+2. Discover Devices — Authorize (WebUSB), enumerate with `searchDevices`, understand identifiers (`connectId`, `device_id`), and resolve `device_id` via `getFeatures`.
+3. PIN — Listen for `UI_EVENT` and answer `REQUEST_PIN` via `uiResponse` (prefer on‑device entry).
+4. Passphrase — Handle hidden wallet passphrase (on‑device or software entry, optional session caching).
+5. First Command — Call a chain API (e.g., `btcGetAddress`) using `connectId` + `device_id`.
 
 Next: choose a transport for your platform
-- WebUSB (browser) → [transport-recipes/web-usb.md](transport-recipes/web-usb.md)
-- iOS BLE (native) → [transport-recipes/common-connect-1/ios-ble.md](transport-recipes/common-connect-1/ios-ble.md)
-- Android BLE (native) → [transport-recipes/common-connect-1/android-ble.md](transport-recipes/common-connect-1/android-ble.md)
-- React Native BLE (pure RN) → [transport-recipes/react-native-ble.md](transport-recipes/react-native-ble.md)
+- WebUSB (browser) → [WebUSB Connection Guide](transport-recipes/web-usb.md)
+- iOS BLE (native) → [iOS BLE](transport-recipes/common-connect-1/ios-ble.md)
+- Android BLE (native) → [Android BLE](transport-recipes/common-connect-1/android-ble.md)
+- React Native BLE (pure RN) → [React Native BLE](transport-recipes/react-native-ble.md)
