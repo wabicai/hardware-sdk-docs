@@ -27,4 +27,3 @@ The `PathComponent` class represents an individual component in a cryptographic 
 ```typescript
 ur:crypto-keypath/xxxxx
 ```
-

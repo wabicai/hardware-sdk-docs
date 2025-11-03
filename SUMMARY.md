@@ -33,6 +33,7 @@
     * [Get Passphrase State](hardware-sdk/basic-api/get-passphrase-state.md)
     * [Cancel Request](hardware-sdk/basic-api/cancel-request.md)
     * [Response UI Event](hardware-sdk/basic-api/response-ui-event.md)
+  * [Config Event](references/hardware-sdk/api-reference/config-event.md)
   * [Device API](hardware-sdk/device-api/README.md)
     * [deviceSupportFeatures](hardware-sdk/device-api/devicesupportfeatures.md)
     * [checkFirmwareRelease](hardware-sdk/device-api/checkfirmwarerelease.md)

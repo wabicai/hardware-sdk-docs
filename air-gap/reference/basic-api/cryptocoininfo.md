@@ -16,7 +16,7 @@ export enum Network {
 
 ### Parameters
 
-* `Type`: Defines the type of currency, such as `bitcoin = 0`.&#x20;
+* `Type`: Defines the type of currency, such as `bitcoin = 0`. 
 * `Network`: Defines the type of network, such as `mainnet` and `testnet`.
 
 
@@ -26,4 +26,3 @@ export enum Network {
 ```typescript
 ur:crypto-coin-info/xxxxx
 ```
-

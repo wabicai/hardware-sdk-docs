@@ -17,18 +17,16 @@ This is an instruction provided by the OneKey hardware, which includes the exten
 * `name`: `string`  The name. optional
 * `note`:`Note(string)`  The note. optional
   * 'account.standard' : BIP44 Standard account
-  * "account.ledger\_live" : Ledger Live account
-  * "account.ledger\_legacy" : Ledger Legacy account
+  * "account.ledger_live" : Ledger Live account
+  * "account.ledger_legacy" : Ledger Legacy account
 
 
 
 ### URL Example
 
-{% code overflow="wrap" %}
 ```
 UR:CRYPTO-HDKEY/PDAXHDCLAOZTRDKBTKFPRFKBCWVEWYBGDPNTCPVLEOENJSWMBKFTLTRESNWTNLTLMKJYVYMWBSAAHDCXCSBNNLLNBZIAJZTPKPPKJOSTCEZSJEKGYKJOCSKNHFTPSWTIGHVABDIEGTBWWLTEAHTAADEHOYADCSFNAMTAADDYOYADLNCSDWYKCSFNYKAEYKATTAADDYOYADLRAEWKLAWKAYAEASINFPIAIAJLKPJTJYCXEHBKKOGHISINJKCXINJKCXHSC
 ```
-{% endcode %}
 
 
 
@@ -76,6 +74,5 @@ if(decoder.isSuccess()) {
     throw new Error() 
 }
 ```
-
 
 

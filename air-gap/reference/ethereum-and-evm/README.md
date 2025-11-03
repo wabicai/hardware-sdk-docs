@@ -20,12 +20,10 @@ For details on how to generate the corresponding QR codes, you can refer to the 
 
 
 
-
 Regardless of the type of signature, the result is `EthSignature`.
 
 {% content-ref url="ethsignature.md" %}
 [ethsignature.md](ethsignature.md)
 {% endcontent-ref %}
-
 
 
