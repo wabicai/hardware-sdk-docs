@@ -33,177 +33,64 @@ enum DataType {
 UR:ETH-SIGN-REQUEST/ONADTPDAGDSWNNYAHGTOKPFPIAPANNROLNSAVYDTHHAOHDECAOWFLYLDLFAAUELPATAEGWSOLALPBAVYGUYTHNLFGMAYMWSGBYZOIYHTRDCFBANBFPBNDSPRJPNSDLGLBYIMJELTCNLNWZJLSEAEAELARTAXAAAACSLDAHTAADDYOEADLECSDWYKCSFNYKAEYKAEWKADWKAOCYTIZSYLCNSSDKGOCA
 ```
 
-### **EIP1559 Transaction**
+### EIP‑1559 transaction (high‑level)
 
-```javascript
-import { Transaction, FeeMarketEIP1559Transaction } from '@ethereumjs/tx';
-import Common, { Hardfork } from '@ethereumjs/common';
-import { BN } from 'ethereumjs-util';
-import {
-    CryptoHDKey,
-    EthSignRequest,
-    DataType,
-    ETHSignature,
-} from '@onekeyfe/hd-air-gap-sdk';
+```ts
+import { KeystoneEthereumSDK } from '@keystonehq/keystone-sdk';
 
-const common = Common.forCustomChain('mainnet', { chainId: this._networkId }, Hardfork.London);
-const eip1559Tx = FeeMarketEIP1559Transaction.fromTxData(txParams, { common });
-const unsignedBuffer = Buffer.from(eip1559Tx.getMessageToSign(false)); // generate the unsigned transaction bytes
-const requestId = randomUUID();
-const addressPath = "m/44'/60'/0'/0/0"
-
-const ethSignRequest = EthSignRequest.constructETHRequest(
-    unsignedBuffer,
-    DataType.typedTransaction,
-    addressPath,
-    "12345678", // master fingerprint
-    requestId,
-    1, // chainId
-    "from address",
-);
-
-// each chunk Number in single QR Code
-const maxChunkNumber = 200;
-
-// get the ur encoder
-const urEncoder = ethSignRequest.toUREncoder(maxChunkNumber);
-
-while (ture) {
-    delay(200);
-    renderQR(urEncoder.nextPart());
-}
-
+const eth = new KeystoneEthereumSDK();
+const ur = eth.generateSignRequest({
+  requestId,                // uuid string
+  signData: unsignedTxHex,  // hex without 0x
+  dataType: 4,              // typedTransaction
+  path: "m/44'/60'/0'/0/0",
+  xfp: '12345678',
+  chainId: 1,
+  origin: 'your-app',
+});
+// Encode UR into animated QR frames and display
 ```
 
-### **Legacy Transaction**
+### Legacy transaction (high‑level)
 
-```javascript
-import { Transaction } from '@ethereumjs/tx';
-import Common, { Hardfork } from '@ethereumjs/common';
-import { BN } from 'ethereumjs-util';
-import {
-    CryptoHDKey,
-    EthSignRequest,
-    DataType,
-    ETHSignature,
-} from '@onekeyfe/hd-air-gap-sdk';
-
-const _txParams = {
-    to: "0x0102030405", 
-    gasLimit: 200000,
-    gasPrice: 120000000000,
-    data: "0x",
-    nonce: 1,
-    value: txParams.value,
-};
-
-const tx = Transaction.fromTxData(_txParams, { common: this._common, freeze: false });
-        
-tx.v = new BN(tx.common.chainId());
-tx.r = new BN(0);
-tx.s = new BN(0);
-
-const unsignedBuffer = tx.serialize(); // generate the unsigned transaction bytes
-const requestId = randomUUID();
-const addressPath = "m/44'/60'/0'/0/0"
-
-const ethSignRequest = EthSignRequest.constructETHRequest(
-    unsignedBuffer,
-    DataType.transaction,
-    addressPath,
-    "12345678", // master fingerprint
-    requestId,
-    1, // chainId
-    "from address",
-);
-
-// each chunk Number in single QR Code
-const maxChunkNumber = 200;
-
-// get the ur encoder
-const urEncoder = ethSignRequest.toUREncoder(maxChunkNumber);
-
-while (ture) {
-    delay(200);
-    renderQR(urEncoder.nextPart());
-}
-
+```ts
+const ur = eth.generateSignRequest({
+  requestId,
+  signData: unsignedLegacyHex,
+  dataType: 1,              // transaction
+  path: "m/44'/60'/0'/0/0",
+  xfp: '12345678',
+  chainId: 1,
+  origin: 'your-app',
+});
 ```
 
-### **EIP-712 TypedData**
+### EIP‑712 TypedData (high‑level)
 
-```javascript
-import {
-    CryptoHDKey,
-    EthSignRequest,
-    DataType,
-    ETHSignature,
-} from '@onekeyfe/hd-air-gap-sdk';
-
-const typeData = "{}"
-const dataHex = Buffer.from(typedData, 'utf-8');
-const requestId = randomUUID();
-const addressPath = "m/44'/60'/0'/0/0"
-
-const ethSignRequest = EthSignRequest.constructETHRequest(
-    dataHex,
-    DataType.typedData,
-    addressPath,
-    "12345678", // master fingerprint
-    requestId,
-    undefined,
-    "from address",
-);
-
-// each chunk Number in single QR Code
-const maxChunkNumber = 200;
-
-// get the ur encoder
-const urEncoder = ethSignRequest.toUREncoder(maxChunkNumber);
-
-while (ture) {
-    delay(200);
-    renderQR(urEncoder.nextPart());
-}
-
+```ts
+const dataHex = Buffer.from(typedDataJson, 'utf8').toString('hex');
+const ur = eth.generateSignRequest({
+  requestId,
+  signData: dataHex,
+  dataType: 2,              // typedData
+  path: "m/44'/60'/0'/0/0",
+  xfp: '12345678',
+  origin: 'your-app',
+});
 ```
 
-### **Message Sign**
+### Message sign (high‑level)
 
-```javascript
-import {
-    CryptoHDKey,
-    EthSignRequest,
-    DataType,
-    ETHSignature,
-} from '@onekeyfe/hd-air-gap-sdk';
-
-const message = "0102030405"
-const dataHex = Buffer.from(message, 'hex');
-const requestId = randomUUID();
-const addressPath = "m/44'/60'/0'/0/0"
-
-const ethSignRequest = EthSignRequest.constructETHRequest(
-    dataHex,
-    DataType.typedData,
-    addressPath,
-    "12345678", // master fingerprint
-    requestId,
-    undefined,
-    "from address",
-);
-
-// each chunk Number in single QR Code
-const maxChunkNumber = 200;
-
-// get the ur encoder
-const urEncoder = ethSignRequest.toUREncoder(maxChunkNumber);
-
-while (ture) {
-    delay(200);
-    renderQR(urEncoder.nextPart());
-}
-
+```ts
+const dataHex = Buffer.from(message, 'utf8').toString('hex');
+const ur = eth.generateSignRequest({
+  requestId,
+  signData: dataHex,
+  dataType: 3,              // personalMessage
+  path: "m/44'/60'/0'/0/0",
+  xfp: '12345678',
+  origin: 'your-app',
+});
 ```
 
 

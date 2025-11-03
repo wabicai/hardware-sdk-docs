@@ -1,22 +1,19 @@
 # Quick Start (hd-common-connect-sdk)
 
-Use this index to learn the complete device interaction model from init to first command. Each sub-guide contains code you can paste into your app.
+Use this index to learn the device flow from init to first call. Each page is short and copy‑pastable.
 
-- Setup and Init – `quick-start/setup-and-init.md`
-  - Install the SDK and initialize early; bind global UI/DEVICE events.
-- Device Discovery and Features – `quick-start/device-discovery-and-features.md`
-  - Authorize (WebUSB), discover devices, and obtain `device_id` via `getFeatures`.
-- UI Events: PIN – `quick-start/ui-events-pin.md`
-  - Handle `UI_REQUEST.REQUEST_PIN` with either on-device input or a blind keypad.
-- UI Events: Passphrase – `quick-start/ui-events-passphrase.md`
-  - Handle hidden wallet access with on-device or software input; caching and `useEmptyPassphrase` tips.
-- First Command – `quick-start/first-command.md`
-  - Run `btcGetAddress` end-to-end once identifiers are known.
-- Communication Flow – `quick-start/communication-flow.md`
-  - The full call lifecycle and how responses resume the original request.
+- Setup and Init → [quick-start/setup-and-init.md](quick-start/setup-and-init.md)
+- Device Discovery and Features → [quick-start/device-discovery-and-features.md](quick-start/device-discovery-and-features.md)
+- UI Events: PIN → [quick-start/ui-events-pin.md](quick-start/ui-events-pin.md)
+- UI Events: Passphrase → [quick-start/ui-events-passphrase.md](quick-start/ui-events-passphrase.md)
+- First Command → [quick-start/first-command.md](quick-start/first-command.md)
 
-Next: choose your transport for platform-specific details
-- WebUSB (browser) – `transport-recipes/web-usb.md`
-- iOS BLE (native) – `transport-recipes/common-connect-1/ios-ble.md`
-- Android BLE (native) – `transport-recipes/common-connect-1/android-ble.md`
-- React Native BLE (pure RN) – `transport-recipes/react-native-ble.md`
+Event binding and responses
+- Config Event (subscribe & dispatch) → [references/hardware-sdk/api-reference/config-event.md](references/hardware-sdk/api-reference/config-event.md)
+- Response UI Event (respond to UI requests) → [hardware-sdk/basic-api/response-ui-event.md](hardware-sdk/basic-api/response-ui-event.md)
+
+Next: choose a transport for your platform
+- WebUSB (browser) → [transport-recipes/web-usb.md](transport-recipes/web-usb.md)
+- iOS BLE (native) → [transport-recipes/common-connect-1/ios-ble.md](transport-recipes/common-connect-1/ios-ble.md)
+- Android BLE (native) → [transport-recipes/common-connect-1/android-ble.md](transport-recipes/common-connect-1/android-ble.md)
+- React Native BLE (pure RN) → [transport-recipes/react-native-ble.md](transport-recipes/react-native-ble.md)

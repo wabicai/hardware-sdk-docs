@@ -11,19 +11,12 @@ When integrating ETH, you can request a signature from the hardware using `EthSi
 * EIP-712 TypedData
 * Sign Message
 
-For details on how to generate the corresponding QR codes, you can refer to the relevant documentation.
-
-{% content-ref url="ethsignrequest.md" %}
-[ethsignrequest.md](ethsignrequest.md)
-{% endcontent-ref %}
+For details on how to construct the corresponding UR payloads, see:
+- [EthSignRequest](ethsignrequest.md)
 
 
 
 
-Regardless of the type of signature, the result is `EthSignature`.
-
-{% content-ref url="ethsignature.md" %}
-[ethsignature.md](ethsignature.md)
-{% endcontent-ref %}
-
+Regardless of the request type, the result is parsed as `EthSignature`:
+- [EthSignature](ethsignature.md)
 

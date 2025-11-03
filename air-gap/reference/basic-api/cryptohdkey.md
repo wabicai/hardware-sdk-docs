@@ -1,4 +1,4 @@
-# CryptoHDkey
+# CryptoHDKey
 
 The `CryptoHDKey` class represents hierarchical deterministic key information
 
@@ -30,49 +30,8 @@ UR:CRYPTO-HDKEY/PDAXHDCLAOZTRDKBTKFPRFKBCWVEWYBGDPNTCPVLEOENJSWMBKFTLTRESNWTNLTL
 
 
 
-## Example
+## Decoding flow (outline)
 
-```javascript
-import { URRegistryDecoder } from '@onekeyfe/hd-air-gap-sdk'
-
-const decoder = new URRegistryDecoder();
-
-// for scan qr
-while (!decoder.isSuccess()){
-    const UR = ScanQRCode();
-    decoder.receivePart(UR);
-}
-
-if(decoder.isSuccess()) {
-    const cryptoHDkey = decoder.resultRegistryType();
-    
-    const name = cryptoHDKey.getName();
-    const note = cryptoHDKey.getNote();
-    
-    const extendPubKey = hdKey.getKey();
-    const chainCode = hdKey.getChainCode();
-    
-    const xpub = hdKey.getBip32Key();
-    const childrenPath = hdKey.getChildren()?.getPath() ?? DEFAULT_CHILDREN_PATH;
-    const hdPath = `m/${cryptoHDKey.getOrigin().getPath()}`;
-    // This parameter is required for subsequent eth sign request assembly.
-    const xfp = cryptoHDKey.getOrigin().getSourceFingerprint()?.toString("hex");
-    
-    // derive child
-    const accountIndex = 0
-    const derivePath = childrenPath
-            .replace("*", String(accountIndex))
-            .replace(/\*/g, "0");
-    
-    const hdk = HDKey.fromExtendedKey(xpub);
-    const dkey = hdk.derive(`m/${derivePath}`);
-    const address =
-            "0x" + publicToAddress(dkey.publicKey, true).toString("hex");
-    const addressWithChecksum = toChecksumAddress(address);
-} else if(decoder.isError()){
-    // logic for error handling
-    throw new Error() 
-}
-```
-
-
+- Aggregate QR frames into a UR object (e.g., using `@ngraveio/bc-ur`'s `URDecoder`).
+- Inspect `ur.type === 'crypto-hdkey'` and parse `CryptoHDKey` from CBOR bytes using the registry helper.
+- Extract fields such as name, note, chainCode, bip32 xpub, origin/children paths, and source fingerprint (xfp).

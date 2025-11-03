@@ -11,7 +11,6 @@ Integrate OneKey hardware wallets from prototype to production with a clean path
   - [UI Events: PIN](quick-start/ui-events-pin.md)
   - [UI Events: Passphrase](quick-start/ui-events-passphrase.md)
   - [First Command](quick-start/first-command.md)
-  - [Communication Flow](quick-start/communication-flow.md)
 
 ## Choose Your Transport
 

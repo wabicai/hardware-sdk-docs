@@ -1,22 +1,22 @@
 # WebUSB Connection Guide
 
-Use this guide to wire WebUSB in the browser with `@onekeyfe/hd-common-connect-sdk`. Once connected, you can call any chain API (BTC/EVM/etc.) as in Quick Start.
+Use this step‑by‑step guide to wire WebUSB in the browser with `@onekeyfe/hd-common-connect-sdk`. Once connected, you can call any chain API (BTC/EVM/etc.) as in Quick Start.
 
 Focus: WebUSB only.
 
-## Requirements
+## Step 1. Requirements
 
 - Serve your app over HTTPS (WebUSB is blocked on insecure origins)
 - A browser that supports WebUSB (Chrome/Edge desktop)
 - A connected and unlocked OneKey device
 
-## Install
+## Step 2. Install
 
 ```bash
 npm i @onekeyfe/hd-common-connect-sdk @onekeyfe/hd-shared
 ```
 
-## Initialize and bind events
+## Step 3. Initialize and bind events
 
 Initialize the SDK during app startup and bind UI/device events so PIN/Passphrase and confirmations work end-to-end.
 
@@ -190,13 +190,13 @@ function showPassphraseDialog(): Promise<{ mode: 'device'|'software'; value: str
 }
 ```
 
-Explanation
+## Step 5. Explanation
 - Subscribe early to `UI_EVENT` so requests don’t stall while waiting for PIN/Passphrase.
 - PIN: prefer on-device entry (`@@ONEKEY_INPUT_PIN_IN_DEVICE`). If you provide software input, use the blind keypad mapping (`7,8,9,4,5,6,1,2,3`).
 - Passphrase: support on-device input or software input, and optionally `save` for session caching.
 - Device events help you update UI if cables are unplugged.
 
-## User authorization (chooser dialog with official filter)
+## Step 4. User authorization (chooser dialog with official filter)
 
 Use the OneKey-provided filters so the chooser only shows supported devices.
 

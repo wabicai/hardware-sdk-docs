@@ -23,3 +23,6 @@ npm install --save @ngraveio/bc-ur uuid expo-camera
 - Demo repo
   - https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo
   - Reference: `packages/connect-examples/react-native-demo/air-gap`
+
+Notes
+- There is no `@onekeyfe/hd-air-gap-sdk` package. Integrate directly with Keystone packages (`@keystonehq/keystone-sdk`, `@keystonehq/bc-ur-registry*`) and the NGRAVE UR primitives (`@ngraveio/bc-ur`).

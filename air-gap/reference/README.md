@@ -14,3 +14,7 @@ Pair this reference with the Guide for end‑to‑end integration:
 Tip: Study `basic-api` before implementing scanning/decoding to ensure correct parsing.
 
 Note on Tron: Tron Air‑Gap helpers live in our qr‑wallet‑sdk and follow the same UR patterns; see `../guide/chains/tron.md` for usage.
+
+Packages
+- Use Keystone official packages: `@keystonehq/keystone-sdk`, `@keystonehq/bc-ur-registry*`
+- UR primitives: `@ngraveio/bc-ur`

@@ -7,10 +7,10 @@
   * [UI Events: PIN](quick-start/ui-events-pin.md)
   * [UI Events: Passphrase](quick-start/ui-events-passphrase.md)
   * [First Command](quick-start/first-command.md)
-  * [Communication Flow](quick-start/communication-flow.md)
 
 ## Transport Recipes
 
+* [Overview and Demos](transport-recipes/README.md)
 * [WebUSB Connection Guide](transport-recipes/web-usb.md)
 * [Native BLE](transport-recipes/common-connect-1/README.md)
   * [OneKey Message Protocol](transport-recipes/common-connect-1/onekey-message-protocol.md)
@@ -167,11 +167,29 @@
 ## AIR-GAP
 
 * [Air-Gap Overview](air-gap/air-gap.md)
-* [Air Gap SDK API Navigation](air-gap/air-gap-sdk/README.md)
-  * [Basic API](air-gap/air-gap-sdk/basic-api/README.md)
-    * [CryptoHDkey](air-gap/air-gap-sdk/basic-api/cryptohdkey.md)
-    * [CryptoCoinInfo](air-gap/air-gap-sdk/basic-api/cryptocoininfo.md)
-    * [CryptoKeypath](air-gap/air-gap-sdk/basic-api/cryptokeypath.md)
-  * [Ethereum and EVM](air-gap/air-gap-sdk/ethereum-and-evm/README.md)
-    * [EthSignRequest](air-gap/air-gap-sdk/ethereum-and-evm/ethsignrequest.md)
-    * [EthSignature](air-gap/air-gap-sdk/ethereum-and-evm/ethsignature.md)
+* Guide
+  * [Setup](air-gap/guide/setup.md)
+  * [QR & UR Basics](air-gap/guide/qr-ur.md)
+  * [Workflow](air-gap/guide/workflow.md)
+  * [UI Patterns](air-gap/guide/ui-patterns.md)
+  * Code Demos
+    * [Scan & Decoder](air-gap/guide/code-demos/scan-decoder.md)
+    * [Encode & Playback](air-gap/guide/code-demos/encode-playback.md)
+    * [EVM Requests](air-gap/guide/code-demos/evm-request.md)
+    * [BTC PSBT](air-gap/guide/code-demos/btc-psbt.md)
+    * [Solana Requests](air-gap/guide/code-demos/solana-request.md)
+    * [Tron Requests (optional)](air-gap/guide/code-demos/tron-request.md)
+  * Chains
+    * [EVM](air-gap/guide/chains/evm.md)
+    * [BTC](air-gap/guide/chains/btc.md)
+    * [Solana](air-gap/guide/chains/solana.md)
+    * [Tron](air-gap/guide/chains/tron.md)
+  * [Troubleshooting](air-gap/guide/troubleshooting.md)
+* Reference
+  * [Basic API](air-gap/reference/basic-api/README.md)
+    * [CryptoHDKey](air-gap/reference/basic-api/cryptohdkey.md)
+    * [CryptoCoinInfo](air-gap/reference/basic-api/cryptocoininfo.md)
+    * [CryptoKeypath](air-gap/reference/basic-api/cryptokeypath.md)
+  * [Ethereum & EVM](air-gap/reference/ethereum-and-evm/README.md)
+    * [EthSignRequest](air-gap/reference/ethereum-and-evm/ethsignrequest.md)
+    * [EthSignature](air-gap/reference/ethereum-and-evm/ethsignature.md)

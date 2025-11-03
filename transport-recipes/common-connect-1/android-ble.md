@@ -17,7 +17,7 @@ OneKey BLE UUIDs:
 - Write:   `00000002-0000-1000-8000-00805f9b34fb`
 - Notify:  `00000003-0000-1000-8000-00805f9b34fb`
 
-## 1) Gradle and Manifest
+## 1. Gradle and Manifest
 
 Gradle (app/build.gradle.kts):
 ```kotlin
@@ -57,7 +57,7 @@ private fun ensureBluetoothPermissions(): Boolean {
 }
 ```
 
-## 2) Build the web bundle (already implemented in the demo)
+## 2. Build the web bundle (already implemented in the demo)
 
 Inside the hardware-js-sdk repo:
 ```bash
@@ -71,7 +71,7 @@ Copy the entire output folder into your Android project:
 
 No further JS work is required in the native app; the demo’s web bundle already initializes `env: 'lowlevel'` and wires the low-level adapter.
 
-## 3) WebView + Bridge (register before loading)
+## 3. WebView + Bridge (register before loading)
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 4) BLE scan (include stored bonded devices)
+## 4. BLE scan (include stored bonded devices)
 
 ```kotlin
 private val ONEKEY_SERVICE_UUID: UUID = UUID.fromString("00000001-0000-1000-8000-00805f9b34fb")
@@ -142,7 +142,7 @@ private fun registerHandlers() {
 }
 ```
 
-## 5) Connect, characteristics, notifications
+## 5. Connect, characteristics, notifications
 
 ```kotlin
 private var connection: ClientBleGatt? = null
@@ -172,7 +172,7 @@ webview.registerHandler("connect", BridgeHandler { data, cb ->
 })
 ```
 
-## 6) Send / disconnect
+## 6. Send / disconnect
 
 ```kotlin
 webview.registerHandler("send", BridgeHandler { data, cb ->
@@ -191,20 +191,20 @@ webview.registerHandler("disconnect", BridgeHandler { _, cb ->
 })
 ```
 
-## 7) JavaScript bundle (low-level adapter)
+## 7. JavaScript bundle (low-level adapter)
 
 The demo’s web project already builds a bundle that initializes the SDK with `env: 'lowlevel'` and wires the low-level adapter. You typically do NOT need to write extra JS — just build and copy `web/web_dist/` into `app/src/main/assets/web_dist/` and load `file:///android_asset/web_dist/index.html`.
 
 If you customize the adapter, the core idea remains: initialize with `env: 'lowlevel'` and forward `enumerate/connect/disconnect/send/receive` via the bridge.
 
-## 8) UI events (PIN / Passphrase)
+## 8. UI events (PIN / Passphrase)
 
 Handle `UI_EVENT` in your JS bundle and respond with `HardwareSDK.uiResponse`. See the WebUSB guide for minimal, production-ready dialogs.
 
 - PIN on device: `payload: '@@ONEKEY_INPUT_PIN_IN_DEVICE'`
 - Passphrase on device: `{ passphraseOnDevice: true, value: '' }`
 
-## 9) Checklist
+## 9. Checklist
 
 - Nordic BLE library version ≥ 1.1.0 to use `includeStoredBondedDevices`.
 - Register handlers before loading the HTML to avoid race conditions.

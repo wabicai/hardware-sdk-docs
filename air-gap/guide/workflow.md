@@ -15,10 +15,10 @@ Step‑by‑step outline matching the demo’s flow.
 - Optionally wrap with `OneKeyRequestDeviceQR` to include app/device metadata.
 
 3) Display the request as animated QR
-- Use `createAnimatedUREncoder({ ur, maxFragmentLength: 100 })` and render frames in sequence.
+- See: `guide/code-demos/encode-playback.md` for frame generation and playback.
 
 4) Scan device response
-- Feed device frames to `createAnimatedURDecoder()`; when complete, parse with `parseAirGapUr(ur)`.
+- See: `guide/code-demos/scan-decoder.md` for camera + decoder setup.
 - Handle typed results such as `eth-signature`, `crypto-psbt`, `sol-signature`, `tron-signature`.
 
 5) Broadcast or hand off

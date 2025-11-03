@@ -22,35 +22,23 @@ UR:ETH-SIGNATURE/OTADTPDAGDSWNNYAHGTOKPFPIAPANNROLNSAVYDTHHAOHDFPCATKCPPFYLENGAG
 
 
 
-### Example
+### Example (decoding)
 
-```javascript
-import {
-    ETHSignature,
-    URDecoder,
-    RegistryTypes,
-} from '@onekeyfe/hd-air-gap-sdk';
+```ts
+import { URDecoder } from '@ngraveio/bc-ur';
+import { EthSignature } from '@keystonehq/bc-ur-registry-eth';
 
-const decoder = new URDecoder();
+const dec = new URDecoder();
+// push each scanned frame string into the decoder
+// dec.receivePart(frame)
 
-// for scan qr
-while (!decoder.isSuccess()){
-    const UR = ScanQRCode();
-    decoder.receivePart(UR);
-}
-
-if(decoder.isSuccess()) {
-    const ur = decoder.resultUR();
-    if (!ur.type === RegistryTypes.ETH_SIGNATURE) throw new Error()
-    
-    const ethSignature = ETHSignature.fromCBOR(ur.cbor);
-    const requestIdBuffer = ethSignature.getRequestId();
-    const signature = ethSignature.getSignature();
-    const r = signature.slice(0, 32);
-    const s = signature.slice(32, 64);
-    const v = signature.slice(64, 65);
-} else if(decoder.isError()){
-    // logic for error handling
-    throw new Error() 
+if (dec.isComplete()) {
+  const ur = dec.resultUR(); // ur.type should be 'eth-signature'
+  const sig = EthSignature.fromCBOR(ur.cbor);
+  const requestId = sig.getRequestId();
+  const signature = sig.getSignature();
+  const r = signature.slice(0, 32);
+  const s = signature.slice(32, 64);
+  const v = signature.slice(64, 65);
 }
 ```
