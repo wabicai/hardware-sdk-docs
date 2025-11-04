@@ -8,6 +8,19 @@ Minimal rules for handling PIN with OneKey devices.
 - Pro/Touch: PIN can only be entered on the hardware device (no software input).
 - Other models: Support Blind PIN (position‑based) software input, but prefer on‑device for security.
 
+## Support Matrix (software PIN entry)
+
+Use this table to quickly identify whether a model supports software‑side Blind PIN entry. For best security, prefer entering PIN on the device for all models; enable software Blind PIN only when truly necessary and only on supported models.
+
+| Device | Software Blind PIN | Device‑only Input |
+| --- | --- | --- |
+| OneKey Classic | Supported | No |
+| OneKey Classic 1s | Supported | No |
+| OneKey Classic 1s Pure | Supported | No |
+| OneKey Mini | Supported | No |
+| OneKey Touch | Not supported | Yes |
+| OneKey Pro | Not supported | Yes |
+
 ## UI expectations
 
 - Show a single PIN prompt with two actions:
@@ -38,7 +51,6 @@ function onSoftwareKey(label: number) {
 
 Example: If the user clicks software keys “1, 9”, the transformed becomes `7` (from index 0) then `3` (from index 8) → `73`. Send this transformed string via `uiResponse`.
 
-Related: To force Standard wallet in a call, set `useEmptyPassphrase: true` (see [Passphrase](../../explanations/hardware-sdk/passphrase.md) and [Common Params](../../hardware-sdk/common-params.md)).
 
 ## Event → Response
 
@@ -60,11 +72,3 @@ HardwareSDK.on(UI_EVENT, (msg) => {
   }
 });
 ```
-
-## Notes
-
-- Do not store or log PIN (or transformed PIN).
-- Throttle attempts and always mask the display.
-- Once unlocked, subsequent protected calls proceed silently until the device re‑locks.
-
-See also: [UI Events: PIN](../../quick-start/ui-events-pin.md), [Common Params](../../hardware-sdk/common-params.md).

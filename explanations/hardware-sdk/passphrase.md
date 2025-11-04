@@ -8,6 +8,8 @@ Minimal rules for handling Passphrase (hidden wallets) with OneKey devices.
   - Standard wallet = seed + empty passphrase
   - Hidden wallet = seed + non‑empty passphrase (case‑sensitive; any change → different wallet)
 - Responsibility: Not recoverable. Back up securely; exact match required.
+- Related: To force Standard wallet in a call, set `useEmptyPassphrase: true`
+
 
 ## App behavior
 
