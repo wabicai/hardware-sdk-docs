@@ -1,4 +1,4 @@
-# iOS BLE (Native, low-level adapter)
+# iOS: Connect via Bluetooth (Native)
 
 {% hint style="info" %}
 Demo: Native iOS example (WKWebView + CoreBluetooth) → [native-ios-example](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-ios-example)

@@ -5,7 +5,6 @@
 * [checkBLEFirmwareRelease](checkblefirmwarerelease.md)
 * [checkFirmwareRelease](checkfirmwarerelease.md)
 * [deviceChangePin](devicechangepin.md)
-* [deviceReset](devicereset.md)
 * [deviceSettings](devicesettings.md)
 * [deviceUpdateReboot](deviceupdatereboot.md)
 * [deviceVerify](deviceverify.md)

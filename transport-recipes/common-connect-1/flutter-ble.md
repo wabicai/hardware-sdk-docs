@@ -1,4 +1,4 @@
-# Flutter BLE (Native, low-level adapter)
+# Flutter: Connect via Bluetooth (Native)
 
 For Flutter apps that load a JS bundle via WebView or a JS engine and bridge to `@onekeyfe/hd-common-connect-sdk` using a low-level adapter.
 

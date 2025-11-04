@@ -11,12 +11,12 @@
 ## Transport Recipes
 
 * [WebUSB Connection Guide](transport-recipes/web-usb.md)
-* [Native BLE](transport-recipes/common-connect-1/README.md)
+* [Native Bluetooth](transport-recipes/common-connect-1/README.md)
   * [OneKey Message Protocol](transport-recipes/common-connect-1/onekey-message-protocol.md)
-  * [Low-level Transport Plugin](transport-recipes/common-connect-1/low-level-transport-plugin.md)
-  * [iOS BLE](transport-recipes/common-connect-1/ios-ble.md)
-  * [Android BLE](transport-recipes/common-connect-1/android-ble.md)
-  * [Flutter BLE](transport-recipes/common-connect-1/flutter-ble.md)
+  * [Low-level Adapter](transport-recipes/common-connect-1/low-level-transport-plugin.md)
+  * [iOS: Connect via Bluetooth](transport-recipes/common-connect-1/ios-ble.md)
+  * [Android: Connect via Bluetooth](transport-recipes/common-connect-1/android-ble.md)
+  * [Flutter: Connect via Bluetooth](transport-recipes/common-connect-1/flutter-ble.md)
 * [React Native BLE (hd-ble-sdk)](transport-recipes/react-native-ble.md)
 
 ## References
@@ -37,7 +37,6 @@
     * [checkFirmwareRelease](hardware-sdk/device-api/checkfirmwarerelease.md)
     * [checkBLEFirmwareRelease](hardware-sdk/device-api/checkblefirmwarerelease.md)
     * [deviceChangePin](hardware-sdk/device-api/devicechangepin.md)
-    * [deviceReset](hardware-sdk/device-api/devicereset.md)
     * [deviceSettings](hardware-sdk/device-api/devicesettings.md)
     * [deviceUpdateReboot](hardware-sdk/device-api/deviceupdatereboot.md)
     * [deviceVerify](hardware-sdk/device-api/deviceverify.md)

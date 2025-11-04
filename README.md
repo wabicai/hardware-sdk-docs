@@ -26,6 +26,8 @@ For Web developers getting started quickly: a compact path from init to first ca
 
 - Per‑chain APIs: [Hardware SDK API References](hardware-sdk/README.md)
 - Events and UI responses: [Config Event](hardware-sdk/config-event.md)
+- How to unlock the device: [PIN Code](explanations/hardware-sdk/pin.md)
+- Need support for passphraes? [What is Passphrase](explanations/hardware-sdk/passphrase.md)
 
 ## Device and transport compatibility
 
@@ -59,19 +61,18 @@ The support status for Bluetooth and USB on different devices.
 
 ## Concepts and advanced topics
 
-- PIN and Passphrase UX and flows: [PIN](explanations/hardware-sdk/pin.md), [Passphrase](explanations/hardware-sdk/passphrase.md)
 - Message protocol (for debugging low-level transports): [OneKey Message Protocol](transport-recipes/common-connect-1/onekey-message-protocol.md)
 
 ## Support
 
 For users: This documentation is primarily for developers. If you encounter issues while using our products, please consult our Help Center or submit a support ticket.
 
-- Help Center: https://help.onekey.so/hc
-- Discussions: https://github.com/OneKeyHQ/hardware-js-sdk/discussions
-- Issues: https://github.com/OneKeyHQ/hardware-js-sdk/issues
+- [Help Center](https://help.onekey.so)
+- [Discussions](https://github.com/OneKeyHQ/hardware-js-sdk/discussions)
+- [Issues](https://github.com/OneKeyHQ/hardware-js-sdk/issues)
 
 ## Related Repositories
 
-- OneKey App (app-monorepo): https://github.com/OneKeyHQ/app-monorepo
-- OneKey Firmware: https://github.com/OneKeyHQ/firmware
-- OneKey Hardware JS SDK: https://github.com/OneKeyHQ/hardware-js-sdk
+- [OneKey App (app-monorepo)](https://github.com/OneKeyHQ/app-monorepo)
+- [OneKey Firmware](https://github.com/OneKeyHQ/firmware)
+- [OneKey Hardware JS SDK](https://github.com/OneKeyHQ/hardware-js-sdk)

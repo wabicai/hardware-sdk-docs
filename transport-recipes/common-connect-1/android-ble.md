@@ -1,4 +1,4 @@
-# Android BLE (Native, low-level adapter)
+# Android: Connect via Bluetooth (Native)
 
 {% hint style="info" %}
 Demo: Native Android example (WebView + JSBridge + Nordic BLE) → [native-android-example](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-android-example)
