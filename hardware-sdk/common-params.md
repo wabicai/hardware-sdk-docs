@@ -1,23 +1,31 @@
 # Common Params
 
-In the SDK method calls, there are three generic parameters: `connectId` , `deviceId` , `commonParams`.
+In SDK method calls, you typically pass `connectId`, `deviceId`, and an optional `commonParams` object.
 
-```typescript
-function call(connectId: string; deviceId: string; commonParams: CommonParams)
+```ts
+function call(connectId: string, deviceId: string, commonParams?: CommonParams)
 ```
 
-The input parameters are obtained as follows:
+How to obtain identifiers:
 
-* `connectId`: Obtained from the `connectId` field of the device returned in the `searchDevices` interface.&#x20;
-  * The connect id of the device is never changed.
-* `deviceId`: The deviceId field returned by the `getFeatures` interface.&#x20;
-  * The device id changes when the hardware is reset. Like wipe the device.
-* `commonParams`: common parameters&#x20;
-  * `retryCount`: optional `number` type. The number of retries when the device is connected, default is 6.&#x20;
-  * `pollIntervalTime`: optional `number` type. The interval time for polling when the device is connected, default is 1000 ms, each polling will increase the time by 1.5 times.&#x20;
-  * `timeout`: optional `number` type. The timeout of the connection polling.
-  * `keepSession`: optional `boolean` type. The Session persists after executing the API method.
-  * `passphraseState`: optional `string` type. If you want to use a passphrase wallet, please pass that parameter. We will validate and cache the passphrase to optimize the user experience of entering the passphrase and reduce the number of input attempts. To retrieve that parameter, please call the `getPassphraseState` method.
-  * `useEmptyPassphrase`: optional `boolean` type. Allow the creation of a passphrase wallet with an empty value.
-  * `initSession` : optional `boolean` type. Cache the passphraseState parameter.
-  * `deriveCardano`: optional `boolean` type. default is set to `true` for all cardano related methods, otherwise it is set to `false`. This parameter determines whether device should derive cardano seed for current session. Derivation of cardano seed takes longer then it does for other coins.
+- `connectId`: From `searchDevices()` result (`connectId` field). It is stable across sessions.
+- `deviceId`: From `getFeatures(connectId)` (`device_id` field). It changes when the device is reset (e.g., wipe).
+
+CommonParams
+
+- `keepSession?: boolean` — Keep the session after the method completes (reuse cached state where applicable).
+- `retryCount?: number` — Polling connect max retry count (default: 6).
+- `pollIntervalTime?: number` — Polling interval in ms (default: 1000; backoff ×1.5 each round).
+- `timeout?: number` — Timeout in ms for a single polling attempt.
+- `passphraseState?: string` — Passphrase wallet state. Obtain via [Get Passphrase State](basic-api/get-passphrase-state.md). Used to validate/cache passphrase.
+- `useEmptyPassphrase?: boolean` — Force standard wallet (empty passphrase) for this call.
+- `initSession?: boolean` — Initialize session and cache `passphraseState` at call start.
+- `deriveCardano?: boolean` — Derive Cardano seed for current session (true by default for Cardano methods; false otherwise). Cardano derivation may take longer.
+- `detectBootloaderDevice?: boolean` — Detect if hardware is in bootloader mode and return an error (useful to fail early when a method requires normal mode).
+- `skipWebDevicePrompt?: boolean` — Skip Web device chooser prompt (advanced flows or when an external prompt is already shown).
+
+Tips
+
+- For WebUSB, ensure your site is served over HTTPS and that the device is authorized before discovery.
+- Prefer on-device PIN/Passphrase entry on Pro/Touch models (software input is not supported on these).
+- For passphrase wallets, combine `passphraseState` + `keepSession` to reduce repeated prompts, and consider `useEmptyPassphrase` for standard wallet scenarios.
