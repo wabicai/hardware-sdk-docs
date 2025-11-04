@@ -1,7 +1,7 @@
 # React Native BLE (hd-ble-sdk)
 
 {% hint style="info" %}
-Demo: React Native / Expo example → https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/react-native-demo
+Demo: React Native / Expo example → [react-native-demo](https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/react-native-demo)
 {% endhint %}
 
 This guide shows how to use the pure React Native BLE stack with `@onekeyfe/hd-ble-sdk` and `@onekeyfe/hd-transport-react-native`. No WebView or low-level adapter is required. The chain API usage stays the same as in Quick Start.
@@ -150,7 +150,7 @@ if (res.success) {
 
 - Always subscribe early to `UI_EVENT` so PIN/Passphrase/confirmations do not stall requests.
 - Keep BLE permissions in sync with the OS version. Test on physical devices.
-- For additional examples, check: https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo
+- For additional examples, check: [react-native-demo](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo)
 
 ## Continue
 

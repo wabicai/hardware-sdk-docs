@@ -2,8 +2,6 @@
 
 On iOS/Android/Flutter native hosts, we recommend using the `lowlevel` adapter of `@onekeyfe/hd-common-connect-sdk` so you can reuse the exact same SDK API as the Web path. JS stays identical; only the transport adapter forwards calls to the native layer for BLE/USB I/O.
 
-> Workflow: finish initialization and UI-event wiring from Quick Start, then plug in the low-level adapter. Chain API calls remain identical.
-
 ## Adapter contract (JS ↔ Native)
 
 ```ts
@@ -33,7 +31,11 @@ await HardwareSDK.init({ env: 'lowlevel', debug: true, fetchConfig: true }, unde
   - `serviceUuid`: `00000001-0000-1000-8000-00805f9b34fb`
   - `writeCharacteristic`: `00000002-0000-1000-8000-00805f9b34fb`
   - `notifyCharacteristic`: `00000003-0000-1000-8000-00805f9b34fb`
-- General patterns: see per-platform guides (iOS/Android/Flutter) and Quick Start UI events
+- General patterns: see per-platform guides 
+  - [iOS](./ios-ble.md) 
+  - [Android](./android-ble.md) 
+  - [Flutter](./flutter-ble.md)
+  - and [Quick Start: Bind events early](../../quick-start/setup-and-init.md#bind-events-early)
 
 ## Platform notes
 
@@ -64,6 +66,3 @@ Working examples:
 
 - Subscribe to `UI_EVENT` early so PIN/Passphrase/confirmation flows are not missed.
 - After the first connection, call `getFeatures(connectId)` and persist `device_id`.
-- Centralize the hardware access layer so your app toggles transports (WebUSB/BLE/lowlevel) without changing business calls.
-
-With the adapter in place, continue with the chain-specific references under `hardware-sdk/` for address, public key, and signing operations.

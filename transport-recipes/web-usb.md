@@ -1,7 +1,7 @@
 # WebUSB Connection Guide
 
 {% hint style="info" %}
-Demo: Playground (supports emulator) → https://hardware-example.onekey.so/
+Demo: Playground (supports emulator) → [hardware-example.onekey.so](https://hardware-example.onekey.so/)
 {% endhint %}
 
 Use this step‑by‑step guide to wire WebUSB in the browser with `@onekeyfe/hd-common-connect-sdk`. Once connected, you can call any chain API (BTC/EVM/etc.) as in Quick Start.
@@ -19,7 +19,6 @@ Focus: WebUSB only.
 ```bash
 npm i @onekeyfe/hd-common-connect-sdk @onekeyfe/hd-shared @onekeyfe/hd-core
 ```
-
 ## Step 3. Initialize and bind events
 
 Initialize the SDK during app startup and bind UI/device events so PIN/Passphrase and confirmations work end-to-end.
@@ -86,9 +85,75 @@ function bindHardwareEvents() {
     console.log('Device disconnected:', payload);
   });
 }
+```
 
-## Step 6. Appendix: Minimal UI helpers (optional)
+### Notes
+- Subscribe early to `UI_EVENT` so requests don’t stall while waiting for PIN/Passphrase.
+- PIN: prefer on-device entry (`@@ONEKEY_INPUT_PIN_IN_DEVICE`). If you provide software input, use the blind keypad mapping (`7,8,9,4,5,6,1,2,3`).
+- Passphrase: support on-device input or software input, and optionally `save` for session caching.
+- Device events help you update UI if cables are unplugged.
 
+
+## Step 4. User authorization (chooser dialog with official filter)
+
+Use the ONEKEY_WEBUSB_FILTER filters so the chooser only shows supported devices.
+
+```tsx
+import { ONEKEY_WEBUSB_FILTER } from '@onekeyfe/hd-shared';
+
+export function AuthorizeUsbButton() {
+  return (
+    <button
+      onClick={async () => {
+        await navigator.usb.requestDevice({ filters: ONEKEY_WEBUSB_FILTER });
+        // After authorization, enumerate via the SDK
+      }}
+    >
+      Authorize USB (WebUSB)
+    </button>
+  );
+}
+```
+## Step 5. Enumerate and pick a device
+
+```ts
+const result = await HardwareSDK.searchDevices();
+if (!result.success) throw new Error(result.payload.error);
+
+// Example: choose the first device
+const { connectId, deviceId } = result.payload[0] ?? {};
+```
+
+- USB results usually include `deviceId` in `searchDevices()`.
+- Persist `connectId`/`deviceId` for subsequent calls.
+
+## Step 6. Get features (confirm device_id when needed)
+
+```ts
+const features = await HardwareSDK.getFeatures(connectId);
+if (!features.success) throw new Error(features.payload.error);
+
+const resolvedDeviceId = features.payload.device_id;
+```
+
+## Step 7. First call example (BTC address)
+
+```ts
+const res = await HardwareSDK.btcGetAddress(connectId, resolvedDeviceId, {
+  path: "m/44'/0'/0'/0/0",
+  coin: 'btc',
+  showOnOneKey: false,
+});
+
+if (res.success) {
+  console.log('BTC address:', res.payload.address);
+} else {
+  console.error('Error:', res.payload.error, res.payload.code);
+}
+```
+## Appendix: Minimal UI helpers
+
+```ts
 // Blind keypad map (matches hardware positional mapping)
 const BLIND_KEYBOARD_MAP = ['7', '8', '9', '4', '5', '6', '1', '2', '3'];
 
@@ -191,73 +256,6 @@ function showPassphraseDialog(): Promise<{ mode: 'device'|'software'; value: str
     overlay.appendChild(dialog);
     document.body.appendChild(overlay);
   });
-}
-```
-
-## Step 5. Explanation
-- Subscribe early to `UI_EVENT` so requests don’t stall while waiting for PIN/Passphrase.
-- PIN: prefer on-device entry (`@@ONEKEY_INPUT_PIN_IN_DEVICE`). If you provide software input, use the blind keypad mapping (`7,8,9,4,5,6,1,2,3`).
-- Passphrase: support on-device input or software input, and optionally `save` for session caching.
-- Device events help you update UI if cables are unplugged.
-
-## Step 4. User authorization (chooser dialog with official filter)
-
-Use the OneKey-provided filters so the chooser only shows supported devices.
-
-```tsx
-import { ONEKEY_WEBUSB_FILTER } from '@onekeyfe/hd-shared';
-
-export function AuthorizeUsbButton() {
-  return (
-    <button
-      onClick={async () => {
-        // Requires HTTPS
-        // @ts-ignore WebUSB is a browser API
-        await navigator.usb.requestDevice({ filters: ONEKEY_WEBUSB_FILTER });
-        // After authorization, enumerate via the SDK
-      }}
-    >
-      Authorize USB (WebUSB)
-    </button>
-  );
-}
-```
-
-## Enumerate and pick a device
-
-```ts
-const result = await HardwareSDK.searchDevices();
-if (!result.success) throw new Error(result.payload.error);
-
-// Example: choose the first device
-const { connectId, deviceId } = result.payload[0] ?? {};
-```
-
-- USB results usually include `deviceId` in `searchDevices()`.
-- Persist `connectId`/`deviceId` for subsequent calls.
-
-## Get features (confirm device_id when needed)
-
-```ts
-const features = await HardwareSDK.getFeatures(connectId);
-if (!features.success) throw new Error(features.payload.error);
-
-const resolvedDeviceId = features.payload.device_id;
-```
-
-## First call example (BTC address)
-
-```ts
-const res = await HardwareSDK.btcGetAddress(connectId, resolvedDeviceId, {
-  path: "m/44'/0'/0'/0/0",
-  coin: 'btc',
-  showOnOneKey: false,
-});
-
-if (res.success) {
-  console.log('BTC address:', res.payload.address);
-} else {
-  console.error('Error:', res.payload.error, res.payload.code);
 }
 ```
 

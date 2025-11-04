@@ -1,7 +1,7 @@
 # iOS BLE (Native, low-level adapter)
 
 {% hint style="info" %}
-Demo: Native iOS example (WKWebView + CoreBluetooth) → https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-ios-example
+Demo: Native iOS example (WKWebView + CoreBluetooth) → [native-ios-example](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-ios-example)
 {% endhint %}
 
 This page shows how to integrate `@onekeyfe/hd-common-connect-sdk` in a native iOS host via a low-level adapter. The JavaScript bundle runs in WKWebView; transport calls are forwarded to native CoreBluetooth and bridged back to JS.
