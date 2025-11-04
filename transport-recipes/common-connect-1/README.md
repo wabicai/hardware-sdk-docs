@@ -31,11 +31,6 @@ await HardwareSDK.init({ env: 'lowlevel', debug: true, fetchConfig: true }, unde
   - `serviceUuid`: `00000001-0000-1000-8000-00805f9b34fb`
   - `writeCharacteristic`: `00000002-0000-1000-8000-00805f9b34fb`
   - `notifyCharacteristic`: `00000003-0000-1000-8000-00805f9b34fb`
-- General patterns: see per-platform guides 
-  - [iOS](./ios-ble.md) 
-  - [Android](./android-ble.md) 
-  - [Flutter](./flutter-ble.md)
-  - and [Quick Start: Bind events early](../../quick-start/setup-and-init.md#bind-events-early)
 
 ## Platform notes
 
@@ -57,10 +52,12 @@ await HardwareSDK.init({ env: 'lowlevel', debug: true, fetchConfig: true }, unde
 - Choose `flutter_js` or WebView; reuse the same bridge + framing logic.
 - Follow the demo bundling process for web assets.
 
-Working examples:
-- iOS: https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-ios-example
-- Android: https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-android-example
-- React Native (BLE/Air-Gap together): https://github.com/OneKeyHQ/hardware-js-sdk/tree/develop/packages/connect-examples/react-native-demo
+Working examples (this documentation):
+- iOS: [iOS — Connect via Bluetooth](./ios-ble.md)
+- Android: [Android — Connect via Bluetooth](./android-ble.md)
+- React Native (BLE): [React Native BLE](../react-native-ble.md)
+  - and [Config Event](../../hardware-sdk/config-event.md)
+
 
 ## Shared tips
 

@@ -36,4 +36,5 @@ const res = await HardwareSDK.btcGetAddress(connectId, deviceId, {
 ```
 
 - Full, copy‑paste dialogs for WebUSB are in [WebUSB Connection Guide](../transport-recipes/web-usb.md).
+- Event wiring and responses: [Config Event](../hardware-sdk/config-event.md).
 - Deep‑dive UX and security notes: [Passphrase](../explanations/hardware-sdk/passphrase.md).

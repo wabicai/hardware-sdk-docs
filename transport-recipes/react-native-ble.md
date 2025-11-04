@@ -148,7 +148,7 @@ if (res.success) {
 
 ## Tips
 
-- Always subscribe early to `UI_EVENT` so PIN/Passphrase/confirmations do not stall requests.
+- Always subscribe early to `UI_EVENT` so PIN/Passphrase/confirmations do not stall requests. See [Config Event](../hardware-sdk/config-event.md).
 - Keep BLE permissions in sync with the OS version. Test on physical devices.
 - For additional examples, check: [react-native-demo](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo)
 

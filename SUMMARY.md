@@ -11,13 +11,13 @@
 ## Transport Recipes
 
 * [WebUSB Connection Guide](transport-recipes/web-usb.md)
+* [React Native BLE (hd-ble-sdk)](transport-recipes/react-native-ble.md)
 * [Native Bluetooth](transport-recipes/common-connect-1/README.md)
   * [OneKey Message Protocol](transport-recipes/common-connect-1/onekey-message-protocol.md)
   * [Low level plugin](transport-recipes/common-connect-1/low-level-transport-plugin.md)
   * [iOS: Connect via Bluetooth](transport-recipes/common-connect-1/ios-ble.md)
   * [Android: Connect via Bluetooth](transport-recipes/common-connect-1/android-ble.md)
   * [Flutter: Connect via Bluetooth](transport-recipes/common-connect-1/flutter-ble.md)
-* [React Native BLE (hd-ble-sdk)](transport-recipes/react-native-ble.md)
 
 ## References
 * [Hardware SDK API References](hardware-sdk/README.md)

@@ -8,7 +8,7 @@ Use this page as a concise index to jump into each module. Links point to the ca
 - Path Params (derivation rules): [path.md](path.md)
 - Error Codes: [error-code.md](error-code.md)
 - Init SDK: [init.md](init.md)
-- Config Event (UI/config events): [UI/config-event](../hardware-sdk/config-event.md)
+- Config Event (UI/config events): [Config Event](config-event.md)
 - Basic API (device discovery & UI flow): [basic-api](basic-api/README.md)
 - Device API (settings, update, verify): [device-api](device-api/README.md)
 

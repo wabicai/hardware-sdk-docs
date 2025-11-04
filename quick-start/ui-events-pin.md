@@ -24,5 +24,6 @@ On OneKey Pro and OneKey Touch devices, PIN can only be entered on the hardware 
 - Close your prompt when receiving `UI_REQUEST.CLOSE_UI_WINDOW`.
 
 Learn more:
+- [Config Event](../hardware-sdk/config-event.md)
 - PIN deep‑dive (mapping, UX, retries): [PIN](../explanations/hardware-sdk/pin.md)
 - WebUSB connection prompts and UX: [WebUSB Connection Guide](../transport-recipes/web-usb.md)

@@ -32,7 +32,7 @@ Show native dialogs for PIN/Passphrase/confirmations and respond via `HardwareSD
 ## References
 
 - Protocol framing: [OneKey Message Protocol](./onekey-message-protocol.md)
-- UI events: [PIN](../../quick-start/ui-events-pin.md), [Passphrase](../../quick-start/ui-events-passphrase.md)
+- UI events: [Config Event](../../hardware-sdk/config-event.md), [PIN](../../quick-start/ui-events-pin.md), [Passphrase](../../quick-start/ui-events-passphrase.md)
 - Platform details: [iOS BLE](./ios-ble.md), [Android BLE](./android-ble.md)
 
 Once wired, the chain API usage is identical to WebUSB: provide `connectId` and (when required) `deviceId`. 

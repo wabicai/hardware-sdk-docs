@@ -26,7 +26,9 @@ export async function initSdk(env: 'webusb' | 'lowlevel' | 'react-native' = 'web
 - `env: 'lowlevel'` → native shells (iOS/Android/Flutter) via a low-level adapter bundle
 - `env: 'react-native'` → React Native with pure BLE transports
 
-## Bind events early
+## Bind events early 
+
+- More Info： [Config Event](../hardware-sdk/config-event.md)
 
 ```ts
 import { UI_EVENT, UI_REQUEST, UI_RESPONSE, DEVICE } from '@onekeyfe/hd-core';

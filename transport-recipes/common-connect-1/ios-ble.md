@@ -258,14 +258,14 @@ bridge.register(handlerName: "closeUIWindow") { _, callback in
 }
 ```
 
-In JS, you would call these handlers from your adapter to mirror the demo’s behavior. Otherwise, you can handle UI entirely in JS using `UI_EVENT` (see WebUSB guide for minimal dialogs) — both approaches are supported.
+In JS, you would call these handlers from your adapter to mirror the demo’s behavior. Otherwise, you can handle UI entirely in JS using `UI_EVENT` — see [Config Event](../../hardware-sdk/config-event.md) for event wiring and responses (WebUSB guide includes minimal dialogs).
 
 ## Step 8. Checklist
 
 - Register handlers before loading the HTML to avoid race conditions.
 - Scan with service UUID filter and stop within a reasonable time window.
 - Persist `connectId` (peripheral UUID) and fetch `device_id` with `getFeatures(connectId)` after the first connection.
-- Always subscribe to `UI_EVENT` in JS to avoid stalled requests.
+- Always subscribe to `UI_EVENT` in JS to avoid stalled requests (see [Config Event](../../hardware-sdk/config-event.md)).
 - Keep `web/web_dist/` in your app bundle and adjust the `load` path accordingly.
 
 ## References

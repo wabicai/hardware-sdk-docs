@@ -88,7 +88,7 @@ function bindHardwareEvents() {
 ```
 
 ### Notes
-- Subscribe early to `UI_EVENT` so requests don’t stall while waiting for PIN/Passphrase.
+- Subscribe early to `UI_EVENT` so requests don’t stall while waiting for PIN/Passphrase. See [Config Event](../hardware-sdk/config-event.md).
 - PIN: prefer on-device entry (`@@ONEKEY_INPUT_PIN_IN_DEVICE`). If you provide software input, use the blind keypad mapping (`7,8,9,4,5,6,1,2,3`).
 - Passphrase: support on-device input or software input, and optionally `save` for session caching.
 - Device events help you update UI if cables are unplugged.

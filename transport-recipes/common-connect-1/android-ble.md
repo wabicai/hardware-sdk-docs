@@ -200,7 +200,7 @@ If you customize the adapter, the core idea remains: initialize with `env: 'lowl
 
 ## Step 8. UI events (PIN / Passphrase)
 
-Handle `UI_EVENT` in your JS bundle and respond with `HardwareSDK.uiResponse`. See the WebUSB guide for minimal, production-ready dialogs.
+Handle `UI_EVENT` in your JS bundle and respond with `HardwareSDK.uiResponse`. See [Config Event](../../hardware-sdk/config-event.md) for event wiring and the WebUSB guide for minimal, production-ready dialogs.
 
 - PIN on device: `payload: '@@ONEKEY_INPUT_PIN_IN_DEVICE'`
 - Passphrase on device: `{ passphraseOnDevice: true, value: '' }`
