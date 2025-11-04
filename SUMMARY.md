@@ -19,7 +19,7 @@
   * [Flutter BLE](transport-recipes/common-connect-1/flutter-ble.md)
 * [React Native BLE (hd-ble-sdk)](transport-recipes/react-native-ble.md)
 
-
+## References
 * [Hardware SDK API References](hardware-sdk/README.md)
   * [Common Params](hardware-sdk/common-params.md)
   * [Path Params](hardware-sdk/path.md)
@@ -151,9 +151,9 @@
     * [tonSignMessage](hardware-sdk/ton/tonsignmessage.md)
     * [tonSignProof](hardware-sdk/ton/tonsignproof.md)
 
-* [Explanation](explanations/hardware-sdk/README.md)
-  * [Pin](explanations/hardware-sdk/pin.md)
-  * [Passphrase](explanations/hardware-sdk/passphrase.md)
+## Explanation
+* [Pin](explanations/hardware-sdk/pin.md)
+* [Passphrase](explanations/hardware-sdk/passphrase.md)
 
 
 ## Contribute
