@@ -69,3 +69,9 @@ For users: This documentation is primarily for developers. If you encounter issu
 - Help Center: https://help.onekey.so/hc
 - Discussions: https://github.com/OneKeyHQ/hardware-js-sdk/discussions
 - Issues: https://github.com/OneKeyHQ/hardware-js-sdk/issues
+
+## Related Repositories
+
+- OneKey App (app-monorepo): https://github.com/OneKeyHQ/app-monorepo
+- OneKey Firmware: https://github.com/OneKeyHQ/firmware
+- OneKey Hardware JS SDK: https://github.com/OneKeyHQ/hardware-js-sdk

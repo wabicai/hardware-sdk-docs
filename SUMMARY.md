@@ -156,10 +156,6 @@
 * [Passphrase](explanations/hardware-sdk/passphrase.md)
 
 
-## Contribute
-
-* [Contribute](contribute/README.md)
-
 ## AIR-GAP
 
 * [Air-Gap Overview](air-gap/air-gap.md)
