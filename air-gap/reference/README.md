@@ -3,13 +3,8 @@
 - `basic-api/` – Definitions for `CryptoHDKey`, `CryptoCoinInfo`, and `CryptoKeypath` used when decoding QR payloads.
 - `ethereum-and-evm/` – Examples for `EthSignRequest`, `EthSignature`, and other EVM‑centric offline signing flows.
 
-Pair this reference with the Guide for end‑to‑end integration:
-- Setup: `../guide/setup.md`
-- QR & UR Basics: `../guide/qr-ur.md`
-- Workflow: `../guide/workflow.md`
-- UI Patterns: `../guide/ui-patterns.md`
-- Chains: `../guide/chains/*`
-- Troubleshooting: `../guide/troubleshooting.md`
+Pair this reference with the Quick Start for end‑to‑end integration:
+- [Air‑Gap Quick Start](../quick-start.md)
 
 Tip: Study `basic-api` before implementing scanning/decoding to ensure correct parsing.
 

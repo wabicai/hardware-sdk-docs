@@ -166,24 +166,11 @@
 ## AIR-GAP
 
 * [Air-Gap Overview](air-gap/air-gap.md)
-* Guide
-  * [Setup](air-gap/guide/setup.md)
-  * [QR & UR Basics](air-gap/guide/qr-ur.md)
-  * [Workflow](air-gap/guide/workflow.md)
-  * [UI Patterns](air-gap/guide/ui-patterns.md)
-  * Code Demos
-    * [Scan & Decoder](air-gap/guide/code-demos/scan-decoder.md)
-    * [Encode & Playback](air-gap/guide/code-demos/encode-playback.md)
-    * [EVM Requests](air-gap/guide/code-demos/evm-request.md)
-    * [BTC PSBT](air-gap/guide/code-demos/btc-psbt.md)
-    * [Solana Requests](air-gap/guide/code-demos/solana-request.md)
-    * [Tron Requests (optional)](air-gap/guide/code-demos/tron-request.md)
-  * Chains
-    * [EVM](air-gap/guide/chains/evm.md)
-    * [BTC](air-gap/guide/chains/btc.md)
-    * [Solana](air-gap/guide/chains/solana.md)
-    * [Tron](air-gap/guide/chains/tron.md)
-  * [Troubleshooting](air-gap/guide/troubleshooting.md)
+* [Air-Gap Quick Start](air-gap/quick-start.md)
+  * [EVM](air-gap/quick-start/evm.md)
+  * [BTC](air-gap/quick-start/btc.md)
+  * [Solana](air-gap/quick-start/solana.md)
+  * [Tron](air-gap/quick-start/tron.md)
 * Reference
   * [Basic API](air-gap/reference/basic-api/README.md)
     * [CryptoHDKey](air-gap/reference/basic-api/cryptohdkey.md)
@@ -192,3 +179,6 @@
   * [Ethereum & EVM](air-gap/reference/ethereum-and-evm/README.md)
     * [EthSignRequest](air-gap/reference/ethereum-and-evm/ethsignrequest.md)
     * [EthSignature](air-gap/reference/ethereum-and-evm/ethsignature.md)
+  * [Bitcoin (PSBT)](air-gap/reference/bitcoin/README.md)
+  * [Solana](air-gap/reference/solana/README.md)
+  * [Tron](air-gap/reference/tron/README.md)
