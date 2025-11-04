@@ -10,7 +10,7 @@ const result = await HardwareSDK.btcVerifyMessage(connectId, deviceId, params);
 
 ### Params
 
-[**Optional common params**](broken-reference)
+[**Optional common params**](../common-params.md)
 
 * `address` - _required_ `string` signer address,
 * `messageHex` - _required_ `string` signed message from hex,

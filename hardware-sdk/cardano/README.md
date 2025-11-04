@@ -2,7 +2,7 @@
 
 ### Method List
 
-* [cardanoGetAddress](broken-reference)
-* [cardanoGetPublicKey](broken-reference)
-* [cardanoSignMessage](broken-reference)
-* [cardanoSignTransaction](broken-reference)
+* [cardanoGetAddress](cardanogetaddress.md)
+* [cardanoGetPublicKey](cardanogetpublickey.md)
+* [cardanoSignMessage](cardanosignmessage.md)
+* [cardanoSignTransaction](cardanosigntransaction.md)

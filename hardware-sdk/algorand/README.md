@@ -2,5 +2,5 @@
 
 ### Method List
 
-* [algoGetAddress](broken-reference)
-* [algoSignTransaction](broken-reference)
+* [algoGetAddress](algogetaddress.md)
+* [algoSignTransaction](algosigntransaction.md)

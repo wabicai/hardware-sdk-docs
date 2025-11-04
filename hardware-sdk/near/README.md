@@ -2,5 +2,5 @@
 
 ### Method List
 
-* [nearGetAddress](broken-reference)
-* [nearSignTransaction](broken-reference)
+* [nearGetAddress](neargetaddress.md)
+* [nearSignTransaction](nearsigntransaction.md)

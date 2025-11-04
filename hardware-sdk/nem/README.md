@@ -2,5 +2,5 @@
 
 ### Method List
 
-* [nemGetAddress](broken-reference)
-* [nemSignTransaction](broken-reference)
+* [nemGetAddress](nemgetaddress.md)
+* [nemSignTransaction](nemsigntransaction.md)

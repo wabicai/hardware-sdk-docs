@@ -2,6 +2,6 @@
 
 ### Method List
 
-* [scdoGetAddress](broken-reference)
-* [scdoSignMessage](broken-reference)
-* [scdoSignTransaction](broken-reference)
+* [scdoGetAddress](scdogetaddress.md)
+* [scdoSignMessage](scdosignmessage.md)
+* [scdoSignTransaction](scdosigntransaction.md)

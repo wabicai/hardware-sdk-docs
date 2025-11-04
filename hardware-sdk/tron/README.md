@@ -6,6 +6,6 @@ description: ron
 
 ### Method List
 
-* [tronGetAddress](broken-reference)
-* [tronSignMessage](broken-reference)
-* [tronSignTransaction](broken-reference)
+* [tronGetAddress](trongetaddress.md)
+* [tronSignMessage](tronsignmessage.md)
+* [tronSignTransaction](tronsigntransaction.md)

@@ -2,6 +2,6 @@
 
 ### Method List
 
-* [cosmosGetAddress](broken-reference)
-* [cosmosGetPublicKey](broken-reference)
-* [cosmosSignTransaction](broken-reference)
+* [cosmosGetAddress](cosmosgetaddress.md)
+* [cosmosGetPublicKey](cosmosgetpublickey.md)
+* [cosmosSignTransaction](cosmossigntransaction.md)

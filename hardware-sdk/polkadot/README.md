@@ -2,5 +2,5 @@
 
 ## Method List
 
-* [polkadotGetAddress](broken-reference)
-* [polkadotSignTransaction](broken-reference)
+* [polkadotGetAddress](polkadotgetaddress.md)
+* [polkadotSignTransaction](polkadotsigntransaction.md)

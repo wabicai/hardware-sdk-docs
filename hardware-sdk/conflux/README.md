@@ -2,7 +2,7 @@
 
 ### Method List
 
-* [confluxGetAddress](broken-reference)
-* [confluxSignMessage](broken-reference)
-* [confluxSignMessageCIP23](broken-reference)
-* [confluxSignTransaction](broken-reference)
+* [confluxGetAddress](confluxgetaddress.md)
+* [confluxSignMessage](confluxsignmessage.md)
+* [confluxSignMessageCIP23](confluxsignmessagecip23.md)
+* [confluxSignTransaction](confluxsigntransaction.md)

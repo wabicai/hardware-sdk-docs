@@ -2,5 +2,5 @@
 
 ## Method List
 
-* [kaspaGetAddress](broken-reference)
-* [kaspaSignTransaction](broken-reference)
+* [kaspaGetAddress](kaspagetaddress.md)
+* [kaspaSignTransaction](kaspasigntransaction.md)

@@ -2,5 +2,5 @@
 
 ## Method List
 
-* [filecoinGetAddress](broken-reference)
-* [filecoinSignTransaction](broken-reference)
+* [filecoinGetAddress](filecoingetaddress.md)
+* [filecoinSignTransaction](filecoinsigntransaction.md)

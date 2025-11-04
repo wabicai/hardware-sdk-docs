@@ -2,9 +2,9 @@
 
 ### Method List
 
-* [evmGetAddress](broken-reference)
-* [evmGetPublicKey](broken-reference)
-* [evmSignTransaction](broken-reference)
-* [evmSignTypedData](broken-reference)
-* [evmSignMessage](broken-reference)
+* [evmGetAddress](evmgetaddress.md)
+* [evmGetPublicKey](evmgetpublickey.md)
+* [evmSignTransaction](evmsigntransaction.md)
+* [evmSignTypedData](evmsigntypeddata.md)
+* [evmSignMessage](evmsignmessage.md)
 * [evmVerifyMessage](evmverifymessage.md)

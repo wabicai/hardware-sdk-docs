@@ -2,5 +2,5 @@
 
 ### Method List
 
-* [xrpGetAddress](broken-reference)
-* [xrpSignTransaction](broken-reference)
+* [xrpGetAddress](xrpgetaddress.md)
+* [xrpSignTransaction](xrpsigntransaction.md)

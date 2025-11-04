@@ -26,7 +26,7 @@ export type LowlevelTransportSharedPlugin = {
 
 ### Example
 
-Here is an [iOS demo](https://github.com/originalix/Hardware-Lowlevel-Communicate) written in Swift. Bridging native side and SDK through a WebView. Handling connections and data transmission using CoreBluetooth.
+Here is an [iOS demo](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/native-ios-example) written in Swift. Bridging native side and SDK through a WebView. Handling connections and data transmission using CoreBluetooth.
 
 ```typescript
 import HardwareSDK from '@onekeyfe/hd-common-connect-sdk'
