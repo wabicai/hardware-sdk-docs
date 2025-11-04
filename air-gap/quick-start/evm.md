@@ -2,7 +2,6 @@
 
 ## Step 1. Install and setup
 
-- Demo reference: https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo/air-gap
 - Ensure your camera stream can feed animated QR frames to the decoder.
 
 ## Step 2. Decode an incoming animated QR

@@ -23,6 +23,6 @@ export async function signEvmMessage(connectId: string, deviceId: string) {
 }
 ```
 
-- Response shape and error codes: `hardware-sdk/common-params.md`, `hardware-sdk/error-code.md`
-- For BTC message signing, see `hardware-sdk/bitcoin-and-bitcoin-forks/btcsignmessage.md`
-- For typed data (EIP‑712), see `hardware-sdk/ethereum-and-evm/evmsigntypeddata.md`
+- Response shape and error codes: [Common Params](../hardware-sdk/common-params.md), [Error Code](../hardware-sdk/error-code.md)
+- For BTC message signing, see [BTC Sign Message](../hardware-sdk/bitcoin-and-bitcoin-forks/btcsignmessage.md)
+- For typed data (EIP‑712), see [EVM Sign Typed Data](../hardware-sdk/ethereum-and-evm/evmsigntypeddata.md)

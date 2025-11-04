@@ -2,7 +2,6 @@
 
 ## Step 1. Install and setup
 
-- Demo reference: https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo/air-gap
 - Tron helpers live in our QR wallet SDK and follow standard UR patterns.
 
 ## Step 2. Decode an incoming animated QR

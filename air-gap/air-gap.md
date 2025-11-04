@@ -1,21 +1,22 @@
 # Air‑Gap (Offline QR Signing) Overview
 
-Minimal, accurate overview of building a “device stays offline” signing loop using UR‑encoded QR codes. See the Guide for full details.
+Minimal, accurate overview of building a “device stays offline” signing loop using UR‑encoded QR codes.
 
-- Demo (React Native): https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo/air-gap
+## How it works
+- Build a sign request UR payload (per chain), then render as animated QR frames.
+- Device scans QR, verifies details on‑device, and signs offline.
+- Device displays a signature/result UR as animated QR.
+- App scans the response, verifies, and submits/broadcasts via your network stack.
 
+See Quick Start and API Reference below for concrete types and examples.
 
-## Documentation Map
+- Demo (React Native) → [GitHub Air‑Gap Demo](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo/air-gap)
 
-- Quick Start: [quick-start.md](quick-start.md)
-- Reference
-  - Basic API: [reference/basic-api/README.md](reference/basic-api/README.md)
-  - Ethereum & EVM: [reference/ethereum-and-evm/README.md](reference/ethereum-and-evm/README.md)
 
 ## Where to Look in the Demo
 
-- RN Scanner (camera + animated UR decode): hardware-js-sdk/packages/connect-examples/react-native-demo/air-gap/src/components/AirGapScanner.tsx
-- Chain helpers: hardware-js-sdk/packages/connect-examples/react-native-demo/air-gap/sdk/*
-- Result rendering: hardware-js-sdk/packages/connect-examples/react-native-demo/air-gap/src/components/DecodedResultCard.tsx
+- RN Scanner (camera + animated UR decode) → [AirGapScanner.tsx](https://github.com/OneKeyHQ/hardware-js-sdk/blob/onekey/packages/connect-examples/react-native-demo/air-gap/src/components/AirGapScanner.tsx)
+- Chain helpers → [sdk/](https://github.com/OneKeyHQ/hardware-js-sdk/tree/onekey/packages/connect-examples/react-native-demo/air-gap/sdk)
+- Result rendering → [DecodedResultCard.tsx](https://github.com/OneKeyHQ/hardware-js-sdk/blob/onekey/packages/connect-examples/react-native-demo/air-gap/src/components/DecodedResultCard.tsx)
 
 For protocol data structures and UR types, see [Reference](reference/README.md).
