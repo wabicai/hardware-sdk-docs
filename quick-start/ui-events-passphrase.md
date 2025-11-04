@@ -25,5 +25,15 @@
     ```
 - Force Standard Wallet for a call: add `useEmptyPassphrase: true` in method params.
 
-- Full, copy‑paste dialogs for WebUSB are in `transport-recipes/web-usb.md`.
-- Deep-dive UX and security notes: `explanations/hardware-sdk/passphrase.md`.
+Example (force standard wallet for this call only):
+```ts
+const res = await HardwareSDK.btcGetAddress(connectId, deviceId, {
+  path: "m/44'/0'/0'/0/0",
+  coin: 'btc',
+  showOnOneKey: false,
+  useEmptyPassphrase: true,
+});
+```
+
+- Full, copy‑paste dialogs for WebUSB are in [WebUSB Connection Guide](../transport-recipes/web-usb.md).
+- Deep‑dive UX and security notes: [Passphrase](../explanations/hardware-sdk/passphrase.md).

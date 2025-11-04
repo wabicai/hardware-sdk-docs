@@ -8,7 +8,10 @@ On OneKey Pro and OneKey Touch devices, PIN can only be entered on the hardware 
 - PIN entry options:
   - Enter on device (recommended for all models; required on Pro/Touch):
     ```ts
-    await HardwareSDK.uiResponse({ type: UI_RESPONSE.RECEIVE_PIN, payload: '@@ONEKEY_INPUT_PIN_IN_DEVICE' });
+    await HardwareSDK.uiResponse({ 
+      type: UI_RESPONSE.RECEIVE_PIN,
+      payload: '@@ONEKEY_INPUT_PIN_IN_DEVICE' 
+    });
     ```
   - Software input with blind keypad (not available on Pro/Touch): positions mapping → `['7','8','9','4','5','6','1','2','3']`; send the transformed PIN string.
 
