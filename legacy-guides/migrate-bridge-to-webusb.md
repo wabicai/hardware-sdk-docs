@@ -88,8 +88,7 @@ if (r.success) {
 ## Cleanup checklist
 
 - Remove Bridge‑specific checks/CTAs (e.g., `checkBridgeStatus()`)
-- Keep latestest `connectSrc` in hd-web-sdk init (the iframe host)
+- Keep latest `connectSrc` in hd-web-sdk init (the iframe host)
 - Feature‑detect `navigator.usb` and show a friendly notice if unsupported
 - All other SDK methods and UI flows are unchanged
 ---
-
