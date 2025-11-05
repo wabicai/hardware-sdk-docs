@@ -96,6 +96,8 @@ function bindHardwareEvents() {
 
 ## Step 4. User authorization (chooser dialog with official filter)
 
+Important: Must be triggered by a user gesture (e.g., clicking a button) due to Chrome security restrictions; automatic device discovery is not allowed before permission.
+
 Use the ONEKEY_WEBUSB_FILTER filters so the chooser only shows supported devices.
 
 ```tsx

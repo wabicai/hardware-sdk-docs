@@ -11,6 +11,7 @@
 ## Transport Recipes
 
 * [WebUSB Connection Guide](transport-recipes/web-usb.md)
+* [Migration: Bridge → WebUSB (hd-web-sdk)](transport-recipes/migrate-bridge-to-webusb.md)
 * [React Native BLE (hd-ble-sdk)](transport-recipes/react-native-ble.md)
 * [Native Bluetooth](transport-recipes/common-connect-1/README.md)
   * [OneKey Message Protocol](transport-recipes/common-connect-1/onekey-message-protocol.md)
