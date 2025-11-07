@@ -178,3 +178,4 @@
 
 ## Legacy Guides
 * [Migration: Bridge → WebUSB (hd-web-sdk)](legacy-guides/migrate-bridge-to-webusb.md)
+* [Migration: Bridge → WebUSB (@onekeyfe/hd-common-connect-sdk)](legacy-guides/migrate-bridge-to-common-connect-webusb.md)

@@ -8,9 +8,8 @@ This short guide helps you replace the legacy Bridge transport with native WebUS
 
 ## Requirements
 
-- Serve over HTTPS (WebUSB is blocked on insecure origins)
-- Chromium browser (Chrome/Edge desktop)
-- A connected and unlocked OneKey device
+- Chromium browsers (Chrome/Edge desktop)
+- Node.js 18+ (LTS recommended)
 
 ---
 
